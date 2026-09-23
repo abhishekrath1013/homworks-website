@@ -1,0 +1,303 @@
+/* ===== Homworks editorial layer =====
+   Loads after index.html's inline styles and raises the homepage to a
+   gallery-grade editorial scale: bigger type, deeper rhythm, quieter
+   accents, and scroll motion driven by assets/gsap-scroll.js.
+
+   Nothing here hides content unless JS *and* GSAP are confirmed live —
+   see the .js / .motion-off gates below.
+*/
+
+:root{
+  /* #7F7E7F fell under 4.5:1 on cream at the smaller body sizes used here */
+  --muted:#6b6a6a;
+  --ease:cubic-bezier(.22,1,.36,1);
+}
+
+/* ---------- Motion gating ---------- */
+.js [data-hero-in]{opacity:0}
+.js.motion-off [data-hero-in]{opacity:1}
+/* .reveal hides itself in the inline sheet and waits on an observer to
+   un-hide it, so with JS off the whole page stayed blank. */
+html:not(.js) .reveal{opacity:1;transform:none}
+.hw-line{display:block;overflow:hidden}
+.hw-line>span{display:block;will-change:transform}
+
+/* ---------- Vertical rhythm ---------- */
+section{padding:clamp(84px,9vw,148px) 0}
+.contact{padding:clamp(80px,8.5vw,134px) 0}
+.design-lab{padding:clamp(80px,8.5vw,134px) 0}
+.featured{padding-top:clamp(18px,3vw,44px)}
+
+/* ---------- Editorial micro-labels ---------- */
+.eyebrow{font-size:11px;letter-spacing:.17em}
+.section-head .eyebrow,.hh-head .eyebrow,.intro .eyebrow,.cost .eyebrow,
+.contact .eyebrow,.feature-content .eyebrow,.install-copy .eyebrow,.reviews .eyebrow{
+  display:inline-flex;align-items:center;gap:12px
+}
+.section-head .eyebrow:before,.hh-head .eyebrow:before,.intro .eyebrow:before,
+.cost .eyebrow:before,.contact .eyebrow:before,.feature-content .eyebrow:before,
+.install-copy .eyebrow:before,.reviews .eyebrow:before{
+  content:'';width:24px;height:1px;background:currentColor;opacity:.45
+}
+
+/* ---------- Section heads ---------- */
+.section-head,.hh-head{margin-bottom:clamp(40px,4.6vw,68px);gap:clamp(32px,5vw,72px)}
+.section-head p,.hh-head p{font-size:15.5px;line-height:1.7;max-width:350px}
+
+/* ---------- Hero ---------- */
+.hero{min-height:min(92vh,880px)}
+/* the 90deg scrim alone leaves the stats sitting on bare daylight */
+.hero:after{
+  content:'';position:absolute;inset:auto 0 0 0;height:44%;z-index:1;pointer-events:none;
+  background:linear-gradient(0deg,rgba(6,20,16,.84),rgba(6,20,16,.32) 46%,transparent)
+}
+.hero h1{font-size:clamp(56px,7.2vw,112px);line-height:.88;margin:18px 0 28px}
+.hero-copy{font-size:16.5px;line-height:1.62;width:min(460px,100%);margin-bottom:36px}
+.hero .eyebrow{color:#cfe9e6}
+.scrollnote{font-size:10.5px;letter-spacing:.14em;color:#d7e0d6}
+.scrollnote:after{
+  height:64px;background:linear-gradient(180deg,var(--lime),rgba(216,238,238,0));
+  animation:scrollCue 2.6s var(--ease) infinite
+}
+@keyframes scrollCue{
+  0%{transform:scaleY(0);transform-origin:top}
+  45%{transform:scaleY(1);transform-origin:top}
+  55%{transform:scaleY(1);transform-origin:bottom}
+  100%{transform:scaleY(0);transform-origin:bottom}
+}
+
+/* ---------- Press bar ---------- */
+.trust-inner{min-height:118px}
+.trust-title{font-size:11px;line-height:1.55;color:var(--muted);max-width:145px}
+.trust-list{
+  font-style:normal;font-size:clamp(13px,1.6vw,17px);font-weight:500;
+  letter-spacing:.035em;color:#87908a
+}
+.trust-list span:before{opacity:.7;margin-right:12px}
+
+/* ---------- Intro: lead paragraph ---------- */
+.intro{grid-template-columns:1fr 1.25fr;gap:clamp(36px,6.5vw,104px)}
+.intro-copy{font-size:17px;line-height:1.72;max-width:610px}
+.intro-copy p{margin:0 0 26px}
+.intro-copy p:first-child{font-size:19.5px;line-height:1.6;color:var(--deep)}
+.intro-copy p+p{color:var(--muted)}
+
+/* ---------- Rooms: magazine contents page ---------- */
+.rooms{gap:16px}
+.room{min-height:clamp(320px,33vw,460px);padding:26px}
+.room:after{background:linear-gradient(180deg,rgba(5,20,15,0) 28%,rgba(5,20,15,.55) 62%,rgba(4,16,12,.88))}
+.room h3{font-size:clamp(25px,2.3vw,34px);line-height:.98}
+.room small{font:11px var(--mono);letter-spacing:.14em;opacity:.85;display:block;margin-bottom:9px}
+.room .tag{font-size:10px;letter-spacing:.1em;padding:7px 10px;border-radius:99px}
+.room>div{position:relative;padding-right:40px}
+.room>div:after{
+  content:'↗';position:absolute;right:0;bottom:2px;font-size:22px;line-height:1;
+  opacity:0;transform:translate(-8px,8px);transition:opacity .45s var(--ease),transform .45s var(--ease)
+}
+.room:hover>div:after{opacity:1;transform:none}
+.room:hover{transform:translateY(-6px)}
+
+/* ---------- Craft ---------- */
+.craft-grid{gap:20px}
+.craft-card{min-height:clamp(340px,32vw,420px);padding:30px;border-radius:18px}
+.craft-card h3{font-size:clamp(20px,1.7vw,25px);line-height:1.14;margin:12px 0 10px}
+.craft-card p{font-size:14px;line-height:1.62;max-width:330px}
+.craft-link{font-size:12.5px;margin-top:18px}
+.swatch-fan{height:160px;border-radius:14px;margin-bottom:22px}
+
+/* ---------- Process: numbered narrative ---------- */
+.steps-rail{position:relative;height:1px;background:rgba(255,255,255,.16);overflow:hidden}
+.steps-rule{
+  position:absolute;inset:0;display:block;background:var(--lime);
+  transform:scaleX(0);transform-origin:left center
+}
+.steps{border-top:0}
+.step{min-height:300px;padding:26px 24px 30px;border-right:1px solid rgba(255,255,255,.16)}
+.step:first-child{border-left:1px solid rgba(255,255,255,.16)}
+.step-no{font:11px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:#a7e5e3;display:block}
+.step-no b{
+  display:block;font:800 clamp(30px,3vw,46px)/1 var(--sans);
+  letter-spacing:-.045em;color:#fff;margin-bottom:8px;transition:color .4s var(--ease)
+}
+.step h3{font-size:clamp(20px,1.7vw,25px);line-height:1.1;margin:64px 0 12px}
+.step p{font-size:13.5px;line-height:1.62;opacity:.82}
+/* the full lime flood read as a template tell — a quiet lift reads richer */
+.step:hover{background:rgba(255,255,255,.055);color:inherit;transform:translateY(-6px)}
+.step:hover .step-no b{color:var(--lime)}
+.step:hover .step-no{color:var(--terra)}
+.process-cta{margin-top:44px;font-size:14.5px;gap:24px}
+
+/* ---------- Installation ---------- */
+.install-inner{padding:clamp(34px,4.4vw,64px);border-radius:24px;gap:clamp(36px,4.5vw,64px)}
+.install-copy p{font-size:15.5px;line-height:1.7}
+.install-stage{padding:22px 24px}
+.install-stage b{font-size:15.5px;margin-bottom:5px}
+.install-stage span{font-size:13px;line-height:1.6}
+
+/* ---------- Why: quieter, more scannable ---------- */
+.whyhw-card{padding:32px 26px}
+.whyhw-card h3{font-size:17px;line-height:1.28;margin:0 0 9px}
+.whyhw-card p{font-size:13.5px;line-height:1.65}
+.whyhw-ic{
+  width:42px;height:42px;border-radius:50%;background:transparent;
+  border:1px solid var(--line);color:var(--ink);
+  transition:background .35s var(--ease),border-color .35s var(--ease),color .35s var(--ease)
+}
+.whyhw-card:hover{background:#fbfdfd;transform:translateY(-3px)}
+.whyhw-card:hover .whyhw-ic{background:var(--lime);border-color:var(--lime);color:var(--deep)}
+
+/* ---------- Styles rail ---------- */
+.style-card{width:clamp(262px,24vw,320px);height:clamp(360px,37vw,432px);padding:26px}
+.style-card h3{font-size:clamp(23px,2vw,28px);line-height:1}
+.style-card p{font-size:13.5px;line-height:1.6;margin-top:10px}
+.style-tag{font-size:10px;letter-spacing:.1em;padding:6px 11px}
+
+/* ---------- Cost: the conversion instrument ---------- */
+.cost{gap:clamp(40px,6.5vw,96px)}
+/* :first-child keeps this off .calc-fine, which is also a .cost > div > p */
+.cost>div:first-child>p{font-size:16.5px;line-height:1.68;max-width:450px}
+.calculator{
+  padding:clamp(26px,3vw,40px);border-radius:20px;border-color:#eaeae8;
+  box-shadow:0 34px 70px -44px rgba(22,85,90,.5)
+}
+.calc-top h3{font-size:26px}
+.calc-line label{font-size:12.5px;letter-spacing:.01em}
+.ranges{gap:8px}
+.ranges button{border-radius:99px;padding:11px 18px;font-size:12.5px;transition:.3s var(--ease)}
+.calc-total{border-radius:14px;padding:24px;margin-top:34px}
+.calc-total b{font-size:clamp(34px,3.4vw,44px)}
+.calc-fine{font-size:11px;line-height:1.55}
+
+/* ---------- Featured villa ---------- */
+.feature-card{min-height:clamp(520px,56vw,660px);border-radius:20px;padding:clamp(28px,3.4vw,52px)}
+.feature-content h2{font-size:clamp(40px,4.8vw,66px);line-height:.96}
+.feature-content p{font-size:16px;line-height:1.6;max-width:440px;margin-bottom:28px}
+/* scroll drives the scale now, so hover shifts light instead of size */
+.feature-card:hover .feature-video{transform:none}
+.feature-video{transition:filter .8s var(--ease)}
+.feature-card:hover .feature-video{filter:brightness(1.07)}
+.project-stats{right:clamp(28px,3.4vw,52px);bottom:clamp(28px,3.4vw,52px)}
+
+/* ---------- Reviews ---------- */
+.reviews{gap:clamp(40px,6.5vw,96px)}
+.review{padding:32px 0;grid-template-columns:88px 1fr}
+.review:last-child{border-bottom:1px solid var(--ink)}
+.review q{font-size:clamp(21px,2.1vw,27px);line-height:1.34;letter-spacing:-.025em;quotes:'\201C' '\201D'}
+.review cite{font-size:12px;margin-top:16px}
+
+/* ---------- Ways to connect ---------- */
+.connect-grid{gap:16px}
+.connect-card{padding:30px 26px;border-radius:16px}
+.connect-card h3{font-size:18px;line-height:1.25;margin:0 0 9px}
+.connect-card p{font-size:13.5px;line-height:1.62;margin-bottom:18px}
+.connect-cta{font-size:12.5px}
+
+/* ---------- Contact: the ask ---------- */
+.contact h2{font-size:clamp(44px,5.6vw,78px)}
+/* the child combinator keeps this off .form-note inside the <form> */
+.contact-wrap>div>p{font-size:16.5px;line-height:1.66;max-width:420px}
+.contact-alt{
+  margin-top:clamp(34px,4.6vw,60px);padding-top:26px;
+  border-top:1px solid rgba(255,255,255,.4);display:grid;gap:12px;max-width:420px
+}
+.contact-tel{font:700 clamp(28px,3vw,40px)/1 var(--sans);letter-spacing:-.045em}
+.contact-mail{
+  font-size:13.5px;color:rgba(255,255,255,.9);justify-self:start;
+  border-bottom:1px solid rgba(255,255,255,.45);padding-bottom:3px
+}
+.lead-form{padding:clamp(24px,2.6vw,32px);border-radius:18px}
+.lead-form h3{font-size:26px;margin-bottom:20px}
+.form-grid{gap:11px}
+.form-grid input,.form-grid select{
+  padding:15px;font-size:13.5px;border-radius:10px;
+  transition:border-color .3s var(--ease),box-shadow .3s var(--ease)
+}
+.form-grid input:focus,.form-grid select:focus{
+  outline:0;border-color:var(--ink);box-shadow:0 0 0 3px rgba(42,174,179,.16)
+}
+.form-assure{
+  display:flex;flex-wrap:wrap;gap:7px 14px;list-style:none;margin:16px 0 0;padding:0;
+  font:10px var(--mono);letter-spacing:.05em;text-transform:uppercase;color:var(--muted)
+}
+.form-assure li{display:inline-flex;align-items:center;gap:6px}
+.form-assure li:before{content:'✦';color:var(--terra);font-family:var(--sans);font-size:8px}
+.lead-form .form-note{font-size:10.5px;line-height:1.55;margin-top:14px;max-width:none}
+
+/* ---------- Buttons & links ---------- */
+.button{padding:15px 20px 15px 24px;font-size:13.5px}
+.link-arrow{position:relative;padding-bottom:7px;border-bottom-color:rgba(22,85,90,.28)}
+.link-arrow:before{
+  content:'';position:absolute;left:0;bottom:-1px;width:100%;height:1px;background:var(--ink);
+  transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease)
+}
+.link-arrow:hover:before{transform:scaleX(1)}
+
+/* ---------- Focus & pointer accessibility ---------- */
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.hero :focus-visible,.process :focus-visible,.contact :focus-visible,
+.install-panel :focus-visible,.feature-card :focus-visible{outline-color:#fff}
+/* the custom cursor hides the caret cue people need while typing */
+body.hw-cursor-on input,body.hw-cursor-on select,body.hw-cursor-on textarea{cursor:auto}
+
+/* ---------- Mobile: composed, not merely stacked ---------- */
+@media(max-width:800px){
+  section{padding:clamp(62px,11vw,94px) 0}
+  .eyebrow{font-size:10px;letter-spacing:.12em}
+  .hero{min-height:min(88vh,760px)}
+  .hero h1{font-size:clamp(44px,11.5vw,66px);line-height:.94;margin:14px 0 22px}
+  .hero-copy{font-size:15.5px;margin-bottom:28px}
+  .hero-actions{gap:10px}
+  .hero-actions .button{flex:1 1 100%;justify-content:space-between}
+  .hero-meta{
+    display:grid;grid-template-columns:repeat(3,auto);justify-content:start;
+    gap:16px;margin-top:36px
+  }
+  .hero-meta b [data-gsap-count]{font-size:clamp(22px,6.4vw,30px)}
+  .hero-meta b i{font-size:10.5px}
+  .hero-meta span{font-size:9px;letter-spacing:.08em}
+  .trust-inner{flex-direction:column;align-items:flex-start;gap:14px;min-height:0;padding:26px 0}
+  .trust-title{max-width:none}
+  .section-head,.hh-head{margin-bottom:32px}
+  .intro-copy p:first-child{font-size:17.5px}
+  .rooms{gap:10px}
+  .room{min-height:258px;padding:18px}
+  .room>div{padding-right:32px}
+  .steps{grid-template-columns:1fr}
+  .step,.step:nth-child(n){
+    min-height:0;padding:24px 0;border:0;border-top:1px solid rgba(255,255,255,.18)
+  }
+  .step:last-child{grid-column:auto}
+  .step h3{margin:14px 0 8px}
+  .process-cta{margin-top:30px;flex-direction:column;align-items:flex-start}
+  /* .feature-card is a flex row, so static stats would sit beside the copy */
+  .feature-card{flex-direction:column;align-items:flex-start;justify-content:flex-end;min-height:460px}
+  /* copy runs full width here, so the side scrim becomes a vertical one */
+  .feature-card:before{
+    background:linear-gradient(0deg,rgba(4,14,11,.9),rgba(4,14,11,.62) 52%,rgba(4,14,11,.34))
+  }
+  .feature-content{width:100%}
+  .feature-content p{margin-bottom:22px}
+  .project-stats{
+    display:grid;grid-template-columns:repeat(3,auto);justify-content:start;
+    gap:18px;width:100%;margin-top:26px
+  }
+  .project-stats b [data-gsap-count]{font-size:clamp(24px,7vw,34px)}
+  .project-stats b i{font-size:11px}
+  .review{grid-template-columns:1fr;gap:8px;padding:26px 0}
+  .review q{font-size:20px}
+  .calc-total{flex-direction:column;align-items:stretch;gap:16px}
+  .calc-total .button{justify-content:space-between}
+  /* the -24px bleed overshoots the 16px shell gutter here and widens the page */
+  .styles-wrap{margin:0 -16px;padding:16px 16px 12px}
+}
+
+@media(max-width:560px){
+  .hero-meta{grid-template-columns:repeat(2,auto);gap:18px 24px}
+  .project-stats{grid-template-columns:repeat(2,auto);gap:18px 24px}
+  .style-card{width:clamp(230px,72vw,270px);height:340px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .scrollnote:after{animation:none;transform:none}
+  .room>div:after{transition:none}
+}

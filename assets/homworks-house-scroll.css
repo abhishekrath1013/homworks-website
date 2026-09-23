@@ -1,0 +1,71 @@
+/* ===== Homworks House Scroll — pinned 1:1 frame-sequence journey ===== */
+.hw-house-scroll{background:var(--cream,#fbfbfa);position:relative;isolation:isolate;padding:0}
+.hw-house-pin{position:relative;height:100vh;width:100%;display:flex;align-items:center;justify-content:center;gap:clamp(16px,4vw,64px);overflow:hidden;background:#fff;padding-inline:clamp(16px,4vw,48px)}
+
+/* ---- Frame: static, luxury gold, never touched by scroll animation ---- */
+.hw-house-frame{
+  position:relative;
+  flex:none;
+  width:clamp(300px,40vw,600px);
+  aspect-ratio:1/1;
+  padding:clamp(10px,1.6vw,20px);
+  border-radius:10px;
+  background:
+    linear-gradient(155deg,#fdf3d0 0%,#e8c565 12%,#a97c1f 27%,#c9992e 40%,#f7e7ab 52%,#a97c1f 66%,#8a6216 78%,#e8c565 90%,#fdf3d0 100%);
+  box-shadow:
+    0 30px 70px -20px rgba(20,20,10,.35),
+    0 0 0 1px rgba(0,0,0,.08);
+}
+.hw-house-frame:before{
+  content:'';
+  position:absolute;
+  inset:clamp(10px,1.6vw,20px);
+  border-radius:3px;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.55),
+    inset 0 3px 10px rgba(0,0,0,.45),
+    inset 0 -2px 6px rgba(255,255,255,.25);
+  pointer-events:none;
+  z-index:3;
+}
+.hw-house-stage{position:relative;width:100%;height:100%;overflow:hidden;background:#fff;border-radius:2px}
+.hw-house-canvas{position:absolute;inset:0;width:100%;height:100%;display:block;background:#fff}
+
+/* ---- Side copy: room title (left) + handwritten customer note (right) ---- */
+.hw-house-copy{position:relative;flex:1 1 220px;max-width:260px;min-height:1px}
+.hw-house-copy-left{text-align:right}
+.hw-house-copy-right{text-align:left}
+.hw-title-block,.hw-quote-block{margin:0;position:absolute;top:50%;opacity:0;transform:translateY(14px);transition:opacity .55s cubic-bezier(.22,1,.36,1),transform .55s cubic-bezier(.22,1,.36,1);pointer-events:none}
+.hw-house-copy-left .hw-title-block{right:0;transform:translateY(-50%) translateY(14px)}
+.hw-house-copy-right .hw-quote-block{left:0;transform:translateY(-50%) translateY(14px)}
+.hw-title-block.active,.hw-quote-block.active{opacity:1;transform:translateY(-50%) translateY(0)}
+.hw-title-block .eyebrow{color:var(--terra);display:block;margin-bottom:10px}
+.hw-title-block h3{font:700 clamp(26px,3vw,42px)/1.02 var(--sans);letter-spacing:-.04em;color:var(--deep);margin:0}
+.hw-quote-block{width:100%}
+.hw-quote-block p{font:600 clamp(19px,1.9vw,26px)/1.4 'Caveat',cursive;color:var(--deep);margin:0 0 10px;letter-spacing:.01em}
+.hw-quote-block cite{font:500 12px/1.5 var(--sans);font-style:normal;color:var(--muted);letter-spacing:.01em}
+
+/* Static / reduced-motion fallback: no pin, no scroll runway, just the opening frame */
+.hw-house-scroll.hw-static .hw-house-pin{height:auto;min-height:60vh;padding-block:64px;flex-wrap:wrap}
+.hw-house-scroll.hw-static .hw-title-block,.hw-house-scroll.hw-static .hw-quote-block{position:static;transform:none!important}
+.hw-house-scroll.hw-static .hw-title-block:not(.active),.hw-house-scroll.hw-static .hw-quote-block:not(.active){display:none}
+.hw-house-scroll.hw-static .hw-title-block.active,.hw-house-scroll.hw-static .hw-quote-block.active{opacity:1}
+
+@media(max-width:900px){
+  .hw-house-pin{flex-direction:column;justify-content:center;gap:22px;padding-block:90px}
+  .hw-house-frame{order:2;width:min(66vw,50vh);padding:10px}
+  .hw-house-copy{order:1;flex:none;max-width:92vw;width:100%;min-height:64px}
+  .hw-house-copy-left{order:1;text-align:center}
+  .hw-house-copy-right{order:3;text-align:center}
+  .hw-house-copy-left .hw-title-block{right:0;left:0;transform:translateY(-50%) translateY(10px)}
+  .hw-house-copy-right .hw-quote-block{left:0;transform:translateY(-50%) translateY(10px)}
+  .hw-title-block.active{transform:translateY(-50%) translateY(0)!important}
+  .hw-quote-block.active{transform:translateY(-50%) translateY(0)!important}
+  .hw-title-block h3{font-size:26px}
+  .hw-quote-block p{font-size:19px}
+  .hw-house-scroll.hw-static .hw-house-pin{padding-block:40px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .hw-title-block,.hw-quote-block{transition:none!important}
+}

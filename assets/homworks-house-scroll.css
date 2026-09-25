@@ -40,10 +40,10 @@
 .hw-house-copy-right .hw-quote-block{left:0;transform:translateY(-50%) translateY(14px)}
 .hw-title-block.active,.hw-quote-block.active{opacity:1;transform:translateY(-50%) translateY(0)}
 .hw-title-block .eyebrow{color:var(--terra);display:block;margin-bottom:10px}
-.hw-title-block h3{font:700 clamp(26px,3vw,42px)/1.02 var(--sans);letter-spacing:-.04em;color:var(--deep);margin:0}
+.hw-title-block h3{font:600 clamp(26px,3vw,42px)/1.02 var(--sans);letter-spacing:-.022em;color:var(--deep);margin:0}
 .hw-quote-block{width:100%}
-.hw-quote-block p{font:600 clamp(19px,1.9vw,26px)/1.4 'Caveat',cursive;color:var(--deep);margin:0 0 10px;letter-spacing:.01em}
-.hw-quote-block cite{font:500 12px/1.5 var(--sans);font-style:normal;color:var(--muted);letter-spacing:.01em}
+.hw-quote-block p{font:400 clamp(17px,1.6vw,22px)/1.5 var(--sans);color:var(--deep);margin:0 0 10px;letter-spacing:0}
+.hw-quote-block cite{font:400 12px/1.5 var(--sans);font-style:normal;color:var(--muted);letter-spacing:.01em}
 
 /* Static / reduced-motion fallback: no pin, no scroll runway, just the opening frame */
 .hw-house-scroll.hw-static .hw-house-pin{height:auto;min-height:60vh;padding-block:64px;flex-wrap:wrap}

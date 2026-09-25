@@ -122,7 +122,7 @@ const PROJECTS_GALLERY=[
 ];
 
 const FAQ_GLOBAL=[
- {q:'How much do Homworks interiors cost?',a:"It depends on home size and finish level. Most 2BHK full-home projects start in the range shown by our home interior cost calculator on the homepage — your designer confirms a fixed, itemised quote after your free consultation."},
+ {q:'How much do Homworks interiors cost?',a:"It depends on home size, finish level and the rooms you choose. Your designer confirms a fixed, itemised quote after your free consultation."},
  {q:'How long does a project take?',a:"Qualifying modular projects are covered by our 30-day delivery promise, counted from design sign-off, not your first phone call. Larger full-home civil works can take longer — your designer will confirm your exact timeline."},
  {q:'Is manufacturing really in-house?',a:"Yes. Every module is made and finished in our own factory in Coimbatore, not by third-party contractors — which is exactly what lets us commit to a delivery date."},
  {q:'What is covered under warranty?',a:"Every Homworks project carries a 10-year warranty on cabinetry, carcass and mechanisms, with a dedicated after-sales team for anything that needs a visit."},
@@ -327,7 +327,7 @@ function addressBlockHTML(addr){
 function articleHTML(a){
  const paras=a.body.map(t=>`<p>${t.replace(/\*\*(.+?)\*\*/g,'<b>$1</b>')}</p>`).join('');
  return `<section class="section container"><div style="max-width:720px;margin:0 auto" class="rv"><div style="font-size:17px;line-height:1.85;color:var(--muted)">${paras}</div>
- ${a.pull?`<blockquote style="border-left:3px solid var(--terra);margin:36px 0;padding:4px 0 4px 24px;font:700 22px/1.4 var(--sans);letter-spacing:-.02em;color:var(--deep)">${a.pull}</blockquote>`:''}
+ ${a.pull?`<blockquote style="border-left:3px solid var(--terra);margin:36px 0;padding:4px 0 4px 24px;font:600 22px/1.4 var(--sans);letter-spacing:-.011em;color:var(--deep)">${a.pull}</blockquote>`:''}
  </div></section>`;
 }
 function citySwitchHTML(){
@@ -472,7 +472,7 @@ function render404Content(){
  const top=SITE_LINKS.filter(l=>l.top).slice(0,6);
  return crumbHTML([{l:'Home',h:'index.html'},{l:'Page not found'}],false)+`<section class="section container" style="text-align:center;padding-top:130px">
  <span class="err-num">404</span>
- <h1 style="font:800 clamp(24px,3vw,34px)/1.2;letter-spacing:-.02em;margin:18px 0 10px">This room isn't built yet.</h1>
+ <h1 style="font:600 clamp(24px,3vw,34px)/1.2;letter-spacing:-.011em;margin:18px 0 10px">This room isn't built yet.</h1>
  <p style="color:var(--muted);max-width:440px;margin:0 auto 30px">The page you're looking for may have moved. Try a search, or jump to one of these.</p>
  <div class="search-box rv" style="max-width:520px;margin:0 auto 40px"><input id="searchInput" placeholder="Search Homworks…" oninput="doSearch(this.value)"></div>
  </section>
@@ -485,7 +485,7 @@ function renderThankYouContent(){
  return crumbHTML([{l:'Home',h:'index.html'},{l:'Thank you'}],false)+
  `<section class="section container" style="padding-top:120px;text-align:center">
  <div class="wsuccess rv" style="max-width:520px;margin:0 auto"><div class="tick" style="margin:0 auto 22px">✓</div>
- <h1 style="font:800 clamp(28px,4vw,42px)/1.1;letter-spacing:-.03em;margin:0 0 12px">${cfg.successTitle}</h1>
+ <h1 style="font:600 clamp(28px,4vw,42px)/1.1;letter-spacing:-.017em;margin:0 0 12px">${cfg.successTitle}</h1>
  <p style="color:var(--muted);font-size:15px">${cfg.successBody}</p><span class="ref">REF ${ref}</span></div></section>
  <section class="section container" style="padding-top:0"><div class="steps2 count-3 rv" style="border-top:1px solid var(--line)">
  <div class="step2" style="color:var(--deep);border-color:var(--line)"><span class="step-no" style="color:var(--ink)">01</span><h3 style="margin-top:40px">We reach out</h3><p style="opacity:1;color:var(--muted)">A Homworks team member calls or WhatsApps you within 24 hours.</p></div>
@@ -515,7 +515,7 @@ function kitchenLayoutPage(l,i){
   cardsSection:{eyebrow:'What you get',h2:'Four reasons this layout works.',flat:true,cols:2,items:l.pros.map((p,idx)=>({tag:'0'+(idx+1),title:p.t,body:p.b}))},
   carousel:{eyebrow:'Explore other layouts',h2:'Six ways to lay out a kitchen.',dur:30,items:others.map(o=>({art:'kitchen',small:'Layout',title:o.name,href:'kitchen-'+o.slug+'.html'}))},
   faq:{eyebrow:'Questions',h2:`${l.name} kitchen FAQs`,items:[
-  {q:`How much does a ${l.name.toLowerCase()} kitchen cost?`,a:`Indicative pricing depends on finish level and hardware — most ${l.name.toLowerCase()} kitchens fall within the range shown by our home interior cost calculator on the homepage. Your designer confirms a fixed quote after your free consultation.`},
+  {q:`How much does a ${l.name.toLowerCase()} kitchen cost?`,a:`Pricing depends on layout, finish level and hardware. Your designer confirms a fixed quote after your free consultation.`},
   {q:`Is the ${l.name.toLowerCase()} layout right for my home?`,a:`It works best for ${l.bestFor.toLowerCase()}, with a typical footprint of ${l.footprint}. A designer can confirm fit from your floor plan in the free consultation.`},
   {q:'Can I combine this with an island or breakfast counter?',a:'Yes — several layouts can be extended with a peninsula or island where floor area allows. Your designer will show you the option during design.'}
   ]},
@@ -1030,7 +1030,7 @@ contact:{title:'Contact Homworks',top:true,
  crumbs:[{l:'Home',h:'index.html'},{l:'Contact',h:'contact.html'},{l:'Get a Quote'}],
  hero:{style:'photo',art:'studio',duo:'duo-terra',kicker:'Contact / Get a Quote',h1:'A number<br>you can plan around.',copy:'Tell us your rooms, city and move-in date. We route this straight to your nearest team for a fixed, itemised quote.',
  stats:[{n:'0',l:'hidden costs'},{n:'24hr',l:'first response'},{n:'6',l:'cities'}],
- ctas:[{label:'Get my quote',form:'quote',primary:true},{label:'Try the cost calculator',href:'index.html#cost'}]},
+ ctas:[{label:'Get my quote',form:'quote',primary:true},{label:'Plan my 30 days',href:'delivery-planner.html'}]},
  cardsSection:{eyebrow:'What affects your quote',h2:'Three things we ask about.',flat:true,cols:3,items:[
   {tag:'Size',title:'Home size',body:'A 2BHK, 3BHK or villa naturally shapes your starting budget.'},
   {tag:'Finish',title:'Finish level',body:'Classic, premium or signature materials and hardware.'},
@@ -1131,7 +1131,7 @@ const SITE_LINKS=Object.keys(PAGES).filter(s=>!['search','notfound','thank-you']
 }).concat([{href:'index.html',label:'Home',pillar:'Homworks',desc:'Homworks — interior design, done end to end.',top:true}]);
 
 function legalHTML(sections){
- return `<section class="section container"><div style="max-width:760px" class="rv-stag">${sections.map(s=>`<div style="margin-bottom:34px"><h3 style="font-size:19px;letter-spacing:-.02em;margin:0 0 10px">${s.h}</h3><p style="color:var(--muted);line-height:1.7;font-size:15.5px;margin:0">${s.b}</p></div>`).join('')}</div></section>`;
+ return `<section class="section container"><div style="max-width:760px" class="rv-stag">${sections.map(s=>`<div style="margin-bottom:34px"><h3 style="font-size:19px;letter-spacing:-.011em;margin:0 0 10px">${s.h}</h3><p style="color:var(--muted);line-height:1.7;font-size:15.5px;margin:0">${s.b}</p></div>`).join('')}</div></section>`;
 }
 
 /* ===== Interactive: wizard forms ===== */

@@ -214,11 +214,11 @@ const MEGA={
 };
 
 const WIZARD_CONFIG={
- consultation:{title:'Book your free consultation',subtitle:'A Homworks designer will call you within 24 hours.',chipLabel:'What are you planning?',chips:['Full home interiors','Modular kitchen','Living room','Bedroom & wardrobes','Pooja & foyer units','Not sure yet'],successTitle:'Consultation requested ✓',successBody:'A Homworks designer will call you within 24 hours to arrange your free consultation.'},
- quote:{title:'Get a detailed quote',subtitle:'Tell us the rooms, city and move-in date — we route this to your nearest team.',chipLabel:'Which rooms?',chips:['Full home','Modular kitchen','Living room','Bedroom','Wardrobes','TV unit'],successTitle:'Quote request received ✓',successBody:'Your nearest Homworks team will prepare an indicative quote and call you shortly.'},
- visit:{title:'Book a show-home visit',subtitle:'See, touch and experience a Homworks interior in person.',chipLabel:'Which centre would you like to visit?',chips:CITY_NAMES,successTitle:'Visit request received ✓',successBody:'We will confirm a convenient slot at your chosen centre over WhatsApp or call.'},
- grievance:{title:'Raise a grievance',subtitle:'Every concern gets a ticket number and a named grievance officer.',chipLabel:'What is this regarding?',chips:['Delivery delay','Installation quality','Warranty & service','Billing / payment','Staff conduct','Other'],successTitle:'Ticket raised ✓',successBody:'Your concern has been escalated to a named grievance officer. Track it anytime in the Customer Portal.',ticket:true},
- brochure:{title:'Download the Homworks brochure',subtitle:'Our design guide, finishes catalogue and process — sent straight to your inbox.',chipLabel:'Which brochure would you like?',chips:['Full home interiors','Modular kitchens','Bedrooms & wardrobes','Whole catalogue'],successTitle:'Brochure on its way ✓',successBody:'We have emailed your brochure. Check your inbox (and spam folder) in the next few minutes.'}
+ consultation:{title:'Book your free consultation',subtitle:'A Homworks designer will call you within 24 hours.',chipLabel:'What are you planning?',chips:['Full home interiors','Modular kitchen','Living room','Bedroom & wardrobes','Pooja & foyer units','Not sure yet'],successTitle:'Consultation requested',successBody:'A Homworks designer will call you within 24 hours to arrange your free consultation.'},
+ quote:{title:'Get a detailed quote',subtitle:'Tell us the rooms, city and move-in date — we route this to your nearest team.',chipLabel:'Which rooms?',chips:['Full home','Modular kitchen','Living room','Bedroom','Wardrobes','TV unit'],successTitle:'Quote request received',successBody:'Your nearest Homworks team will prepare an indicative quote and call you shortly.'},
+ visit:{title:'Book a show-home visit',subtitle:'See, touch and experience a Homworks interior in person.',chipLabel:'Which centre would you like to visit?',chips:CITY_NAMES,successTitle:'Visit request received',successBody:'We will confirm a convenient slot at your chosen centre over WhatsApp or call.'},
+ grievance:{title:'Raise a grievance',subtitle:'Every concern gets a ticket number and a named grievance officer.',chipLabel:'What is this regarding?',chips:['Delivery delay','Installation quality','Warranty & service','Billing / payment','Staff conduct','Other'],successTitle:'Ticket raised',successBody:'Your concern has been escalated to a named grievance officer. Track it anytime in the Customer Portal.',ticket:true},
+ brochure:{title:'Download the Homworks brochure',subtitle:'Our design guide, finishes catalogue and process — sent straight to your inbox.',chipLabel:'Which brochure would you like?',chips:['Full home interiors','Modular kitchens','Bedrooms & wardrobes','Whole catalogue'],successTitle:'Brochure on its way',successBody:'We have emailed your brochure. Check your inbox (and spam folder) in the next few minutes.'}
 };
 
 /* ===== Render helpers ===== */
@@ -231,7 +231,7 @@ function crumbHTML(crumbs,showPromo){
  return `<div class="container crumb"><span class="crumb-path">${path}</span>${promo}</div>`;
 }
 function ctasHTML(ctas){
- return `<div class="hero2-ctas">`+ctas.map(c=>c.form?`<button type="button" class="btn ${c.primary?'lime':'on-dark'}" onclick="openForm('${c.form}')">${c.label} <b>↗</b></button>`:`<a class="btn ${c.primary?'lime':'on-dark'}" href="${c.href}">${c.label} <b>↗</b></a>`).join('')+`</div>`;
+ return `<div class="hero2-ctas">`+ctas.map(c=>c.form?`<button type="button" class="btn ${c.primary?'lime':'on-dark'}" onclick="openForm('${c.form}')">${c.label} <b><svg class='hw-i' viewBox='0 0 24 24' aria-hidden='true' focusable='false'><path d='M7 17 17 7M8 7h9v9'/></svg></b></button>`:`<a class="btn ${c.primary?'lime':'on-dark'}" href="${c.href}">${c.label} <b><svg class='hw-i' viewBox='0 0 24 24' aria-hidden='true' focusable='false'><path d='M7 17 17 7M8 7h9v9'/></svg></b></a>`).join('')+`</div>`;
 }
 function heroStatsHTML(stats){
  return `<div class="hero2-stats">`+stats.map(s=>`<div><b>${s.n}</b><span>${s.l}</span></div>`).join('')+`</div>`;
@@ -240,7 +240,7 @@ function panelHTML(p){
  return `<div class="hero2-panel"><h4>${p.title}</h4>
  <select id="pf-room"><option value="">${p.roomLabel||'Choose a room'}</option>${(p.rooms||DEFAULT_ROOMS).map(r=>`<option>${r}</option>`).join('')}</select>
  <select id="pf-city"><option value="">Choose your city</option>${CITY_NAMES.map(c=>`<option>${c}</option>`).join('')}</select>
- <button type="button" class="btn lime" onclick="submitFinder()">${p.cta||'Find my fit'} <b>↗</b></button></div>`;
+ <button type="button" class="btn lime" onclick="submitFinder()">${p.cta||'Find my fit'} <b><svg class='hw-i' viewBox='0 0 24 24' aria-hidden='true' focusable='false'><path d='M7 17 17 7M8 7h9v9'/></svg></b></button></div>`;
 }
 function chipsHTML(chips){
  return `<div class="hero2-chips">${chips.names.map(n=>`<span class="chip-av" style="background:${avatarColor(n)}">${initials(n)}</span>`).join('')}<span>${chips.label}</span></div>`;
@@ -294,7 +294,7 @@ function testimonialsHTML(cs){
  return `<section class="section container"><div class="section-head rv"><div><span class="eyebrow">${cs.eyebrow}</span><h2>${cs.h2}</h2></div></div>
  <div class="carousel-wrap" id="${wid}">
  <div class="carousel" data-mode="slides"><div class="carousel-track">${cs.items.map(t=>`<div class="tslide"><q>${t.q}</q><cite><span class="avatar" style="background:${avatarColor(t.name)}">${initials(t.name)}</span><b>${t.name}</b>${t.meta}</cite></div>`).join('')}</div></div>
- <div class="carousel-arrows"><button type="button" onclick="slideGo('${wid}',-1)">←</button><button type="button" onclick="slideGo('${wid}',1)">→</button></div>
+ <div class="carousel-arrows"><button type="button" onclick="slideGo('${wid}',-1)"><svg class='hw-i' viewBox='0 0 24 24' aria-hidden='true' focusable='false'><path d='M19 12H5M11 6l-6 6 6 6'/></svg></button><button type="button" onclick="slideGo('${wid}',1)"><svg class='hw-i' viewBox='0 0 24 24' aria-hidden='true' focusable='false'><path d='M5 12h14M13 6l6 6-6 6'/></svg></button></div>
  <div class="carousel-dots">${cs.items.map((_,i)=>`<button type="button" class="${i===0?'active':''}" onclick="slideGo('${wid}',0,${i})"></button>`).join('')}</div>
  </div></section>`;
 }
@@ -311,18 +311,18 @@ function faqSectionHTML(f){
 }
 function ctaHTML(c){
  if(!c) return '';
- if(c.mailto) return `<section class="cta2"><div class="container cta2-wrap"><div><span class="eyebrow" style="color:#ffe1e5">${c.eyebrow||'Ready when you are'}</span><h2>${c.h2}</h2><p>${c.body}</p></div><a class="btn" href="mailto:${c.mailto}">${c.label||'Email Homworks'} <b>↗</b></a></div></section>`;
- return `<section class="cta2"><div class="container cta2-wrap"><div><span class="eyebrow" style="color:#ffe1e5">${c.eyebrow||'Ready when you are'}</span><h2>${c.h2}</h2><p>${c.body}</p></div><button type="button" class="btn" onclick="openForm('${c.formType||'consultation'}')">${c.label||'Book free consultation'} <b>↗</b></button></div></section>`;
+ if(c.mailto) return `<section class="cta2"><div class="container cta2-wrap"><div><span class="eyebrow" style="color:#ffe1e5">${c.eyebrow||'Ready when you are'}</span><h2>${c.h2}</h2><p>${c.body}</p></div><a class="btn" href="mailto:${c.mailto}">${c.label||'Email Homworks'} <b><svg class='hw-i' viewBox='0 0 24 24' aria-hidden='true' focusable='false'><path d='M7 17 17 7M8 7h9v9'/></svg></b></a></div></section>`;
+ return `<section class="cta2"><div class="container cta2-wrap"><div><span class="eyebrow" style="color:#ffe1e5">${c.eyebrow||'Ready when you are'}</span><h2>${c.h2}</h2><p>${c.body}</p></div><button type="button" class="btn" onclick="openForm('${c.formType||'consultation'}')">${c.label||'Book free consultation'} <b><svg class='hw-i' viewBox='0 0 24 24' aria-hidden='true' focusable='false'><path d='M7 17 17 7M8 7h9v9'/></svg></b></button></div></section>`;
 }
 function beforeAfterHTML(art){
  const poster=(HERO_MEDIA[art]||HERO_MEDIA.villa).cssPoster;
- return `<div class="before-after rv" style="--split:50%"><div class="ba-after" style="--image:url('${poster}')"></div><div class="ba-before"><div class="ba-before-inner"></div></div><div class="ba-handle">⇔</div><input class="ba-range" type="range" min="0" max="100" value="50" oninput="this.parentElement.style.setProperty('--split',this.value+'%')"></div>`;
+ return `<div class="before-after rv" style="--split:50%"><div class="ba-after" style="--image:url('${poster}')"></div><div class="ba-before"><div class="ba-before-inner"></div></div><div class="ba-handle"><svg class='hw-i' viewBox='0 0 24 24' aria-hidden='true' focusable='false'><path d='M3 12h18M7 8l-4 4 4 4M17 8l4 4-4 4'/></svg></div><input class="ba-range" type="range" min="0" max="100" value="50" oninput="this.parentElement.style.setProperty('--split',this.value+'%')"></div>`;
 }
 function beforeAfterSectionHTML(art){
  return `<section class="section tight"><div class="container"><div class="section-head rv"><div><span class="eyebrow">Before & after</span><h2>Drag to reveal the transformation.</h2></div><p>Concept render shown before real project photography — drag the handle.</p></div>${beforeAfterHTML(art)}</div></section>`;
 }
 function addressBlockHTML(addr){
- return `<div class="container" style="padding-bottom:80px"><div class="gate-card rv" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px"><div><span class="eyebrow">Centre address</span><p style="margin:10px 0 0;font-size:14px;max-width:480px">${addr}</p></div><a class="btn primary" href="https://www.google.com/maps/search/${encodeURIComponent(addr)}" target="_blank" rel="noopener">Get directions <b>↗</b></a></div></div>`;
+ return `<div class="container" style="padding-bottom:80px"><div class="gate-card rv" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px"><div><span class="eyebrow">Centre address</span><p style="margin:10px 0 0;font-size:14px;max-width:480px">${addr}</p></div><a class="btn primary" href="https://www.google.com/maps/search/${encodeURIComponent(addr)}" target="_blank" rel="noopener">Get directions <b><svg class='hw-i' viewBox='0 0 24 24' aria-hidden='true' focusable='false'><path d='M7 17 17 7M8 7h9v9'/></svg></b></a></div></div>`;
 }
 function articleHTML(a){
  const paras=a.body.map(t=>`<p>${t.replace(/\*\*(.+?)\*\*/g,'<b>$1</b>')}</p>`).join('');
@@ -333,7 +333,7 @@ function articleHTML(a){
 function citySwitchHTML(){
  return `<section class="section container"><div class="section-head rv"><div><span class="eyebrow">Our centres</span><h2>Six cities. One experience.</h2></div><p>Pick a city to see the centre, the team and how to book a visit.</p></div>
  <div class="city-switch rv"><div class="city-list">${CITIES.map((c,i)=>`<button type="button" class="city-btn${i===0?' active':''}" onclick="switchCity(this,'${c.slug}')">${c.name}<span>${c.tag}</span></button>`).join('')}</div>
- <div class="city-panel">${CITIES.map((c,i)=>`<div class="city-panel-inner${i===0?' active':''}" data-panel="${c.slug}"><div class="city-pin">📍</div><h3>${c.name}</h3><p>${c.blurb}</p><div class="city-meta"><div><b>${c.homes}</b><span>Homes delivered</span></div><div><b>${c.since}</b><span>Serving since</span></div><div><b>${c.days}</b><span>Avg. delivery</span></div></div><p style="font-size:12.5px">${c.address}</p><div class="hero2-ctas" style="margin-top:10px"><a class="btn primary" href="location-${c.slug}.html">Visit ${c.name} page <b>↗</b></a><button type="button" class="btn" onclick="openForm('visit','${c.name}')">Book a visit <b>↗</b></button></div></div>`).join('')}</div></div></section>`;
+ <div class="city-panel">${CITIES.map((c,i)=>`<div class="city-panel-inner${i===0?' active':''}" data-panel="${c.slug}"><div class="city-pin"><svg class='hw-i' viewBox='0 0 24 24' aria-hidden='true' focusable='false'><path d='M12 21s7-6.2 7-11a7 7 0 0 0-14 0c0 4.8 7 11 7 11Z'/><circle cx='12' cy='10' r='2.5'/></svg></div><h3>${c.name}</h3><p>${c.blurb}</p><div class="city-meta"><div><b>${c.homes}</b><span>Homes delivered</span></div><div><b>${c.since}</b><span>Serving since</span></div><div><b>${c.days}</b><span>Avg. delivery</span></div></div><p style="font-size:12.5px">${c.address}</p><div class="hero2-ctas" style="margin-top:10px"><a class="btn primary" href="location-${c.slug}.html">Visit ${c.name} page <b><svg class='hw-i' viewBox='0 0 24 24' aria-hidden='true' focusable='false'><path d='M7 17 17 7M8 7h9v9'/></svg></b></a><button type="button" class="btn" onclick="openForm('visit','${c.name}')">Book a visit <b><svg class='hw-i' viewBox='0 0 24 24' aria-hidden='true' focusable='false'><path d='M7 17 17 7M8 7h9v9'/></svg></b></button></div></div>`).join('')}</div></div></section>`;
 }
 function plannerHTML(){
  return `<section class="section container"><div class="section-head rv"><div><span class="eyebrow">Interactive tool</span><h2>Build your delivery timeline.</h2></div><p>Pick your rooms and city — we will sketch a realistic route to move-in day.</p></div>
@@ -341,7 +341,7 @@ function plannerHTML(){
  <div class="planner">
   <div class="planner-row"><label>Which rooms?</label><div class="chips" id="plRooms">${['Full home','Modular kitchen','Living room','Bedroom','Wardrobes','Pooja & foyer'].map(r=>`<button type="button" class="chip" data-room="${r}" onclick="this.classList.toggle('active')">${r}</button>`).join('')}</div></div>
   <div class="planner-row"><label>Your city</label><select id="plCity"><option value="">Select city</option>${CITY_NAMES.map(c=>`<option>${c}</option>`).join('')}</select></div>
-  <button type="button" class="btn primary" style="width:100%;justify-content:center" onclick="buildTimeline()">Generate my plan <b>↗</b></button>
+  <button type="button" class="btn primary" style="width:100%;justify-content:center" onclick="buildTimeline()">Generate my plan <b><svg class='hw-i' viewBox='0 0 24 24' aria-hidden='true' focusable='false'><path d='M7 17 17 7M8 7h9v9'/></svg></b></button>
  </div>
  <div><div class="timeline" id="plTimeline"><div class="timeline-fill" id="plFill"></div>
   <div class="timeline-step" data-s="1"><b>Design sign-off</b><span>Meet your designer, approve the 3D plan and fixed quote.</span></div>
@@ -370,7 +370,7 @@ function grievanceFlowHTML(){
  <div class="timeline-step"><b>Escalation to grievance officer</b><span>Unresolved concerns are escalated to a named grievance officer, not a queue.</span></div>
  <div class="timeline-step"><b>Resolved & feedback</b><span>Closed out with your sign-off, visible anytime in the Customer Portal.</span></div>
  </div>
- <div style="margin-top:40px" class="rv"><button type="button" class="btn primary" onclick="openForm('grievance')">Raise a grievance now <b>↗</b></button></div>
+ <div style="margin-top:40px" class="rv"><button type="button" class="btn primary" onclick="openForm('grievance')">Raise a grievance now <b><svg class='hw-i' viewBox='0 0 24 24' aria-hidden='true' focusable='false'><path d='M7 17 17 7M8 7h9v9'/></svg></b></button></div>
  </section>`;
 }
 function portalDashHTML(){
@@ -388,12 +388,12 @@ function galleryContentHTML(){
 function navItem(href,label,mega){
  return `<div class="nav-item"><a href="${href}">${label}</a><div class="mega">
  ${mega.cols.map(col=>`<div class="mega-col"><h4>${col.h}</h4>${col.links.map(l=>`<a href="${l.href}" class="mega-link"><span class="mega-ic">${icon(l.icon)}</span><span><b>${l.t}</b><small>${l.d}</small></span></a>`).join('')}</div>`).join('')}
- <div class="mega-feature"><span class="eyebrow">${mega.feature.k}</span><b>${mega.feature.b}</b><p>${mega.feature.p}</p><a href="${mega.feature.href}">${mega.feature.link} ↗</a></div>
+ <div class="mega-feature"><span class="eyebrow">${mega.feature.k}</span><b>${mega.feature.b}</b><p>${mega.feature.p}</p><a href="${mega.feature.href}">${mega.feature.link} <svg class='hw-i' viewBox='0 0 24 24' aria-hidden='true' focusable='false'><path d='M7 17 17 7M8 7h9v9'/></svg></a></div>
  </div></div>`;
 }
 function mobileNavHTML(){
  const top=[['interiors.html','Interiors'],['projects.html','Projects'],['why-homworks.html','Why Homworks'],['locations.html','Locations'],['resources.html','Resources'],['contact.html','Contact']];
- return top.map(x=>`<a href="${x[0]}">${x[1]}</a>`).join('')+`<a href="get-a-quote.html" style="color:var(--ink)">Get a free quote →</a>`;
+ return top.map(x=>`<a href="${x[0]}">${x[1]}</a>`).join('')+`<a href="get-a-quote.html" style="color:var(--ink)">Get a free quote <svg class='hw-i' viewBox='0 0 24 24' aria-hidden='true' focusable='false'><path d='M5 12h14M13 6l6 6-6 6'/></svg></a>`;
 }
 function chromeHeader(){
  return `<header class="top" id="siteHeader"><div class="bar">
@@ -409,7 +409,7 @@ function chromeHeader(){
  <div class="nav-item"><a href="contact.html">Contact</a></div>
  <a href="get-a-quote.html" class="nav-cta"><span>Get a free quote</span></a>
  </div>
- <button type="button" class="menu-btn" aria-label="Open navigation" onclick="document.getElementById('mnav').classList.toggle('show')">☰</button>
+ <button type="button" class="menu-btn" aria-label="Open navigation" onclick="document.getElementById('mnav').classList.toggle('show')"><svg class='hw-i hw-menu-ic' viewBox='0 0 24 24' aria-hidden='true' focusable='false'><path d='M4 7h16M4 12h16M4 17h16'/></svg></button>
  </div>
  <div class="mnav" id="mnav">${mobileNavHTML()}</div>
  </header>`;
@@ -425,7 +425,7 @@ function chromeFooter(){
  <div class="foot-addr"><span class="eyebrow" style="color:#9fdedc">Our centres</span><nav>${CITIES.map(c=>`<a href="location-${c.slug}.html">${c.name}${c.slug==='coimbatore'?' · HQ':''}</a>`).join('')}</nav></div>
  <div class="foot-bottom"><span>© 2026 Homworks – Stylcove Modulars Pvt Ltd.</span><span><a href="privacy-policy.html">Privacy</a> · <a href="terms-and-conditions.html">Terms</a> · <a href="sitemap.html">Sitemap</a></span></div>
  </div></footer>
- <button type="button" class="fab" aria-label="Chat on WhatsApp" onclick="window.open('https://wa.me/918925811898','_blank')">☎</button>
+ <button type="button" class="fab" aria-label="Chat on WhatsApp" onclick="window.open('https://wa.me/918925811898','_blank')"><svg class='hw-i' viewBox='0 0 24 24' aria-hidden='true' focusable='false'><path d='M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20.5l1.7-5A8.5 8.5 0 1 1 21 11.5Z'/><path d='M9.2 8.8c.2 2.3 2.7 4.8 5 5l1.3-1.4-1.9-1-.8.7a4 4 0 0 1-1.8-1.8l.7-.8-1-1.9-1.5 1.2Z'/></svg></button>
  <div class="modal" id="modal"><div class="modal-card"></div></div>`;
 }
 
@@ -484,14 +484,14 @@ function renderThankYouContent(){
  const cfg=WIZARD_CONFIG[type]||WIZARD_CONFIG.consultation;
  return crumbHTML([{l:'Home',h:'index.html'},{l:'Thank you'}],false)+
  `<section class="section container" style="padding-top:120px;text-align:center">
- <div class="wsuccess rv" style="max-width:520px;margin:0 auto"><div class="tick" style="margin:0 auto 22px">✓</div>
+ <div class="wsuccess rv" style="max-width:520px;margin:0 auto"><div class="tick" style="margin:0 auto 22px"><svg class='hw-i' viewBox='0 0 24 24' aria-hidden='true' focusable='false'><path d='M5 12.5l4.5 4.5L19 7.5'/></svg></div>
  <h1 style="font:600 clamp(28px,4vw,42px)/1.1;letter-spacing:-.017em;margin:0 0 12px">${cfg.successTitle}</h1>
  <p style="color:var(--muted);font-size:15px">${cfg.successBody}</p><span class="ref">REF ${ref}</span></div></section>
  <section class="section container" style="padding-top:0"><div class="steps2 count-3 rv" style="border-top:1px solid var(--line)">
  <div class="step2" style="color:var(--deep);border-color:var(--line)"><span class="step-no" style="color:var(--ink)">01</span><h3 style="margin-top:40px">We reach out</h3><p style="opacity:1;color:var(--muted)">A Homworks team member calls or WhatsApps you within 24 hours.</p></div>
  <div class="step2" style="color:var(--deep);border-color:var(--line)"><span class="step-no" style="color:var(--ink)">02</span><h3 style="margin-top:40px">We understand your home</h3><p style="opacity:1;color:var(--muted)">A short call or visit to understand your rooms, budget and timeline.</p></div>
  <div class="step2" style="color:var(--deep);border-color:var(--line)"><span class="step-no" style="color:var(--ink)">03</span><h3 style="margin-top:40px">You get a fixed quote</h3><p style="opacity:1;color:var(--muted)">A transparent, itemised quote — no surprises later.</p></div></div>
- <div class="hero2-ctas" style="justify-content:center;margin-top:40px"><a class="btn primary" href="index.html">Back to home <b>↗</b></a><button type="button" class="btn" onclick="window.open('https://wa.me/918925811898','_blank')">Message us on WhatsApp <b>↗</b></button></div>
+ <div class="hero2-ctas" style="justify-content:center;margin-top:40px"><a class="btn primary" href="index.html">Back to home <b><svg class='hw-i' viewBox='0 0 24 24' aria-hidden='true' focusable='false'><path d='M7 17 17 7M8 7h9v9'/></svg></b></a><button type="button" class="btn" onclick="window.open('https://wa.me/918925811898','_blank')">Message us on WhatsApp <b><svg class='hw-i' viewBox='0 0 24 24' aria-hidden='true' focusable='false'><path d='M7 17 17 7M8 7h9v9'/></svg></b></button></div>
  </section>`;
 }
 function renderSitemapContent(d){
@@ -1151,18 +1151,18 @@ function wizardMarkup(cfg){
  <div class="wizard-progress"><i class="active"></i><i></i><i></i></div></div>
  <div class="wizard-body">
  <div class="wizard-step active" data-step="1"><p class="wstep-title">${cfg.chipLabel}</p><div class="chips" id="wchips">${cfg.chips.map(c=>`<button type="button" class="chip" data-val="${c}" onclick="wizChip(this)">${c}</button>`).join('')}</div>
-  <div class="wizard-nav"><span></span><button type="button" class="btn primary" onclick="wizNext(2)">Continue <b>→</b></button></div></div>
+  <div class="wizard-nav"><span></span><button type="button" class="btn primary" onclick="wizNext(2)">Continue <b><svg class='hw-i' viewBox='0 0 24 24' aria-hidden='true' focusable='false'><path d='M5 12h14M13 6l6 6-6 6'/></svg></b></button></div></div>
  <div class="wizard-step" data-step="2"><p class="wstep-title">Where and when?</p><div class="wizard-grid">
   <select class="wide" id="wcity"><option value="">Select your city</option>${CITY_NAMES.map(c=>`<option>${c}</option>`).join('')}</select>
   <select class="wide" id="wwhen"><option value="">Preferred timing</option><option>As soon as possible</option><option>Within 1 month</option><option>1–3 months</option><option>Just exploring</option></select>
   ${cfg.ticket?`<input class="wide" id="wref" placeholder="Order / project ID (if you have one)">`:''}
-  </div><div class="wizard-nav"><button type="button" class="wnav-back" onclick="wizNext(1)">← Back</button><button type="button" class="btn primary" onclick="wizNext(3)">Continue <b>→</b></button></div></div>
+  </div><div class="wizard-nav"><button type="button" class="wnav-back" onclick="wizNext(1)"><svg class='hw-i' viewBox='0 0 24 24' aria-hidden='true' focusable='false'><path d='M19 12H5M11 6l-6 6 6 6'/></svg> Back</button><button type="button" class="btn primary" onclick="wizNext(3)">Continue <b><svg class='hw-i' viewBox='0 0 24 24' aria-hidden='true' focusable='false'><path d='M5 12h14M13 6l6 6-6 6'/></svg></b></button></div></div>
  <div class="wizard-step" data-step="3"><p class="wstep-title">Your details</p><div class="wizard-grid">
   <input class="wide" id="wname" placeholder="Your name">
   <input id="wphone" placeholder="Phone number">
   <input id="wemail" type="email" placeholder="Email address">
   </div><p style="font-size:10.5px;color:var(--muted);margin:12px 4px 0">By submitting, you agree to receive a call or WhatsApp from Homworks about your project.</p>
-  <div class="wizard-nav"><button type="button" class="wnav-back" onclick="wizNext(2)">← Back</button><button type="button" class="btn primary" onclick="wizSubmit()">Submit <b>✓</b></button></div></div>
+  <div class="wizard-nav"><button type="button" class="wnav-back" onclick="wizNext(2)"><svg class='hw-i' viewBox='0 0 24 24' aria-hidden='true' focusable='false'><path d='M19 12H5M11 6l-6 6 6 6'/></svg> Back</button><button type="button" class="btn primary" onclick="wizSubmit()">Submit <b><svg class='hw-i' viewBox='0 0 24 24' aria-hidden='true' focusable='false'><path d='M5 12.5l4.5 4.5L19 7.5'/></svg></b></button></div></div>
  </div>`;
 }
 function wizChip(el){$$('#wchips .chip').forEach(x=>x.classList.remove('active'));el.classList.add('active');wizChoice=el.dataset.val}
@@ -1173,7 +1173,7 @@ function wizSubmit(){
  const type=$('#modal').dataset.type;
  const cfg=WIZARD_CONFIG[type]||WIZARD_CONFIG.consultation;
  const ref='HMW-'+Math.random().toString(36).slice(2,7).toUpperCase();
- $('.wizard-body').innerHTML=`<div class="wsuccess"><div class="tick">✓</div><h3>${cfg.successTitle}</h3><p style="color:var(--muted);font-size:13.5px">${cfg.successBody}</p><span class="ref">REF ${ref}</span><div class="hero2-ctas" style="justify-content:center;margin-top:6px"><a class="btn primary" href="thank-you.html?type=${type}&ref=${ref}">View next steps <b>↗</b></a><button type="button" class="btn" onclick="closeForm()">Close</button></div></div>`;
+ $('.wizard-body').innerHTML=`<div class="wsuccess"><div class="tick"><svg class='hw-i' viewBox='0 0 24 24' aria-hidden='true' focusable='false'><path d='M5 12.5l4.5 4.5L19 7.5'/></svg></div><h3>${cfg.successTitle}</h3><p style="color:var(--muted);font-size:13.5px">${cfg.successBody}</p><span class="ref">REF ${ref}</span><div class="hero2-ctas" style="justify-content:center;margin-top:6px"><a class="btn primary" href="thank-you.html?type=${type}&ref=${ref}">View next steps <b><svg class='hw-i' viewBox='0 0 24 24' aria-hidden='true' focusable='false'><path d='M7 17 17 7M8 7h9v9'/></svg></b></a><button type="button" class="btn" onclick="closeForm()">Close</button></div></div>`;
  $('.wizard-progress').innerHTML='';
 }
 function closeForm(){$('#modal').classList.remove('show');document.body.style.overflow=''}

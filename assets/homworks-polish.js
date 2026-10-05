@@ -106,7 +106,7 @@
     var head = doc.querySelector('.hiw-head');
     var nav = doc.createElement('div');
     nav.className = 'hiw-nav';
-    nav.innerHTML = '<button type="button" data-prev aria-label="Previous step">&larr;</button><span class="hiw-count" aria-live="polite"></span><button type="button" data-next aria-label="Next step">&rarr;</button>';
+    nav.innerHTML = '<button type="button" data-prev aria-label="Previous step"><svg class=\'hw-i\' viewBox=\'0 0 24 24\' aria-hidden=\'true\' focusable=\'false\'><path d=\'M19 12H5M11 6l-6 6 6 6\'/></svg></button><span class="hiw-count" aria-live="polite"></span><button type="button" data-next aria-label="Next step"><svg class=\'hw-i\' viewBox=\'0 0 24 24\' aria-hidden=\'true\' focusable=\'false\'><path d=\'M5 12h14M13 6l6 6-6 6\'/></svg></button>';
     var cta = head.querySelector('.button');
     var group = doc.createElement('div');
     group.style.cssText = 'display:flex;align-items:center;gap:20px;flex-wrap:wrap';

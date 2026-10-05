@@ -876,7 +876,7 @@ projects:{title:'Project Gallery',top:true,
 'quality-factory':{title:'Quality & Factory',
  metaDesc:'Inside the Homworks factory — certified materials and 100+ quality checks, all in-house.',
  crumbs:[{l:'Home',h:'index.html'},{l:'Why Homworks',h:'why-homworks.html'},{l:'Quality & Factory'}],
- hero:{style:'art',art:'process',duo:'duo-ink',kicker:'Why Homworks / Standards',h1:'Quality you<br>can’t see, and quality<br>you can.',copy:'Certified plywood, precision hardware and 100+ quality checks — all inside our own factory, not a third-party workshop.',
+ hero:{style:'art',art:'process',duo:'duo-ink',kicker:'Why Homworks / Standards',h1:'Quality you can’t see,<br>and quality you can.',copy:'Certified plywood, precision hardware and 100+ quality checks — all inside our own factory, not a third-party workshop.',
  stats:[{n:'100+',l:'quality checkpoints'},{n:'1',l:'own factory'},{n:'10-yr',l:'warranty'}],
  ctas:[{label:'Book free consultation',form:'consultation',primary:true},{label:'See our warranty',href:'warranty-after-sales.html'}]},
  cardsSection:{eyebrow:'What goes into every module',h2:'Four standards we never skip.',flat:true,cols:2,items:[

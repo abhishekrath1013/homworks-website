@@ -1,0 +1,104 @@
+/* Homworks polish layer — loaded last on every page.
+   Header scale, headline/sub-copy line limits, abstract background, brochure button,
+   About/Values alignment, room filter tabs and the process carousel. */
+
+/* ---------- Header: smaller type ---------- */
+.nav-item{font-size:13px}
+.nav-item>a{padding:8px 12px}
+.nav-cta{font-size:12.5px!important;padding:11px 20px!important}
+.mnav a{font-size:14px}
+.tb-p{height:22px;width:auto}
+
+/* ---------- Headers in 2 lines, sub-content in 3 lines (site-wide) ---------- */
+.section-head h2,.hh-head h2{max-width:none;text-wrap:balance}
+.section-head h2{font-size:clamp(28px,3.5vw,46px)}
+.hero2 h1{font-size:clamp(34px,4.5vw,62px);max-width:880px;text-wrap:balance}
+.intro2 h2,.cta2 h2{font-size:clamp(26px,3.2vw,42px);text-wrap:balance}
+.section-head p,.hh-head p{
+  max-width:460px;
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;line-clamp:3;overflow:hidden
+}
+.craft-card>p,.cp-body>p,.tcard-body>p,.whyhw-card p,.connect-card p,.challenge-steps p{
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;line-clamp:3;overflow:hidden
+}
+
+/* ---------- About / Our Values: equal boxes, rows aligned across both ---------- */
+@supports (grid-template-rows:subgrid){
+  .whyh-cols{grid-auto-rows:auto}
+  .whyh-card{display:grid;grid-row:span 4;grid-template-rows:subgrid;row-gap:0}
+  .whyh-card p{align-self:start}
+}
+.whyh-cols{align-items:stretch}
+.whyh-card{height:100%}
+
+/* ---------- Abstract background ---------- */
+.hw-abstract{position:absolute;top:0;left:0;width:100%;overflow:hidden;pointer-events:none;z-index:-1}
+.hw-abstract svg{position:absolute;display:block;opacity:.9}
+.hw-abstract .hw-float{animation:hwAbsFloat 18s ease-in-out infinite}
+.hw-abstract .hw-float.b{animation-duration:24s;animation-delay:-8s}
+@keyframes hwAbsFloat{50%{transform:translate(14px,-18px) rotate(4deg)}}
+@media(prefers-reduced-motion:reduce){.hw-abstract .hw-float{animation:none}}
+
+/* ---------- Floating brochure button ---------- */
+.hw-brochure-fab{
+  position:fixed;right:22px;bottom:22px;z-index:45;display:inline-flex;align-items:center;gap:10px;
+  height:52px;padding:0 22px 0 18px;border-radius:99px;background:var(--deep,#16555a);color:#fff;
+  font:600 13.5px/1 'Epilogue',Arial,sans-serif;letter-spacing:-.005em;
+  box-shadow:0 14px 30px -10px rgba(22,85,90,.55);transition:transform .35s cubic-bezier(.22,1,.36,1),background .3s
+}
+.hw-brochure-fab:hover{transform:translateY(-3px);background:var(--ink,#2aaeb3)}
+.hw-brochure-fab svg{flex:none}
+.has-wa .hw-brochure-fab{right:92px}
+@media(max-width:560px){
+  .hw-brochure-fab{height:48px;padding:0 16px 0 14px;font-size:12.5px;right:14px;bottom:14px}
+  .has-wa .hw-brochure-fab{right:82px}
+}
+
+/* ---------- What we design: bigger filter tabs, clear active state ---------- */
+.wd-tablist{gap:12px}
+.wd-tablist button{
+  padding:19px 32px 19px 26px;font-size:17px;gap:12px;border-width:1.5px;border-color:#cfe3e3
+}
+.wd-tablist button small{font-size:11px}
+.wd-tablist button[aria-selected="true"]{
+  background:var(--deep);border-color:var(--deep);color:#fff;
+  box-shadow:0 0 0 4px rgba(42,174,179,.22),0 14px 26px -12px rgba(22,85,90,.55)
+}
+@media(max-width:560px){.wd-tablist button{padding:16px 24px 16px 20px;font-size:15.5px}}
+
+/* ---------- Process carousel ---------- */
+.hiw-head{align-items:flex-end}
+.hiw-nav{display:none;align-items:center;gap:12px}
+.hiw-carousel-on .hiw-nav{display:inline-flex}
+.hiw-nav button{
+  width:52px;height:52px;border-radius:50%;border:1.5px solid var(--deep);background:#fff;color:var(--deep);
+  font-size:20px;line-height:1;display:grid;place-items:center;transition:background .3s,color .3s,opacity .3s
+}
+.hiw-nav button:hover:not(:disabled){background:var(--deep);color:#fff}
+.hiw-nav button:disabled{opacity:.35;cursor:default}
+.hiw-count{font:600 13px 'Epilogue',Arial,sans-serif;color:var(--deep);min-width:54px;text-align:center}
+.hiw-steps.is-carousel{
+  display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;
+  border:1px dashed rgba(227,146,158,.8);border-radius:22px
+}
+.hiw-steps.is-carousel::-webkit-scrollbar{display:none}
+.hiw-steps.is-carousel .hiw-step{
+  flex:0 0 100%;scroll-snap-align:start;border-left:0!important;
+  display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);column-gap:clamp(24px,4vw,64px);align-items:center;
+  padding:clamp(28px,4vw,60px)
+}
+.hiw-steps.is-carousel .hiw-step img{grid-row:1/4;width:min(300px,100%);margin:0 auto}
+.hiw-steps.is-carousel .hiw-step h4{font-size:clamp(26px,3vw,42px)}
+.hiw-steps.is-carousel .hiw-step p{max-width:52ch;font-size:16px}
+@media(max-width:760px){
+  .hiw-steps.is-carousel .hiw-step{grid-template-columns:1fr;row-gap:8px}
+  .hiw-steps.is-carousel .hiw-step img{grid-row:auto;width:120px;margin:0 0 12px}
+}
+
+/* Why Homworks headline must fit its two lines beside the sub-copy */
+.whyh .section-head h2,.guide .section-head h2{max-width:none;font-size:clamp(30px,3.3vw,46px)}
+.section-head>div{min-width:0;flex:1 1 auto}
+.intro2 h2{font-size:clamp(24px,2.6vw,36px)}
+.fin-intro h2,.feature-content h2,.reviews h2{font-size:clamp(30px,3.4vw,48px);text-wrap:balance}
+.intro2 h2{font-size:clamp(22px,2.3vw,32px)}
+.reviews h2{font-size:clamp(28px,2.8vw,40px)}

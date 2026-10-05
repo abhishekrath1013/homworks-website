@@ -32,6 +32,7 @@ const CITIES=[
 ];
 const CITY_NAMES=CITIES.map(c=>c.name);
 
+const KITCHEN_IMG={'l-shaped':'kitchen-l-shaped','u-shaped':'kitchen-u-shaped','galley':'kitchen-galley','one-wall':'kitchen-straight','peninsular':'kitchen-peninsular','island':'kitchen-island'};
 const KITCHEN_LAYOUTS=[
  {slug:'l-shaped',name:'L-Shaped',h1:'The L-shaped kitchen,<br>done right.',blurb:"Two adjoining walls meet at a corner to free up the centre of the room — the most requested layout for Indian homes because it works in almost any footprint.",bestFor:'2–3BHK homes',footprint:'70–110 sqft',pros:[
   {t:'Shorter walk, less waiting',b:'A tight work triangle between hob, sink and fridge means less walking for the same amount of cooking.'},
@@ -287,7 +288,7 @@ function cardsSectionHTML(cs){
 function carouselSectionHTML(cs){
  const items=cs.items.concat(cs.items);
  return `<section class="section tight"><div class="container section-head rv"><div><span class="eyebrow">${cs.eyebrow}</span><h2>${cs.h2}</h2></div></div>
- <div class="carousel" data-mode="marquee" style="--dur:${cs.dur||34}s"><div class="carousel-track">${items.map(r=>`<a class="roll-card art-panel" data-art="${r.art}" href="${r.href||'#'}"><span class="rc-tag"><small>${r.small}</small>${r.title}</span></a>`).join('')}</div></div></section>`;
+ <div class="carousel" data-mode="marquee" style="--dur:${cs.dur||34}s"><div class="carousel-track">${items.map(r=>`<a class="roll-card art-panel" data-art="${r.art}" href="${r.href||'#'}"${r.img?` style="--art-img:url('home/${r.img}.jpg')"`:''}><span class="rc-tag"><small>${r.small}</small>${r.title}</span></a>`).join('')}</div></div></section>`;
 }
 function testimonialsHTML(cs){
  const wid='car'+Math.random().toString(36).slice(2,7);
@@ -513,7 +514,7 @@ function kitchenLayoutPage(l,i){
   ctas:[{label:'Book free consultation',form:'consultation',primary:true},{label:'See kitchen projects',href:'projects.html'}]},
   intro:{eyebrow:'Why families choose this layout',h2:'Built around how you actually cook.',body:l.blurb+' Every Homworks kitchen is manufactured in-house and quality-checked over 100 times before it reaches your home.',link:{label:'See all 6 kitchen layouts',href:'modular-kitchens.html'}},
   cardsSection:{eyebrow:'What you get',h2:'Four reasons this layout works.',flat:true,cols:2,items:l.pros.map((p,idx)=>({tag:'0'+(idx+1),title:p.t,body:p.b}))},
-  carousel:{eyebrow:'Explore other layouts',h2:'Six ways to lay out a kitchen.',dur:30,items:others.map(o=>({art:'kitchen',small:'Layout',title:o.name,href:'kitchen-'+o.slug+'.html'}))},
+  carousel:{eyebrow:'Explore other layouts',h2:'Six ways to lay out a kitchen.',dur:30,items:others.map(o=>({art:'kitchen',small:'Layout',title:o.name,img:KITCHEN_IMG[o.slug],href:'kitchen-'+o.slug+'.html'}))},
   faq:{eyebrow:'Questions',h2:`${l.name} kitchen FAQs`,items:[
   {q:`How much does a ${l.name.toLowerCase()} kitchen cost?`,a:`Pricing depends on layout, finish level and hardware. Your designer confirms a fixed quote after your free consultation.`},
   {q:`Is the ${l.name.toLowerCase()} layout right for my home?`,a:`It works best for ${l.bestFor.toLowerCase()}, with a typical footprint of ${l.footprint}. A designer can confirm fit from your floor plan in the free consultation.`},
@@ -604,7 +605,7 @@ interiors:{title:'Interior Design Ideas for Every Room',top:true,
   {art:'pooja',tag:'Rooted',title:'Foyer & Pooja Units',body:'Vastu-aware design that gives tradition a considered place at home.',href:'foyer-pooja-units.html'},
   {art:'design',tag:'Style',title:'Design Styles',body:'Modern, contemporary or traditional — a palette that feels like you.',href:'design-styles.html'}
  ]},
- carousel:{eyebrow:'Explore by layout',h2:'Six ways to lay out a kitchen.',dur:30,items:KITCHEN_LAYOUTS.map(l=>({art:'kitchen',small:'Layout',title:l.name,href:'kitchen-'+l.slug+'.html'}))},
+ carousel:{eyebrow:'Explore by layout',h2:'Six ways to lay out a kitchen.',dur:30,items:KITCHEN_LAYOUTS.map(l=>({art:'kitchen',small:'Layout',title:l.name,img:KITCHEN_IMG[l.slug],href:'kitchen-'+l.slug+'.html'}))},
  faq:{eyebrow:'Questions',h2:'Before you start',items:[FAQ_GLOBAL[0],FAQ_GLOBAL[1],FAQ_GLOBAL[2],FAQ_GLOBAL[3]]},
  cta:{h2:'Not sure where to start?',body:'Tell a designer what you have in mind — free, no pressure, within 24 hours.',formType:'consultation'}
 },

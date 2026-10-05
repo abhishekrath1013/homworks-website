@@ -17,46 +17,58 @@
   }
 
   /* ---------- Abstract background ---------- */
-  /* Looping, animated abstract shapes (no plain circles). `u` is a unique id for gradients. */
+  /* Looping line-art interior pieces: sofa, pendant lamp, TV, bookshelf, plant, wardrobe, armchair, bed, kitchen. */
   var T = '#2aaeb3', D = '#16555a', P = '#E3929E';
+  function st(c, w, o) { return 'fill="none" stroke="' + c + '" stroke-width="' + (w || 2) + '" stroke-linecap="round" stroke-linejoin="round"' + (o ? ' opacity="' + o + '"' : ''); }
   var shapes = [
-    function (u) { // orbit system: tilted ellipses with travelling light
-      var e1 = 'M20 100a80 32 0 1 0 160 0a80 32 0 1 0-160 0', e2 = 'M30 100a70 28 0 1 0 140 0a70 28 0 1 0-140 0';
-      return '<defs><linearGradient id="g' + u + '" x1="0" x2="1"><stop offset="0" stop-color="' + T + '"/><stop offset="1" stop-color="' + P + '"/></linearGradient></defs>' +
-        '<g class="hw-spin" style="animation-duration:26s"><ellipse cx="100" cy="100" rx="80" ry="32" fill="none" stroke="url(#g' + u + ')" stroke-width="1.6" opacity=".7"/>' +
-        '<circle r="5" fill="' + P + '"><animateMotion dur="7s" repeatCount="indefinite" path="' + e1 + '"/></circle></g>' +
-        '<g class="hw-spin rev" style="animation-duration:34s"><ellipse cx="100" cy="100" rx="70" ry="28" transform="rotate(60 100 100)" fill="none" stroke="' + T + '" stroke-width="1.4" opacity=".6"/>' +
-        '<g transform="rotate(60 100 100)"><circle r="4" fill="' + T + '"><animateMotion dur="9s" repeatCount="indefinite" path="' + e2 + '"/></circle></g></g>' +
-        '<polygon points="100,84 114,100 100,116 86,100" fill="url(#g' + u + ')" class="hw-pulse"/>';
+    function () { // sofa, cushions bounce
+      return '<g ' + st(D, 2, .7) + '><rect x="40" y="74" width="120" height="48" rx="16" fill="' + P + '" fill-opacity=".18"/><rect x="28" y="106" width="144" height="36" rx="12" fill="' + P + '" fill-opacity=".12"/>' +
+        '<rect x="20" y="90" width="24" height="54" rx="11"/><rect x="156" y="90" width="24" height="54" rx="11"/><path d="M44 144v14M156 144v14"/></g>' +
+        '<g class="hw-bob"><rect x="56" y="86" width="40" height="26" rx="9" fill="' + T + '" fill-opacity=".3" ' + st(T, 1.8) + '/></g>' +
+        '<g class="hw-bob d2"><rect x="104" y="86" width="40" height="26" rx="9" fill="' + P + '" fill-opacity=".35" ' + st(P, 1.8) + '/></g>';
     },
-    function (u) { // Homworks-style stacked blocks, turning and breathing
-      return '<defs><linearGradient id="g' + u + '" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="' + P + '"/><stop offset="1" stop-color="' + T + '"/></linearGradient></defs>' +
-        '<g class="hw-spin" style="animation-duration:30s"><rect x="58" y="58" width="84" height="84" rx="14" fill="none" stroke="' + D + '" stroke-width="1.4" opacity=".4"/></g>' +
-        '<g class="hw-spin rev" style="animation-duration:22s"><rect x="58" y="58" width="84" height="84" rx="14" fill="none" stroke="url(#g' + u + ')" stroke-width="2" opacity=".75"/></g>' +
-        '<g class="hw-pulse"><rect x="82" y="46" width="36" height="56" rx="8" fill="' + P + '" opacity=".55"/><rect x="82" y="98" width="36" height="56" rx="8" fill="' + T + '" opacity=".55"/></g>';
+    function () { // pendant lamp, swinging with a pulsing glow
+      return '<g class="hw-swing"><path d="M100 0v50" ' + st(D, 2, .7) + '/><path d="M72 100 84 50h32l12 50Z" fill="' + P + '" fill-opacity=".3" ' + st(D, 2, .75) + '/><path d="M88 100q12 10 24 0" ' + st(T, 2) + '/>' +
+        '<path class="hw-glow" d="M80 108 44 180h112l-36-72Z" fill="' + T + '" fill-opacity=".14"/></g>';
     },
-    function (u) { // flowing wave lines that draw themselves in a loop
-      var s = '<defs><linearGradient id="g' + u + '" x1="0" x2="1"><stop offset="0" stop-color="' + T + '" stop-opacity="0"/><stop offset=".5" stop-color="' + T + '"/><stop offset="1" stop-color="' + P + '" stop-opacity="0"/></linearGradient></defs>';
-      for (var i = 0; i < 6; i++) {
-        var y = 40 + i * 24;
-        s += '<path class="hw-flow" style="animation-delay:' + (-i * 1.1) + 's;animation-duration:' + (7 + i) + 's" d="M0 ' + y + 'C40 ' + (y - 26) + ' 70 ' + (y + 26) + ' 100 ' + y + 'S160 ' + (y - 26) + ' 200 ' + y + '" fill="none" stroke="url(#g' + u + ')" stroke-width="2" stroke-linecap="round" pathLength="100"/>';
-      }
-      return s;
+    function () { // TV on a unit with an equaliser on screen
+      var bars = '';
+      for (var i = 0; i < 6; i++) bars += '<rect x="' + (50 + i * 17) + '" y="82" width="9" height="40" rx="3" fill="' + (i % 2 ? P : T) + '" fill-opacity=".6"/>';
+      return '<g ' + st(D, 2, .7) + '><rect x="24" y="44" width="152" height="92" rx="9"/><rect x="33" y="53" width="134" height="74" rx="5" fill="' + T + '" fill-opacity=".1"/><path d="M100 136v16M68 156h64"/><path d="M14 176h172"/></g>' +
+        '<g class="hw-eq">' + bars + '</g>';
     },
-    function (u) { // morphing gradient blob
-      var d1 = 'M150 34c26 18 38 52 28 82-10 31-40 56-74 58-34 2-66-20-72-52-6-32 14-62 44-80 25-15 49-22 74-8z';
-      var d2 = 'M160 52c20 24 22 58 6 84-16 27-48 42-78 36-31-6-56-32-56-62 0-32 24-60 54-72 26-10 54-12 74 14z';
-      var d3 = 'M146 40c30 12 44 46 34 78-9 30-36 52-68 54-32 2-64-18-72-50-8-32 8-64 38-80 28-14 38-14 68-2z';
-      return '<defs><radialGradient id="g' + u + '" cx=".35" cy=".3" r=".9"><stop offset="0" stop-color="' + P + '" stop-opacity=".55"/><stop offset=".6" stop-color="' + T + '" stop-opacity=".28"/><stop offset="1" stop-color="' + T + '" stop-opacity=".05"/></radialGradient></defs>' +
-        '<path fill="url(#g' + u + ')" d="' + d1 + '"><animate attributeName="d" dur="14s" repeatCount="indefinite" values="' + d1 + ';' + d2 + ';' + d3 + ';' + d1 + '" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1;.45 0 .55 1"/></path>' +
-        '<g class="hw-spin" style="animation-duration:40s"><path d="M30 120Q100 20 170 120" fill="none" stroke="' + D + '" stroke-width="1.2" opacity=".35" stroke-dasharray="3 7"/></g>';
+    function () { // bookshelf, one book pops out, plant sways
+      var rows = [[40, 44], [88, 44], [134, 44]], bk = '', x, i;
+      var ws = [10, 8, 12, 9, 11, 8, 10, 12], hs = [30, 38, 28, 34, 26, 36, 31, 28];
+      for (i = 0; i < 8; i++) { x = 46 + ws.slice(0, i).reduce(function (a, b) { return a + b + 3; }, 0); if (i === 3) { continue; } bk += '<rect x="' + x + '" y="' + (78 - hs[i]) + '" width="' + ws[i] + '" height="' + hs[i] + '" rx="2" fill="' + (i % 3 === 0 ? P : T) + '" fill-opacity=".38" ' + st(D, 1.4, .6) + '/>'; }
+      var px = 46 + [10, 8, 12].reduce(function (a, b) { return a + b + 3; }, 0);
+      return '<g ' + st(D, 2, .7) + '><rect x="34" y="28" width="132" height="146" rx="7"/><path d="M34 80h132M34 126h132"/></g>' + bk +
+        '<g class="hw-pop"><rect x="' + px + '" y="46" width="9" height="32" rx="2" fill="' + P + '" fill-opacity=".5" ' + st(D, 1.4, .6) + '/></g>' +
+        '<g ' + st(D, 1.6, .6) + '><rect x="62" y="104" width="22" height="22" rx="3" fill="' + T + '" fill-opacity=".2"/><rect x="104" y="110" width="40" height="16" rx="3" fill="' + P + '" fill-opacity=".25"/></g>' +
+        '<g class="hw-sway"><path d="M73 104c-8-10-8-20-2-26 6 8 8 18 2 26ZM73 104c8-10 10-18 6-24-8 6-9 16-6 24Z" fill="' + T + '" fill-opacity=".45" ' + st(T, 1.4) + '/></g>';
     },
-    function (u) { // counter-rotating hexagon and triangle
-      var hex = '100,22 168,61 168,139 100,178 32,139 32,61', tri = '100,56 146,136 54,136';
-      return '<defs><linearGradient id="g' + u + '" x1="0" x2="1" y2="1"><stop offset="0" stop-color="' + T + '"/><stop offset="1" stop-color="' + P + '"/></linearGradient></defs>' +
-        '<g class="hw-spin" style="animation-duration:36s"><polygon points="' + hex + '" fill="none" stroke="url(#g' + u + ')" stroke-width="1.6" stroke-dasharray="6 8" opacity=".7"/></g>' +
-        '<g class="hw-spin rev" style="animation-duration:18s"><polygon points="' + tri + '" fill="none" stroke="' + D + '" stroke-width="1.6" opacity=".5"/></g>' +
-        '<g class="hw-spin" style="animation-duration:12s"><path d="M100 70v60M70 100h60" stroke="' + P + '" stroke-width="2" stroke-linecap="round" opacity=".8"/></g>';
+    function () { // potted plant, leaves sway
+      return '<g ' + st(D, 2, .7) + '><path d="M70 150h60l-7 30H77Z" fill="' + P + '" fill-opacity=".25"/><path d="M66 150h68"/></g>' +
+        '<g class="hw-sway"><path d="M100 150C98 112 70 100 60 66c30 6 42 40 40 84Z" fill="' + T + '" fill-opacity=".32" ' + st(T, 1.8) + '/><path d="M100 150c2-50 30-58 42-96-32 10-46 50-42 96Z" fill="' + P + '" fill-opacity=".3" ' + st(P, 1.8) + '/><path d="M100 150V82" ' + st(D, 1.6, .6) + '/><path d="M100 150c-10-20-30-26-44-24 8 14 24 24 44 24Z" fill="' + T + '" fill-opacity=".25" ' + st(T, 1.6) + '/></g>';
+    },
+    function () { // wardrobe, doors open and close
+      return '<g ' + st(D, 2, .7) + '><rect x="40" y="24" width="120" height="146" rx="6"/><path d="M52 170v10M148 170v10"/></g>' +
+        '<g ' + st(D, 1.6, .5) + '><path d="M100 40v118"/><path d="M64 58h72" /><path d="M72 58l6 24h-12ZM100 58l6 24H94ZM128 58l6 24h-12Z" fill="' + P + '" fill-opacity=".3"/></g>' +
+        '<g class="hw-door-l"><rect x="44" y="28" width="56" height="138" rx="3" fill="' + T + '" fill-opacity=".22" ' + st(D, 1.8, .7) + '/><path d="M92 90v20" ' + st(D, 2.4, .8) + '/></g>' +
+        '<g class="hw-door-r"><rect x="100" y="28" width="56" height="138" rx="3" fill="' + P + '" fill-opacity=".22" ' + st(D, 1.8, .7) + '/><path d="M108 90v20" ' + st(D, 2.4, .8) + '/></g>';
+    },
+    function () { // armchair with a bobbing cushion
+      return '<g ' + st(D, 2, .7) + '><path d="M54 76a26 26 0 0 1 26-26h40a26 26 0 0 1 26 26v48H54Z" fill="' + T + '" fill-opacity=".14"/><rect x="38" y="92" width="24" height="52" rx="11"/><rect x="138" y="92" width="24" height="52" rx="11"/><rect x="52" y="118" width="96" height="28" rx="10" fill="' + P + '" fill-opacity=".14"/><path d="M60 146l-6 22M140 146l6 22"/></g>' +
+        '<g class="hw-bob"><rect x="68" y="96" width="64" height="24" rx="9" fill="' + P + '" fill-opacity=".38" ' + st(P, 1.8) + '/></g>';
+    },
+    function () { // bed with pillows and rising z's
+      return '<g ' + st(D, 2, .7) + '><rect x="26" y="70" width="14" height="92" rx="5"/><rect x="40" y="108" width="136" height="32" rx="8" fill="' + T + '" fill-opacity=".14"/><path d="M40 140v18M176 140v18"/><path d="M40 108q50-12 136 2" fill="' + P + '" fill-opacity=".3"/></g>' +
+        '<g class="hw-bob"><rect x="48" y="90" width="42" height="20" rx="9" fill="' + P + '" fill-opacity=".38" ' + st(P, 1.8) + '/></g>' +
+        '<g class="hw-rise" ' + st(T, 2.2) + '><path d="M120 70h14l-14 16h14"/></g><g class="hw-rise d2" ' + st(P, 2) + '><path d="M146 46h10l-10 12h10"/></g>';
+    },
+    function () { // cooking pot with steam
+      return '<g ' + st(D, 2, .7) + '><rect x="30" y="140" width="140" height="28" rx="6"/><path d="M60 140v-8M140 140v-8"/><path d="M56 132h88" /><path d="M64 132V92h72v40" fill="' + T + '" fill-opacity=".16"/><path d="M58 92h84"/><path d="M92 82h16"/><path d="M64 108H48M136 108h16"/></g>' +
+        '<g class="hw-steam" ' + st(T, 2.2) + '><path d="M84 72c-6-8 6-14 0-24"/></g><g class="hw-steam d2" ' + st(P, 2.2) + '><path d="M100 70c-6-8 6-14 0-26"/></g><g class="hw-steam d3" ' + st(T, 2.2) + '><path d="M116 72c-6-8 6-14 0-24"/></g>';
     }
   ];
 
@@ -78,13 +90,13 @@
     var narrow = window.innerWidth < 700, html = '';
     for (var i = 0; i < count; i++) {
       var left = i % 2 === 0;
-      var size = narrow ? 110 + (i % 3) * 30 : 170 + (i % 3) * 70;
+      var size = narrow ? 120 + (i % 3) * 30 : 190 + (i % 3) * 60;
       var top = 120 + i * step + (i % 3) * 60;
-      var edge = narrow ? -size * 0.55 : -size * 0.62;
+      var edge = narrow ? -size * 0.55 : -size * 0.74;
       var kind = i % shapes.length;
       html += '<svg class="hw-float' + (i % 2 ? ' b' : '') + '" viewBox="0 0 200 200" width="' + size + '" height="' + size + '" style="top:' + top + 'px;' + (left ? 'left:' : 'right:') + edge + 'px">' + shapes[kind]('a' + i) + '</svg>';
       if (!narrow && i % 2 === 1) { // a second, smaller accent on the opposite edge
-        var s2 = 90 + (i % 3) * 25;
+        var s2 = 120 + (i % 3) * 25;
         html += '<svg class="hw-float" viewBox="0 0 200 200" width="' + s2 + '" height="' + s2 + '" style="top:' + (top + step * 0.45) + 'px;' + (left ? "right:" : "left:") + (1 + (i % 3)) + '%">' + shapes[(kind + 2) % shapes.length]('b' + i) + '</svg>';
       }
     }

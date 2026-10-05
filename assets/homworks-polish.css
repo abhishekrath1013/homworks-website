@@ -32,7 +32,7 @@
 .whyh-card{height:100%}
 
 /* ---------- Abstract background ---------- */
-.hw-abstract{position:absolute;top:0;left:0;width:100%;overflow:hidden;opacity:.7;pointer-events:none;z-index:-1}
+.hw-abstract{position:absolute;top:0;left:0;width:100%;overflow:hidden;opacity:.5;pointer-events:none;z-index:-1}
 .hw-abstract svg{position:absolute;display:block;overflow:visible}
 .hw-abstract .hw-spin{transform-box:fill-box;transform-origin:center;animation:hwSpin 24s linear infinite}
 .hw-abstract .hw-spin.rev{animation-direction:reverse}
@@ -134,3 +134,74 @@ header.top:before{content:'';position:absolute;inset:0;z-index:-1;background:rgb
 .mnav{top:82px;height:calc(100vh - 82px);height:calc(100dvh - 82px);overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
 header.top.scrolled .mnav{top:72px;height:calc(100vh - 72px);height:calc(100dvh - 72px)}
 .menu-btn{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+
+/* ---------- Interior line-art animations (abstract background) ---------- */
+.hw-abstract .hw-bob{animation:hwBob 3.2s ease-in-out infinite}
+.hw-abstract .hw-bob.d2{animation-delay:-1.4s}
+.hw-abstract .hw-swing{transform-origin:100px 0;animation:hwSwing 5s ease-in-out infinite alternate}
+.hw-abstract .hw-glow{animation:hwGlow 3.4s ease-in-out infinite}
+.hw-abstract .hw-sway{transform-box:fill-box;transform-origin:50% 100%;animation:hwSway 4.5s ease-in-out infinite alternate}
+.hw-abstract .hw-eq rect{transform-box:fill-box;transform-origin:50% 100%;animation:hwEq 1.1s ease-in-out infinite alternate}
+.hw-abstract .hw-eq rect:nth-child(2){animation-delay:-.3s}.hw-abstract .hw-eq rect:nth-child(3){animation-delay:-.7s}
+.hw-abstract .hw-eq rect:nth-child(4){animation-delay:-.2s}.hw-abstract .hw-eq rect:nth-child(5){animation-delay:-.9s}.hw-abstract .hw-eq rect:nth-child(6){animation-delay:-.5s}
+.hw-abstract .hw-pop{animation:hwPop 6s ease-in-out infinite}
+.hw-abstract .hw-door-l{transform-box:fill-box;transform-origin:0 50%;animation:hwDoor 7s ease-in-out infinite}
+.hw-abstract .hw-door-r{transform-box:fill-box;transform-origin:100% 50%;animation:hwDoor 7s ease-in-out infinite}
+.hw-abstract .hw-steam,.hw-abstract .hw-rise{animation:hwSteam 3.2s ease-in infinite}
+.hw-abstract .d2{animation-delay:-1.1s}.hw-abstract .d3{animation-delay:-2.1s}
+@keyframes hwBob{50%{transform:translateY(-6px)}}
+@keyframes hwSwing{from{transform:rotate(-8deg)}to{transform:rotate(8deg)}}
+@keyframes hwGlow{0%,100%{opacity:.45}50%{opacity:1}}
+@keyframes hwSway{from{transform:rotate(-4deg)}to{transform:rotate(4deg)}}
+@keyframes hwEq{from{transform:scaleY(.25)}to{transform:scaleY(1)}}
+@keyframes hwPop{0%,30%,70%,100%{transform:translateY(0)}45%,55%{transform:translateY(-14px)}}
+@keyframes hwDoor{0%,15%,85%,100%{transform:scaleX(1)}40%,60%{transform:scaleX(.22)}}
+@keyframes hwSteam{0%{transform:translateY(8px);opacity:0}30%{opacity:.9}100%{transform:translateY(-22px);opacity:0}}
+
+/* ---------- Custom Homworks cursor (logomark) ---------- */
+html,body{cursor:url(cursor.png) 28 28,auto}
+a,button,[role=button],[role=tab],select,summary,label,.btn,.button,.guide-chip,.hc-card,.roll-card,input[type=submit],input[type=range]{cursor:url(cursor-hover.png) 32 32,pointer}
+input[type=text],input[type=email],input[type=tel],input[type=search],input:not([type]),textarea{cursor:text}
+@media(pointer:coarse){html,body,a,button{cursor:auto}}
+
+/* ---------- Interior banners: text and enquiry card sit side by side in proportion ---------- */
+@media(min-width:901px){
+  .hero2{padding-right:0}
+  .hero2 .container{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(320px,.8fr);column-gap:clamp(40px,6vw,96px);align-items:start}
+  .hero2 .container>*{grid-column:1}
+  .hero2 .container>.hero2-panel{grid-column:2;grid-row:1/span 7;position:relative;top:auto;right:auto;width:auto;align-self:center;padding:28px;max-width:440px;justify-self:end;width:100%}
+  .hero2-panel h4{font-size:18px;margin-bottom:18px}
+  .hero2-panel select,.hero2-panel input{padding:15px 14px;font-size:14px;margin-bottom:12px}
+  .hero2-panel .btn{padding-block:16px}
+  .hero2 h1{max-width:none}
+  .hero2-copy{max-width:520px}
+}
+
+/* ---------- Explore by layout: equal cards inside a taller band ---------- */
+.carousel[data-mode="marquee"]{padding:72px 0;background:linear-gradient(180deg,#f4f9f9,#eaf4f4);border-block:1px solid var(--line)}
+.carousel[data-mode="marquee"] .carousel-track{align-items:stretch;gap:22px}
+.roll-card,.roll-card:nth-child(odd),.roll-card:nth-child(3n){width:300px;min-height:380px;height:380px;transform:none;border-radius:22px}
+.roll-card:hover{transform:translateY(-8px) scale(1.02)!important}
+.roll-card .rc-tag{font-size:15px;left:20px;bottom:20px}
+
+/* ---------- Finishes: left and right columns match in height ---------- */
+.fin{align-items:stretch}
+.fin-intro{display:flex;flex-direction:column}
+.fin-intro figure{position:relative;flex:1 1 auto;min-height:220px;max-width:none;width:100%}
+.fin-intro figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.fin-grid{grid-template-rows:repeat(4,1fr) auto;align-content:stretch}
+.fin-card{align-items:center}
+@media(max-width:900px){.fin-intro figure{min-height:260px;flex:none}.fin-grid{grid-template-rows:none}}
+
+/* ---------- Tighter vertical rhythm between sections ---------- */
+section{padding-top:68px;padding-bottom:68px}
+.section{padding:64px 0}
+.section.tight{padding:48px 0}
+.challenge,.contact,.process{padding-top:72px;padding-bottom:72px}
+.featured{padding-top:20px}
+.hiw{margin-top:clamp(40px,5vw,64px)}
+.section-head{margin-bottom:clamp(28px,3.4vw,44px)}
+.hero2.plain .container{padding-bottom:32px}
+@media(max-width:620px){section{padding-top:48px;padding-bottom:48px}.section{padding:48px 0}}
+.hero,.hero2{padding-top:0;padding-bottom:0}
+.tcard-media{height:190px}

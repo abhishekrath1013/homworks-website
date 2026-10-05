@@ -17,29 +17,47 @@
   }
 
   /* ---------- Abstract background ---------- */
+  /* Looping, animated abstract shapes (no plain circles). `u` is a unique id for gradients. */
+  var T = '#2aaeb3', D = '#16555a', P = '#E3929E';
   var shapes = [
-    function (c) { // concentric rings
-      return '<circle cx="100" cy="100" r="96" fill="none" stroke="' + c[0] + '" stroke-width="1.5"/><circle cx="100" cy="100" r="68" fill="none" stroke="' + c[1] + '" stroke-width="1.5"/><circle cx="100" cy="100" r="40" fill="' + c[2] + '"/>';
+    function (u) { // orbit system: tilted ellipses with travelling light
+      var e1 = 'M20 100a80 32 0 1 0 160 0a80 32 0 1 0-160 0', e2 = 'M30 100a70 28 0 1 0 140 0a70 28 0 1 0-140 0';
+      return '<defs><linearGradient id="g' + u + '" x1="0" x2="1"><stop offset="0" stop-color="' + T + '"/><stop offset="1" stop-color="' + P + '"/></linearGradient></defs>' +
+        '<g class="hw-spin" style="animation-duration:26s"><ellipse cx="100" cy="100" rx="80" ry="32" fill="none" stroke="url(#g' + u + ')" stroke-width="1.6" opacity=".7"/>' +
+        '<circle r="5" fill="' + P + '"><animateMotion dur="7s" repeatCount="indefinite" path="' + e1 + '"/></circle></g>' +
+        '<g class="hw-spin rev" style="animation-duration:34s"><ellipse cx="100" cy="100" rx="70" ry="28" transform="rotate(60 100 100)" fill="none" stroke="' + T + '" stroke-width="1.4" opacity=".6"/>' +
+        '<g transform="rotate(60 100 100)"><circle r="4" fill="' + T + '"><animateMotion dur="9s" repeatCount="indefinite" path="' + e2 + '"/></circle></g></g>' +
+        '<polygon points="100,84 114,100 100,116 86,100" fill="url(#g' + u + ')" class="hw-pulse"/>';
     },
-    function (c) { // dot grid
-      var s = '';
-      for (var y = 0; y < 8; y++) for (var x = 0; x < 8; x++) s += '<circle cx="' + (14 + x * 24) + '" cy="' + (14 + y * 24) + '" r="2.6" fill="' + c[0] + '"/>';
+    function (u) { // Homworks-style stacked blocks, turning and breathing
+      return '<defs><linearGradient id="g' + u + '" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="' + P + '"/><stop offset="1" stop-color="' + T + '"/></linearGradient></defs>' +
+        '<g class="hw-spin" style="animation-duration:30s"><rect x="58" y="58" width="84" height="84" rx="14" fill="none" stroke="' + D + '" stroke-width="1.4" opacity=".4"/></g>' +
+        '<g class="hw-spin rev" style="animation-duration:22s"><rect x="58" y="58" width="84" height="84" rx="14" fill="none" stroke="url(#g' + u + ')" stroke-width="2" opacity=".75"/></g>' +
+        '<g class="hw-pulse"><rect x="82" y="46" width="36" height="56" rx="8" fill="' + P + '" opacity=".55"/><rect x="82" y="98" width="36" height="56" rx="8" fill="' + T + '" opacity=".55"/></g>';
+    },
+    function (u) { // flowing wave lines that draw themselves in a loop
+      var s = '<defs><linearGradient id="g' + u + '" x1="0" x2="1"><stop offset="0" stop-color="' + T + '" stop-opacity="0"/><stop offset=".5" stop-color="' + T + '"/><stop offset="1" stop-color="' + P + '" stop-opacity="0"/></linearGradient></defs>';
+      for (var i = 0; i < 6; i++) {
+        var y = 40 + i * 24;
+        s += '<path class="hw-flow" style="animation-delay:' + (-i * 1.1) + 's;animation-duration:' + (7 + i) + 's" d="M0 ' + y + 'C40 ' + (y - 26) + ' 70 ' + (y + 26) + ' 100 ' + y + 'S160 ' + (y - 26) + ' 200 ' + y + '" fill="none" stroke="url(#g' + u + ')" stroke-width="2" stroke-linecap="round" pathLength="100"/>';
+      }
       return s;
     },
-    function (c) { // soft blob
-      return '<path d="M150 30c26 18 38 52 28 82-10 31-40 56-74 58-34 2-66-20-72-52-6-32 14-62 44-80 25-15 49-22 74-8z" fill="' + c[2] + '"/>';
+    function (u) { // morphing gradient blob
+      var d1 = 'M150 34c26 18 38 52 28 82-10 31-40 56-74 58-34 2-66-20-72-52-6-32 14-62 44-80 25-15 49-22 74-8z';
+      var d2 = 'M160 52c20 24 22 58 6 84-16 27-48 42-78 36-31-6-56-32-56-62 0-32 24-60 54-72 26-10 54-12 74 14z';
+      var d3 = 'M146 40c30 12 44 46 34 78-9 30-36 52-68 54-32 2-64-18-72-50-8-32 8-64 38-80 28-14 38-14 68-2z';
+      return '<defs><radialGradient id="g' + u + '" cx=".35" cy=".3" r=".9"><stop offset="0" stop-color="' + P + '" stop-opacity=".55"/><stop offset=".6" stop-color="' + T + '" stop-opacity=".28"/><stop offset="1" stop-color="' + T + '" stop-opacity=".05"/></radialGradient></defs>' +
+        '<path fill="url(#g' + u + ')" d="' + d1 + '"><animate attributeName="d" dur="14s" repeatCount="indefinite" values="' + d1 + ';' + d2 + ';' + d3 + ';' + d1 + '" calcMode="spline" keySplines=".45 0 .55 1;.45 0 .55 1;.45 0 .55 1"/></path>' +
+        '<g class="hw-spin" style="animation-duration:40s"><path d="M30 120Q100 20 170 120" fill="none" stroke="' + D + '" stroke-width="1.2" opacity=".35" stroke-dasharray="3 7"/></g>';
     },
-    function (c) { // arcs
-      return '<path d="M10 150a90 90 0 0 1 180 0" fill="none" stroke="' + c[0] + '" stroke-width="1.5"/><path d="M34 150a66 66 0 0 1 132 0" fill="none" stroke="' + c[1] + '" stroke-width="1.5"/><path d="M58 150a42 42 0 0 1 84 0" fill="none" stroke="' + c[0] + '" stroke-width="1.5"/>';
-    },
-    function (c) { // plus marks
-      return '<path d="M40 20v40M20 40h40M150 110v40M130 130h40M70 150v28M56 164h28" fill="none" stroke="' + c[1] + '" stroke-width="2" stroke-linecap="round"/>';
+    function (u) { // counter-rotating hexagon and triangle
+      var hex = '100,22 168,61 168,139 100,178 32,139 32,61', tri = '100,56 146,136 54,136';
+      return '<defs><linearGradient id="g' + u + '" x1="0" x2="1" y2="1"><stop offset="0" stop-color="' + T + '"/><stop offset="1" stop-color="' + P + '"/></linearGradient></defs>' +
+        '<g class="hw-spin" style="animation-duration:36s"><polygon points="' + hex + '" fill="none" stroke="url(#g' + u + ')" stroke-width="1.6" stroke-dasharray="6 8" opacity=".7"/></g>' +
+        '<g class="hw-spin rev" style="animation-duration:18s"><polygon points="' + tri + '" fill="none" stroke="' + D + '" stroke-width="1.6" opacity=".5"/></g>' +
+        '<g class="hw-spin" style="animation-duration:12s"><path d="M100 70v60M70 100h60" stroke="' + P + '" stroke-width="2" stroke-linecap="round" opacity=".8"/></g>';
     }
-  ];
-  var palettes = [
-    ['#bfe3e3', '#f3c9cf', '#e3f3f3'],
-    ['#9fd5d6', '#d8eeee', '#f9e6e9'],
-    ['#f0b9c1', '#bfe3e3', '#eaf6f6']
   ];
 
   function buildAbstract() {
@@ -62,16 +80,18 @@
       var left = i % 2 === 0;
       var size = narrow ? 110 + (i % 3) * 30 : 170 + (i % 3) * 70;
       var top = 120 + i * step + (i % 3) * 60;
-      var edge = narrow ? -size * 0.45 : -size * 0.25 + (i % 4) * 18;
+      var edge = narrow ? -size * 0.55 : -size * 0.62;
       var kind = i % shapes.length;
-      var pal = palettes[i % palettes.length];
-      html += '<svg class="hw-float' + (i % 2 ? ' b' : '') + '" viewBox="0 0 200 200" width="' + size + '" height="' + size + '" style="top:' + top + 'px;' + (left ? 'left:' : 'right:') + edge + 'px">' + shapes[kind](pal) + '</svg>';
+      html += '<svg class="hw-float' + (i % 2 ? ' b' : '') + '" viewBox="0 0 200 200" width="' + size + '" height="' + size + '" style="top:' + top + 'px;' + (left ? 'left:' : 'right:') + edge + 'px">' + shapes[kind]('a' + i) + '</svg>';
       if (!narrow && i % 2 === 1) { // a second, smaller accent on the opposite edge
         var s2 = 90 + (i % 3) * 25;
-        html += '<svg class="hw-float" viewBox="0 0 200 200" width="' + s2 + '" height="' + s2 + '" style="top:' + (top + step * 0.45) + 'px;' + (left ? 'right:' : 'left:') + (3 + (i % 3) * 2) + '%">' + shapes[(kind + 2) % shapes.length](palettes[(i + 1) % palettes.length]) + '</svg>';
+        html += '<svg class="hw-float" viewBox="0 0 200 200" width="' + s2 + '" height="' + s2 + '" style="top:' + (top + step * 0.45) + 'px;' + (left ? "right:" : "left:") + (1 + (i % 3)) + '%">' + shapes[(kind + 2) % shapes.length]('b' + i) + '</svg>';
       }
     }
     host.innerHTML = html;
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      host.querySelectorAll('svg').forEach(function (v) { if (v.pauseAnimations) v.pauseAnimations(); });
+    }
   }
 
   var abstractTimer;

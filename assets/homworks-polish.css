@@ -32,12 +32,19 @@
 .whyh-card{height:100%}
 
 /* ---------- Abstract background ---------- */
-.hw-abstract{position:absolute;top:0;left:0;width:100%;overflow:hidden;pointer-events:none;z-index:-1}
-.hw-abstract svg{position:absolute;display:block;opacity:.9}
+.hw-abstract{position:absolute;top:0;left:0;width:100%;overflow:hidden;opacity:.7;pointer-events:none;z-index:-1}
+.hw-abstract svg{position:absolute;display:block;overflow:visible}
+.hw-abstract .hw-spin{transform-box:fill-box;transform-origin:center;animation:hwSpin 24s linear infinite}
+.hw-abstract .hw-spin.rev{animation-direction:reverse}
+.hw-abstract .hw-pulse{transform-box:fill-box;transform-origin:center;animation:hwPulse 5s ease-in-out infinite}
+.hw-abstract .hw-flow{stroke-dasharray:40 60;animation:hwFlow 8s linear infinite}
 .hw-abstract .hw-float{animation:hwAbsFloat 18s ease-in-out infinite}
 .hw-abstract .hw-float.b{animation-duration:24s;animation-delay:-8s}
-@keyframes hwAbsFloat{50%{transform:translate(14px,-18px) rotate(4deg)}}
-@media(prefers-reduced-motion:reduce){.hw-abstract .hw-float{animation:none}}
+@keyframes hwSpin{to{transform:rotate(360deg)}}
+@keyframes hwPulse{50%{transform:scale(1.18)}}
+@keyframes hwFlow{to{stroke-dashoffset:-100}}
+@keyframes hwAbsFloat{50%{transform:translate(14px,-18px)}}
+@media(prefers-reduced-motion:reduce){.hw-abstract *{animation:none!important}}
 
 /* ---------- Floating brochure button ---------- */
 .hw-brochure-fab{

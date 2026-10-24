@@ -42,15 +42,24 @@
 <main id="top">
 
 <!-- HERO -->
-<section class="hero" aria-labelledby="h1">
-  <div class="hero-bg" id="heroBg" tabindex="0" role="slider" aria-label="Drag to compare before and after" aria-valuemin="0" aria-valuemax="100" aria-valuenow="52">
-    <img class="hero-after" src="assets/home5/hero-after.webp" alt="" width="1549" height="768" fetchpriority="high">
-    <div class="hero-before"><img src="assets/home5/hero-before.webp" alt="" width="1600" height="1067"></div>
-    <div class="hero-grab" aria-hidden="true"></div>
-    <svg class="hero-line" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><line id="hLine" x1="62.6" y1="0" x2="41.7" y2="100"/></svg>
+<section class="hero" id="hero" aria-labelledby="h1">
+  <div class="hero-bg" id="heroBg">
+    <img class="hero-before" src="assets/home5/hero-before.webp" alt="" width="1376" height="768" fetchpriority="high">
+    <svg class="hero-after" id="heroSvg" aria-hidden="true" focusable="false">
+      <defs>
+        <filter id="hGoo" filterUnits="userSpaceOnUse" x="0" y="0" width="100" height="100" color-interpolation-filters="sRGB">
+          <feTurbulence type="fractalNoise" baseFrequency="0.0065 0.0095" numOctaves="2" seed="7" result="n"/>
+          <feDisplacementMap in="SourceGraphic" in2="n" scale="150" xChannelSelector="R" yChannelSelector="G"/>
+        </filter>
+        <mask id="hMask" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100">
+          <g filter="url(#hGoo)"><circle id="hc0" r="0" fill="#fff"/><circle id="hc1" r="0" fill="#fff"/><circle id="hc2" r="0" fill="#fff"/></g>
+        </mask>
+      </defs>
+      <image id="hImg" href="assets/home5/hero-after.webp" x="0" y="0" width="100" height="100" preserveAspectRatio="xMidYMid slice" mask="url(#hMask)"/>
+    </svg>
   </div>
   <div class="hero-copy">
-    <h1 id="h1">From sign-off<br>to <em>move-in,</em><br>in 30 days.<sup>*</sup></h1>
+    <h1 id="h1">from sign-off<br><em>to move-in,</em><br>in 30 days.<sup>*</sup></h1>
     <p>Approve your 3D design and fixed quote.<br>Stay updated from production to handover.</p>
     <a class="hero-btn" href="#contact">FREE Consultation, Book NOW</a>
   </div>
@@ -62,6 +71,64 @@
     <p class="aw-t">Recognized for excellence, with award-winning designs celebrated over the years.</p>
     <div class="aw-win"><ul class="aw-track"><li class="aw"><span class="em atelier"><img src="assets/home5/aw-atelier.svg" alt=""></span><span class="tx"><b class="f-cor">ATELIER</b><i>RESIDENTIAL DESIGN PRIZE</i><small>FICTIONAL AWARD 2022</small></span></li><li class="aw"><span class="em form"><img src="assets/home5/aw-form.svg" alt=""></span><span class="tx"><b class="f-play">FORM</b><i>INTERIOR DESIGN PRIZE</i><small>FICTIONAL AWARD 2026</small></span></li><li class="aw"><span class="em habitat"><img src="assets/home5/aw-habitat.svg" alt=""></span><span class="tx"><b class="f-int">HABITAT</b><i>SPATIAL DESIGN AWARDS</i><small>FICTIONAL AWARD 2020</small></span></li><li class="aw"><span class="em volume"><img src="assets/home5/aw-volume.svg" alt=""></span><span class="tx"><b class="f-arch">VOLUME</b><i>INTERIORS DISTINCTION</i><small>FICTIONAL AWARD 2026</small></span></li><li class="aw"><span class="em pace"><img src="assets/home5/aw-pace.svg" alt=""></span><span class="tx"><b class="f-mono">PACE</b><i>LIFESTYLE &amp; FLOW AWARD</i><small>FICTIONAL AWARD 2026</small></span></li><li class="aw"><span class="em origin"><img src="assets/home5/aw-origin.svg" alt=""></span><span class="tx"><b class="f-intb">ORIGIN</b><i>MATERIALITY &amp; CRAFT PRIZE</i><small>FICTIONAL AWARD 2022</small></span></li><li class="aw" aria-hidden="true"><span class="em atelier"><img src="assets/home5/aw-atelier.svg" alt=""></span><span class="tx"><b class="f-cor">ATELIER</b><i>RESIDENTIAL DESIGN PRIZE</i><small>FICTIONAL AWARD 2022</small></span></li><li class="aw" aria-hidden="true"><span class="em form"><img src="assets/home5/aw-form.svg" alt=""></span><span class="tx"><b class="f-play">FORM</b><i>INTERIOR DESIGN PRIZE</i><small>FICTIONAL AWARD 2026</small></span></li><li class="aw" aria-hidden="true"><span class="em habitat"><img src="assets/home5/aw-habitat.svg" alt=""></span><span class="tx"><b class="f-int">HABITAT</b><i>SPATIAL DESIGN AWARDS</i><small>FICTIONAL AWARD 2020</small></span></li><li class="aw" aria-hidden="true"><span class="em volume"><img src="assets/home5/aw-volume.svg" alt=""></span><span class="tx"><b class="f-arch">VOLUME</b><i>INTERIORS DISTINCTION</i><small>FICTIONAL AWARD 2026</small></span></li><li class="aw" aria-hidden="true"><span class="em pace"><img src="assets/home5/aw-pace.svg" alt=""></span><span class="tx"><b class="f-mono">PACE</b><i>LIFESTYLE &amp; FLOW AWARD</i><small>FICTIONAL AWARD 2026</small></span></li><li class="aw" aria-hidden="true"><span class="em origin"><img src="assets/home5/aw-origin.svg" alt=""></span><span class="tx"><b class="f-intb">ORIGIN</b><i>MATERIALITY &amp; CRAFT PRIZE</i><small>FICTIONAL AWARD 2022</small></span></li></ul></div>
   </div>
+</section>
+
+<!-- WHAT WE DESIGN -->
+<section id="spaces" aria-labelledby="wwdH">
+  <div class="prod-h">
+    <div class="rv">
+      <p class="eyebrow">What We Design</p>
+      <h2 id="wwdH">Every room, in models <em>you can picture.</em></h2>
+    </div>
+    <p class="rv d1">Kitchens, bedrooms, wardrobes, living rooms and kids' rooms – each shown in the layouts and styles our designers build most.</p>
+  </div>
+  <div class="cards" id="cards">
+    <a class="cat" href="full-home-interiors.html"><img src="assets/home5/card-2.webp" alt="" loading="lazy"><small>Whole-home design</small><b>Full Home Interiors</b><span class="chip">View designs</span><span class="prog"><i></i></span></a>
+    <a class="cat" href="living-rooms.html"><img src="assets/home5/card-1.webp" alt="" loading="lazy"><small>Storage &amp; TV units</small><b>Living Area</b><span class="chip">View designs</span><span class="prog"><i></i></span></a>
+    <a class="cat on" href="modular-kitchens.html"><img src="assets/home5/card-0.webp" alt="" loading="lazy"><small>Six engineered layouts</small><b>Modular Kitchen</b><span class="chip">View designs</span><span class="prog"><i></i></span></a>
+    <a class="cat" href="bedrooms.html"><img src="assets/home5/card-3.webp" alt="" loading="lazy"><small>Master to kids' rooms</small><b>Bedroom</b><span class="chip">View designs</span><span class="prog"><i></i></span></a>
+  </div>
+</section>
+
+<!-- KITCHEN -->
+<section class="kit" id="kitchens" aria-labelledby="kitH">
+  <div class="kit-in">
+    <div class="kit-copy rv" id="kitCopy">
+      <h2 id="kitH">The kitchen of your dreams</h2>
+      <p id="kitP">Once only a place to cook, the kitchen is now where families gather. Choose from six layouts in six styles, shaped around the people who use it.</p>
+      <div class="pills" id="kitPills">
+        <a href="design-styles.html">Indian Classic</a><a href="design-styles.html">Contemporary</a><a href="design-styles.html">Indian Traditional</a><a href="design-styles.html">Minimalistic</a><a href="design-styles.html">Modern</a><a href="design-styles.html">English Classic</a>
+      </div>
+      <a class="kit-link" id="kitLink" href="modular-kitchens.html"><span>Explore modular kitchens</span><span>›</span></a>
+    </div>
+    <div class="kit-right rv d1">
+      <div class="rail"><div class="track" id="ktrack">
+        <a class="kcard" href="kitchen-l-shaped.html"><figure><img src="assets/home/kitchen-l-shaped.jpg" alt="L-shaped modular kitchen" loading="lazy"></figure><div><h3>L-shaped</h3><p>A popular corner layout with an efficient work triangle and room for an island.</p><span class="pal"><i style="--c:#b4a9a0"></i><i style="--c:#756d69"></i><i style="--c:#534b46"></i><i style="--c:#ce9f6c"></i></span></div></a>
+        <a class="kcard" href="kitchen-u-shaped.html"><figure><img src="assets/home/kitchen-u-shaped.jpg" alt="U-shaped modular kitchen" loading="lazy"></figure><div><h3>U-shaped</h3><p>Three-sided cabinetry saves space and adds storage for shared cooking.</p><span class="pal"><i style="--c:#b59f8c"></i><i style="--c:#6f6e6c"></i><i style="--c:#73675f"></i><i style="--c:#50422b"></i></span></div></a>
+        <a class="kcard" href="kitchen-galley.html"><figure><img src="assets/home/kitchen-galley.jpg" alt="Galley modular kitchen" loading="lazy"></figure><div><h3>Galley</h3><p>Facing walls maximize storage and create an efficient work triangle in narrow spaces.</p><span class="pal"><i style="--c:#d4c9c3"></i><i style="--c:#8b746c"></i><i style="--c:#7f6c63"></i><i style="--c:#9a5b3f"></i></span></div></a>
+        <a class="kcard" href="kitchen-one-wall.html"><figure><img src="assets/home/kitchen-straight.jpg" alt="One-wall modular kitchen" loading="lazy"></figure><div><h3>One-wall</h3><p>Every workstation along a single wall – simple, unobstructed and ideal for a smaller villa or condo.</p><span class="pal"><i style="--c:#dbd1ca"></i><i style="--c:#6b6661"></i><i style="--c:#222120"></i><i style="--c:#473e38"></i></span></div></a>
+        <a class="kcard" href="kitchen-peninsular.html"><figure><img src="assets/home/kitchen-peninsular.jpg" alt="Peninsular modular kitchen" loading="lazy"></figure><div><h3>Peninsular</h3><p>A U-shape with a connected extension – extra counter, a breakfast corner and a defined open-plan space.</p><span class="pal"><i style="--c:#b3aca4"></i><i style="--c:#353236"></i><i style="--c:#3f4860"></i><i style="--c:#8a837d"></i></span></div></a>
+        <a class="kcard" href="kitchen-island.html"><figure><img src="assets/home/kitchen-island.jpg" alt="Island modular kitchen" loading="lazy"></figure><div><h3>Island</h3><p>Any layout, plus a freestanding island for prep, socialising and appliances.</p><span class="pal"><i style="--c:#cfc2b8"></i><i style="--c:#7a5e49"></i><i style="--c:#342718"></i><i style="--c:#b8824e"></i></span></div></a>
+      </div></div>
+      <div class="rail-nav">
+        <button type="button" id="kprev" aria-label="Previous layouts"><svg viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+        <button type="button" id="knext" aria-label="Next layouts"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INTERIOR GUIDE -->
+<section class="guide2" id="guide" aria-labelledby="guideH">
+  <div class="g2-h">
+    <div class="rv"><p class="eyebrow">Homeworks Interior Guide</p><h2 id="guideH">WHAT’S INSIDE?<br>Sixteen important questions.</h2></div>
+    <p class="g2-sub rv d1">Questions that decide how your home will stay strong and look great for decades to come.<br><br>Ask them before you choose anyone.</p>
+  </div>
+  <div class="g2-wrap" id="gWrap">
+    <div class="g2-grid rv" id="gGrid"></div>
+    <aside class="g2-pop" id="gPop" aria-live="polite" hidden></aside>
+  </div>
+  <div class="g2-back" id="gBack" hidden></div>
 </section>
 
 <!-- HOW IT WORKS -->
@@ -142,66 +209,6 @@
   </div>
 </section>
 
-<!-- WHAT WE DESIGN -->
-<section id="spaces" aria-labelledby="wwdH">
-  <div class="prod-h">
-    <div class="rv">
-      <p class="eyebrow">What We Design</p>
-      <h2 id="wwdH">Every room, in models <em>you can picture.</em></h2>
-    </div>
-    <p class="rv d1">Kitchens, bedrooms, wardrobes, living rooms and kids' rooms – each shown in the layouts and styles our designers build most.</p>
-  </div>
-  <div class="cards" id="cards">
-    <a class="cat" href="full-home-interiors.html"><img src="assets/home5/card-2.webp" alt="" loading="lazy"><small>Whole-home design</small><b>Full Home Interiors</b><span class="chip">View designs</span><span class="prog"><i></i></span></a>
-    <a class="cat" href="living-rooms.html"><img src="assets/home5/card-1.webp" alt="" loading="lazy"><small>Storage &amp; TV units</small><b>Living Area</b><span class="chip">View designs</span><span class="prog"><i></i></span></a>
-    <a class="cat on" href="modular-kitchens.html"><img src="assets/home5/card-0.webp" alt="" loading="lazy"><small>Six engineered layouts</small><b>Modular Kitchen</b><span class="chip">View designs</span><span class="prog"><i></i></span></a>
-    <a class="cat" href="bedrooms.html"><img src="assets/home5/card-3.webp" alt="" loading="lazy"><small>Master to kids' rooms</small><b>Bedroom</b><span class="chip">View designs</span><span class="prog"><i></i></span></a>
-  </div>
-</section>
-
-<!-- KITCHEN -->
-<section class="kit" id="kitchens" aria-labelledby="kitH">
-  <div class="kit-in">
-    <div class="kit-copy rv" id="kitCopy">
-      <h2 id="kitH">The kitchen of your dreams</h2>
-      <p id="kitP">Once only a place to cook, the kitchen is now where families gather. Choose from six layouts in six styles, shaped around the people who use it.</p>
-      <div class="pills" id="kitPills">
-        <a href="design-styles.html">Indian Classic</a><a href="design-styles.html">Contemporary</a><a href="design-styles.html">Indian Traditional</a><a href="design-styles.html">Minimalistic</a><a href="design-styles.html">Modern</a><a href="design-styles.html">English Classic</a>
-      </div>
-      <a class="kit-link" id="kitLink" href="modular-kitchens.html"><span>Explore modular kitchens</span><span>›</span></a>
-    </div>
-    <div class="kit-right rv d1">
-      <div class="rail"><div class="track" id="ktrack">
-        <a class="kcard" href="kitchen-l-shaped.html"><figure><img src="assets/home/kitchen-l-shaped.jpg" alt="L-shaped modular kitchen" loading="lazy"></figure><div><h3>L-shaped</h3><p>A popular corner layout with an efficient work triangle and room for an island.</p><span class="pal"><i style="--c:#b4a9a0"></i><i style="--c:#756d69"></i><i style="--c:#534b46"></i><i style="--c:#ce9f6c"></i></span></div></a>
-        <a class="kcard" href="kitchen-u-shaped.html"><figure><img src="assets/home/kitchen-u-shaped.jpg" alt="U-shaped modular kitchen" loading="lazy"></figure><div><h3>U-shaped</h3><p>Three-sided cabinetry saves space and adds storage for shared cooking.</p><span class="pal"><i style="--c:#b59f8c"></i><i style="--c:#6f6e6c"></i><i style="--c:#73675f"></i><i style="--c:#50422b"></i></span></div></a>
-        <a class="kcard" href="kitchen-galley.html"><figure><img src="assets/home/kitchen-galley.jpg" alt="Galley modular kitchen" loading="lazy"></figure><div><h3>Galley</h3><p>Facing walls maximize storage and create an efficient work triangle in narrow spaces.</p><span class="pal"><i style="--c:#d4c9c3"></i><i style="--c:#8b746c"></i><i style="--c:#7f6c63"></i><i style="--c:#9a5b3f"></i></span></div></a>
-        <a class="kcard" href="kitchen-one-wall.html"><figure><img src="assets/home/kitchen-straight.jpg" alt="One-wall modular kitchen" loading="lazy"></figure><div><h3>One-wall</h3><p>Every workstation along a single wall – simple, unobstructed and ideal for a smaller villa or condo.</p><span class="pal"><i style="--c:#dbd1ca"></i><i style="--c:#6b6661"></i><i style="--c:#222120"></i><i style="--c:#473e38"></i></span></div></a>
-        <a class="kcard" href="kitchen-peninsular.html"><figure><img src="assets/home/kitchen-peninsular.jpg" alt="Peninsular modular kitchen" loading="lazy"></figure><div><h3>Peninsular</h3><p>A U-shape with a connected extension – extra counter, a breakfast corner and a defined open-plan space.</p><span class="pal"><i style="--c:#b3aca4"></i><i style="--c:#353236"></i><i style="--c:#3f4860"></i><i style="--c:#8a837d"></i></span></div></a>
-        <a class="kcard" href="kitchen-island.html"><figure><img src="assets/home/kitchen-island.jpg" alt="Island modular kitchen" loading="lazy"></figure><div><h3>Island</h3><p>Any layout, plus a freestanding island for prep, socialising and appliances.</p><span class="pal"><i style="--c:#cfc2b8"></i><i style="--c:#7a5e49"></i><i style="--c:#342718"></i><i style="--c:#b8824e"></i></span></div></a>
-      </div></div>
-      <div class="rail-nav">
-        <button type="button" id="kprev" aria-label="Previous layouts"><svg viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
-        <button type="button" id="knext" aria-label="Next layouts"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FINISHES -->
-<section class="fin" id="finishes" aria-labelledby="finH">
-  <div class="fin-in">
-    <p class="eyebrow rv">Finishes</p>
-    <h2 id="finH" class="rv">A spectrum of <em>texture &amp; colour</em></h2>
-    <p class="fin-sub rv">Surface inspection calibrated light detail matters</p>
-    <div class="fin-grid">
-      <article class="fcard rv"><figure><img src="assets/home5/fin-lamination.webp" alt="Lamination finish samples" loading="lazy"></figure><div><h3>Lamination</h3><p>The most common finish, and it withstands any rough surface. It brings out a natural, seamless look. Its understated appearance lets the material take centre stage, creating a cohesive finish that complements a range of interior styles—from clean, contemporary spaces to warm, traditional settings.</p></div></article>
-      <article class="fcard rv d1"><figure><img src="assets/home5/fin-membrane.webp" alt="Membrane finish samples" loading="lazy"></figure><div><h3>Membrane</h3><p>A unique finish with a natural appeal, at home in traditional and contemporary designs — in matte, gloss, wooden and many colours.</p></div></article>
-      <article class="fcard rv"><figure><img src="assets/home5/fin-acrylic.webp" alt="Acrylic finish samples" loading="lazy"></figure><div><h3>Acrylic</h3><p>A glossy, almost mirror-like surface with a plush sheen — non-toxic, and available in a wide range of colours.</p></div></article>
-      <article class="fcard rv d1"><figure><img src="assets/home5/fin-pu.webp" alt="PU paint finish samples" loading="lazy"></figure><div><h3>PU paint</h3><p>A finish that elevates the space, protects the cabinets and lasts longer — sturdier and stronger.</p></div></article>
-    </div>
-  </div>
-</section>
-
 <!-- WHY HOMWORKS -->
 <section class="why" id="why" aria-labelledby="whyH">
   <div class="why-hero">
@@ -214,13 +221,35 @@
     <div class="wl rv">
       <p>Every material clears a stringent QC process, from sourcing right through to installation. We combine AI-supported design software with skilled workmanship for results you can rely on.</p>
       <p>From hardwood selection to moisture resistance, our standards are built to outlast trends — and the years ahead.</p>
-      <figure><img src="assets/home5/why-photo.webp" alt="A craftsperson checking board thickness" loading="lazy"></figure>
+      <figure><img src="assets/home5/why-photo.webp" alt="A craftsperson fitting a drawer" loading="lazy"></figure>
       <img class="wlogo" src="assets/home5/logo-nav.svg" alt="Homworks" width="176" height="42">
     </div>
     <div class="wr rv d1">
-      <div class="wlist" id="wlist"><article class="wrow"><figure><img src="assets/home5/why-1.webp" alt="" loading="lazy"></figure><div><small>Quality 01</small><h3>Certified quality raw material</h3><p>Every material clears a stringent QC process, from sourcing right through to installation.</p></div></article><article class="wrow"><figure><img src="assets/home5/why-2.webp" alt="" loading="lazy"></figure><div><small>Quality 02</small><h3>Factory-made, fine finish</h3><p>AI-supported design software and skilled workmanship for a flawless, factory-precise finish.</p></div></article><article class="wrow"><figure><img src="assets/home5/why-3.webp" alt="" loading="lazy"></figure><div><small>Quality 03</small><h3>Unlimited choice</h3><p>A wide range of designs, colours and finishing options for every room in your home.</p></div></article><article class="wrow"><figure><img src="assets/home5/why-4.webp" alt="" loading="lazy"></figure><div><small>Quality 04</small><h3>10-year warranty, real after-sales</h3><p>Every project is backed by our warranty and prompt after-sales service.</p></div></article><article class="wrow"><figure><img src="assets/home5/why-5.webp" alt="" loading="lazy"></figure><div><small>Quality 05</small><h3>Superior, strong material</h3><p>Selected hardwood core and face veneers, chosen for wear and damage resistance.</p></div></article><article class="wrow"><figure><img src="assets/home5/why-6.webp" alt="" loading="lazy"></figure><div><small>Quality 06</small><h3>High screw-holding ability</h3><p>High-density hardwood species give every joint exceptional holding strength.</p></div></article><article class="wrow"><figure><img src="assets/home5/why-7.webp" alt="" loading="lazy"></figure><div><small>Quality 07</small><h3>Fungus &amp; termite resistant</h3><p>Treated against fungus, borer and termite, for interiors that are built to last.</p></div></article><article class="wrow"><figure><img src="assets/home5/why-8.webp" alt="" loading="lazy" style="object-position:70% 50%"></figure><div><small>Quality 08</small><h3>Moisture resistant, precisely made</h3><p>Moisture-resistant materials with precision-engineered dimensions – no room for error.</p></div></article></div>
+      <div class="wlist" id="wlist"><article class="wc"><figure><img src="assets/home5/w7-1.webp" alt="" loading="lazy" style="object-position:30% 40%"></figure><div><h3>Certified quality raw material</h3><p>Every material clears a stringent QC process, from sourcing right through to installation.</p></div></article><article class="wc"><figure><img src="assets/home5/w7-2.webp" alt="" loading="lazy" style="object-position:50% 50%"></figure><div><h3>Factory-made, fine finish</h3><p>AI-supported design software and skilled workmanship for a flawless, factory-precise finish.</p></div></article><article class="wc"><figure><img src="assets/home5/w7-3.webp" alt="" loading="lazy" style="object-position:45% 50%"></figure><div><h3>Unlimited choice</h3><p>A wide range of designs, colours and finishing options for every room in your home.</p></div></article><article class="wc"><figure><img src="assets/home5/w7-4.webp" alt="" loading="lazy" style="object-position:52% 50%"></figure><div><h3>10-year warranty, real after-sales</h3><p>Every project is backed by our warranty and prompt after-sales service.</p></div></article><article class="wc"><figure><img src="assets/home5/w7-5.webp" alt="" loading="lazy" style="object-position:38% 50%"></figure><div><h3>Superior, strong material</h3><p>Selected hardwood core and face veneers, chosen for wear and damage resistance.</p></div></article><article class="wc"><figure><img src="assets/home5/w7-6.webp" alt="" loading="lazy" style="object-position:30% 50%"></figure><div><h3>High screw-holding ability</h3><p>High-density hardwood species give every joint exceptional holding strength.</p></div></article><article class="wc"><figure><img src="assets/home5/w7-7.webp" alt="" loading="lazy" style="object-position:40% 50%"></figure><div><h3>Fungus &amp; termite resistant</h3><p>Treated against fungus, borer and termite, for interiors that are built to last.</p></div></article><article class="wc"><figure><img src="assets/home5/w7-8.webp" alt="" loading="lazy" style="object-position:60% 50%"></figure><div><h3>Moisture resistant, precisely made</h3><p>Moisture-resistant materials with precision-engineered dimensions – no room for error.</p></div></article></div>
       <button class="wmore" id="wmore" type="button" aria-expanded="false" aria-controls="wlist"><span>See all features</span><svg viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></svg></button>
     </div>
+  </div>
+</section>
+
+<!-- FINISHES -->
+<section class="fin2" id="finishes" aria-labelledby="finH">
+  <p class="fin-eb rv">Finishes</p>
+  <h2 id="finH" class="rv">A spectrum of <em>texture &amp; colour</em></h2>
+  <p class="fin-sub rv">Surface inspection calibrated light detail matters</p>
+  <div class="fan-grid">
+    <div class="fan-col">
+      <div class="fan" id="fan">
+        <div class="fcd" data-i="0"><span class="lab">Lamination</span><img src="assets/home5/fan-lamination.webp" alt="Lamination finish" loading="lazy"></div>
+        <div class="fcd" data-i="1"><span class="lab">Membrane</span><img src="assets/home5/fan-membrane.webp" alt="Membrane finish" loading="lazy"></div>
+        <div class="fcd" data-i="2"><span class="lab">Acrylic</span><img src="assets/home5/fan-acrylic.webp" alt="Acrylic finish" loading="lazy"></div>
+        <div class="fcd" data-i="3"><span class="lab">PU paint</span><img src="assets/home5/fan-pu.webp" alt="PU paint finish" loading="lazy"></div>
+      </div>
+      <div class="fan-nav">
+        <button type="button" id="fprev" aria-label="Previous finish"><img src="assets/home5/arrow-prev.svg" alt=""></button>
+        <button type="button" id="fnext" aria-label="Next finish"><img src="assets/home5/arrow-next.svg" alt=""></button>
+      </div>
+    </div>
+    <div class="fan-info" id="fanInfo" aria-live="polite"></div>
   </div>
 </section>
 
@@ -241,25 +270,6 @@
   </div>
 </section>
 
-<!-- INTERIOR GUIDE -->
-<section class="guide" id="guide" aria-labelledby="guideH">
-  <div class="guide-h rv">
-    <div><p class="k">Homeworks Interior Guide</p><h2 id="guideH">12 things to settle before the work begins.</h2></div>
-    <p>A short checklist from the Homeworks Interior Guide – the details that save the most rework later.</p>
-  </div>
-  <div class="guide-body rv">
-    <div class="gd" aria-live="polite">
-      <img src="assets/home5/guide-bg.webp" alt="" loading="lazy">
-      <div class="gd-top"><span id="gdCount">01 / 12</span>
-        <span class="gd-nav"><button type="button" id="gprev" aria-label="Previous tip"><svg viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></svg></button><button type="button" id="gnext" aria-label="Next tip"><svg viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></svg></button></span></div>
-      <span class="gd-num" id="gdNum">01</span>
-      <div id="gdText"><h3>Service drawings</h3><p>Decide your furniture layout before you finalise plans for false ceilings, lighting, wall electricals, plumbing and gas pipelines – it avoids obstructed loft openings or wall damage during installation later on.</p></div>
-    </div>
-    <ul class="glist" id="glistA"></ul>
-    <ul class="glist" id="glistB"></ul>
-  </div>
-</section>
-
 <!-- PHILOSOPHY -->
 <section class="quote" aria-label="Our philosophy">
   <img src="assets/home5/quote-bg.webp" alt="" loading="lazy">
@@ -271,67 +281,67 @@
 </section>
 
 <!-- TESTIMONIALS -->
-<section class="testi" aria-labelledby="testiH">
-  <div class="testi-h rv">
-    <h2 id="testiH">Trusted by <span>600+ customers worldwide</span></h2>
-    <div class="t-nav">
-      <button type="button" id="tprev" aria-label="Previous story"><img src="assets/home5/arrow-prev.svg" alt=""></button>
-      <button type="button" id="tnext" aria-label="Next story"><img src="assets/home5/arrow-next.svg" alt=""></button>
+<section class="t2" aria-labelledby="testiH">
+  <div class="t2-in">
+    <div class="t2-l rv">
+      <p class="t2-k">Trusted by</p>
+      <h2 id="testiH">600+ customers worldwide</h2>
+      <ul class="stats">
+        <li><svg viewBox="0 0 24 24"><path d="M3 11 12 3l9 8M5 10v10h14V10"/><path d="M12 17s-3-1.8-3-4a1.7 1.7 0 0 1 3-1 1.7 1.7 0 0 1 3 1c0 2.2-3 4-3 4Z"/></svg><div><b>14,000+</b><span>happy homes</span></div></li>
+        <li><svg viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.5 3 8 7 9 4-1 7-4.5 7-9V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg><div><b>10 years</b><span>on warranty</span></div></li>
+        <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div><b>30 days</b><span>from sign-off*</span></div></li>
+      </ul>
+    </div>
+    <div class="t2-r rv d1">
+      <div class="t-nav">
+        <button type="button" id="tprev" aria-label="Previous story"><img src="assets/home5/arrow-prev.svg" alt=""></button>
+        <button type="button" id="tnext" aria-label="Next story"><img src="assets/home5/arrow-next.svg" alt=""></button>
+      </div>
+      <div class="t2-win"><div class="ttrack" id="ttrack">
+        <article class="tc"><img class="tbg" src="assets/home5/t-bg.webp" alt=""><div class="ph"><img src="assets/home5/t-room-1.webp" alt="" loading="lazy"></div><p class="tq">They transformed our home into a beautiful, welcoming space we absolutely love.</p><div class="who"><span class="av"><img src="assets/home5/t-avatar.webp" alt="" loading="lazy"></span><div><b>Priya Ramesh, Homemaker</b><small>Chennai, Tamil Nadu</small></div></div></article>
+        <article class="tc"><img class="tbg" src="assets/home5/t-bg.webp" alt=""><div class="ph"><img src="assets/home/living-room.jpg" alt="" loading="lazy"></div><p class="tq">They understood not just our Pinterest board, but the way our family actually lives.</p><div class="who"><span class="av">M</span><div><b>Meera &amp; Arjun</b><small>3BHK, Bangalore</small></div></div></article>
+        <article class="tc"><img class="tbg" src="assets/home5/t-bg.webp" alt=""><div class="ph"><img src="assets/home/dining.jpg" alt="" loading="lazy"></div><p class="tq">Every small concern was answered before it became a problem. That is rare.</p><div class="who"><span class="av">V</span><div><b>Vignesh Kumar</b><small>Villa, Coimbatore</small></div></div></article>
+        <article class="tc"><img class="tbg" src="assets/home5/t-bg.webp" alt=""><div class="ph"><img src="assets/home/bedroom.jpg" alt="" loading="lazy"></div><p class="tq">It feels polished, but it also feels like us. We did not know both were possible.</p><div class="who"><span class="av">A</span><div><b>Aditi Shah</b><small>2BHK, Chennai</small></div></div></article>
+      </div></div>
     </div>
   </div>
-  <div class="testi-win"><div class="ttrack" id="ttrack">
-    <article class="tslide A"><img class="bg" src="assets/home5/t-bg.webp" alt="">
-      <div class="shot"><img src="assets/home5/t-room-1.webp" alt="" loading="lazy"></div>
-      <div class="gpanel"><div class="cont"><p class="tq">“They transformed our home into a beautiful, welcoming space we absolutely love.”</p><div class="who"><span class="av"><img src="assets/home5/t-avatar.webp?v=2" alt="" loading="lazy"></span><div><b>Priya Ramesh, Homemaker</b><small>Chennai, Tamil Nadu</small></div></div></div></div>
-    </article>
-    <article class="tslide B"><img class="bg" src="assets/home5/t-bg.webp" alt="">
-      <div class="shot"><img src="assets/home5/t-room-2.webp" alt="" loading="lazy"></div>
-      <div class="cont"><p class="tq">They transformed our home into a beautiful, welcoming space we absolutely love.</p><div class="who"><span class="av"><img src="assets/home5/t-avatar.webp?v=2" alt="" loading="lazy"></span><div><b>Priya Ramesh, Homemaker</b><small>Chennai, Tamil Nadu</small></div></div></div>
-    </article>
-    <article class="tslide A"><img class="bg" src="assets/home5/t-bg.webp" alt="">
-      <div class="shot" style="opacity:.21"><img src="assets/home5/t-room-1.webp" alt="" loading="lazy"></div>
-      <div class="gpanel"><div class="cont"><p class="tq">“They transformed our home into a beautiful, welcoming space we absolutely love.”</p><div class="who"><span class="av"><img src="assets/home5/t-avatar.webp?v=2" alt="" loading="lazy"></span><div><b>Priya Ramesh, Homemaker</b><small>Chennai, Tamil Nadu</small></div></div></div></div>
-    </article>
-  </div></div>
 </section>
 
 <!-- CTA / LEAD FORM -->
-<section class="cta" id="contact" aria-labelledby="ctaH">
-  <img src="assets/home5/cta-bg.webp" alt="" loading="lazy">
-  <div class="cta-in">
+<section class="cta2" id="contact" aria-labelledby="ctaH">
+  <img class="cbg" src="assets/home5/cta7-bg.webp" alt="" loading="lazy">
+  <div class="cta2-in">
+    <div class="c2-l rv">
+      <h2 id="ctaH">Let's make <em>space</em><br>for what matters.</h2>
+      <p class="c2-s">your home starts here!</p>
+      <ul class="c2-f">
+        <li><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c.5-3.5 3-5.5 6-5.5 1.2 0 2.2.3 3 .8M15 16l2 2 4-4"/></svg><span>COMPLIMENTARY<br>CONSULTATION</span></li>
+        <li><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4V5Z"/><path d="M8 10h8M8 13h5"/></svg><span>NO-PRESSURE<br>CONVERSATION</span></li>
+        <li><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/><path d="M15 3h6v6M21 3l-6 6"/></svg><span>WE CALL WITHIN 24<br>HOURS</span></li>
+      </ul>
+    </div>
     <form class="lead-form" id="leadForm" novalidate>
-      <h3>Your home starts here</h3>
-      <div class="row"><input required name="name" placeholder="Your full name" autocomplete="name" aria-label="Your full name"><input required type="tel" name="phone" placeholder="Phone number" autocomplete="tel" aria-label="Phone number"></div>
-      <input required type="email" name="email" placeholder="Email address" autocomplete="email" aria-label="Email address">
+      <h3>Tell us a little about your home</h3>
+      <p class="fs">Our Homworks designer will call you within 24 hours to arrange your complimentary consultation.</p>
+      <input required name="name" placeholder="Your full name" autocomplete="name" aria-label="Your full name">
+      <div class="row"><input required type="tel" name="phone" placeholder="Phone number" autocomplete="tel" aria-label="Phone number"><input required type="email" name="email" placeholder="Email address" autocomplete="email" aria-label="Email address"></div>
       <select name="city" aria-label="Select your city"><option value="">Select your city</option><option>Coimbatore</option><option>Chennai</option><option>Bangalore</option><option>Erode</option><option>Hyderabad</option><option>Guwahati</option><option>Other city</option></select>
       <select name="need" aria-label="What are you planning?"><option value="">What are you planning?</option><option>Full home interiors</option><option>Modular kitchen</option><option>Wardrobes</option><option>Living room</option><option>Bedroom</option><option>Renovation</option></select>
-      <button type="submit">Book my free consultation <i><svg viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></svg></i></button>
+      <button type="submit"><span>Book my free consultation</span></button>
       <p class="note">By submitting, you agree to receive a call or WhatsApp from Homworks about your project. We respect your privacy.</p>
       <div class="ok" id="ok" role="status">Your consultation request is in. We will be in touch very soon.</div>
     </form>
-    <div class="cta-copy">
-      <h2 id="ctaH">Let's make <em>space</em><br>for what matters.</h2>
-      <p>Tell us a little about your home. A Homworks designer will call you within 24 hours to arrange your complimentary consultation.</p>
-      <a class="call" href="tel:18008334500">Call <svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"/></svg><b>1800 833 4500</b></a>
-      <ul><li>Complimentary consultation</li><li>No-pressure conversation</li><li>We call within 24 hours</li></ul>
-    </div>
   </div>
 </section>
 
 <!-- FAQ -->
-<section class="faq" id="faq" aria-labelledby="faqH">
+<section class="faq2" id="faq" aria-labelledby="faqH">
   <div class="faq-in">
     <div class="rv">
       <h2 id="faqH">How we build and install your space</h2>
       <p class="sub">Made in our factory. Fitted in your home. Learn how our approach keeps furniture fabrication off-site and focuses on installation at your place.</p>
     </div>
-    <div class="faq-list rv d1" id="faqList">
-      <div class="qa open"><button type="button" aria-expanded="true">Where are the furniture parts manufactured?<svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button><div class="a"><p>Your furniture parts are made in our factory and brought to your home for fitting. Cutting and fabrication happen off-site rather than turning your home into a carpentry workshop.</p></div></div>
-      <div class="qa open"><button type="button" aria-expanded="true">Why do you avoid on-site carpentry?<svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button><div class="a"><p>Factory fabrication reduces the cutting, sanding, dust, and noise at your property. Your home becomes the installation site, not the workshop. Some drilling and final adjustments may still be needed during fitting.</p></div></div>
-      <div class="qa open"><button type="button" aria-expanded="true">What happens during the installation phase?<svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button><div class="a"><p>The factory-made parts are delivered to your property for assembly, positioning, leveling, and securing. The focus is on fitting the furniture into your space rather than building it from raw materials on-site.</p></div></div>
-      <div class="qa open"><button type="button" aria-expanded="true">Can factory-made furniture be customised for my space?<svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button><div class="a"><p>Factory-made does not have to mean standard-sized. Furniture can be designed around your room dimensions, storage needs, and chosen finishes, with the design and measurements confirmed before production.</p></div></div>
-      <div class="qa open"><button type="button" aria-expanded="true">Will any carpentry work still happen in my home?<svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button><div class="a"><p>Most fabrication happens in the factory. Installation may still involve drilling, fixing hardware, and small fitting adjustments. This reduces on-site carpentry, but does not mean installation will be completely dust- or noise-free.</p></div></div>
-    </div>
+    <div class="faq-list rv d1" id="faqList"><div class="qa open"><button type="button" aria-expanded="true">Where are the furniture parts manufactured?<svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button><div class="a"><p>Your furniture parts are made in our factory and brought to your home for fitting. Cutting and fabrication happen off-site rather than turning your home into a carpentry workshop.</p></div></div><div class="qa open"><button type="button" aria-expanded="true">Why do you avoid on-site carpentry?<svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button><div class="a"><p>Factory fabrication reduces the cutting, sanding, dust, and noise at your property. Your home becomes the installation site, not the workshop. Some drilling and final adjustments may still be needed during fitting.</p></div></div><div class="qa open"><button type="button" aria-expanded="true">What happens during the installation phase?<svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button><div class="a"><p>The factory-made parts are delivered to your property for assembly, positioning, leveling, and securing. The focus is on fitting the furniture into your space rather than building it from raw materials on-site.</p></div></div><div class="qa open"><button type="button" aria-expanded="true">Can factory-made furniture be customised for my space?<svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button><div class="a"><p>Factory-made does not have to mean standard-sized. Furniture can be designed around your room dimensions, storage needs, and chosen finishes, with the design and measurements confirmed before production.</p></div></div><div class="qa open"><button type="button" aria-expanded="true">Will any carpentry work still happen in my home?<svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button><div class="a"><p>Most fabrication happens in the factory. Installation may still involve drilling, fixing hardware, and small fitting adjustments. This reduces on-site carpentry, but does not mean installation will be completely dust- or noise-free.</p></div></div></div>
   </div>
 </section>
 

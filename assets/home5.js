@@ -14,45 +14,54 @@
   $$('a',mnav).forEach(function(a){a.addEventListener('click',function(){mnav.classList.remove('show');burger.setAttribute('aria-expanded','false')})});
 
 
-  /* hero: drag anywhere to compare before / after */
+  /* hero: cursor-follow before / after reveal (organic blob mask) */
   (function(){
-    var hero=$('.hero'),bg=$('#heroBg'),ln=$('#hLine'),before=$('.hero-before'),grab=$('.hero-grab');
-    if(!bg)return;
-    var SLOPE=20.9,mid=52.15,drag=false,raf=0;
-    function set(m){
-      mid=Math.min(96,Math.max(4,m));
-      var t=mid+SLOPE/2,b=mid-SLOPE/2;
-      var f=function(a,bb,w){return 'polygon('+(a-w)+'% 0,'+(a+w)+'% 0,'+(bb+w)+'% 100%,'+(bb-w)+'% 100%)'};
-      var cp='polygon(0 0,'+t+'% 0,'+b+'% 100%,0 100%)';
-      before.style.clipPath=cp;before.style.webkitClipPath=cp;
-      grab.style.clipPath=f(t,b,5);
-      ln.setAttribute('x1',t);ln.setAttribute('x2',b);bg.setAttribute('aria-valuenow',Math.round(mid));
+    var hero=$('#hero'),svg=$('#heroSvg');if(!hero||!svg)return;
+    var img=$('#hImg'),mask=$('#hMask'),filt=$('#hGoo'),disp=$('feDisplacementMap',svg);
+    var c=[$('#hc0'),$('#hc1'),$('#hc2')],W=0,H=0,R=0,home={x:0,y:0};
+    var pts=[{x:0,y:0,k:.16},{x:0,y:0,k:.085},{x:0,y:0,k:.05}],tgt={x:0,y:0};
+    var pointer=false,lastMove=0,grow=0,raf=0,visible=true,t0=performance.now();
+    function size(){
+      var r=hero.getBoundingClientRect();W=r.width;H=r.height;
+      svg.setAttribute('width',W);svg.setAttribute('height',H);
+      [img,mask].forEach(function(n){n.setAttribute('width',W);n.setAttribute('height',H)});
+      var small=W<860;
+      img.setAttribute('preserveAspectRatio',small?'xMaxYMid slice':'xMidYMid slice');
+      R=small?W*.42:Math.max(150,Math.min(W*.205,H*.46));
+      home=small?{x:W*.58,y:H*.7}:{x:W*.74,y:H*.5};
+      disp.setAttribute('scale',Math.round(R*.42));
+      if(!pts[0].x){pts.forEach(function(q){q.x=home.x;q.y=home.y});tgt.x=home.x;tgt.y=home.y}
+      draw();
     }
-    function move(e){var r=bg.getBoundingClientRect();set((e.clientX-r.left)/r.width*100)}
-    hero.addEventListener('pointerdown',function(e){
-      if(e.button>0||e.target.closest('a,button'))return;
-      drag=true;cancelAnimationFrame(raf);try{hero.setPointerCapture(e.pointerId)}catch(x){}move(e);
-    });
-    hero.addEventListener('pointermove',function(e){if(drag)move(e)});
-    function end(){drag=false}
-    hero.addEventListener('pointerup',end);hero.addEventListener('pointercancel',end);
-    bg.addEventListener('keydown',function(e){
-      if(e.key==='ArrowLeft'||e.key==='ArrowDown'){set(mid-4);e.preventDefault()}
-      else if(e.key==='ArrowRight'||e.key==='ArrowUp'){set(mid+4);e.preventDefault()}
-      else if(e.key==='Home'){set(4)}else if(e.key==='End'){set(96)}
-    });
-    set(mid);
-    if(!reduce){ /* brief demo sweep so people notice it is draggable */
-      var t0=null;
-      setTimeout(function(){
-        function step(ts){
-          if(drag)return;if(t0===null)t0=ts;var k=(ts-t0)/2200;
-          if(k>=1){set(52.15);return}
-          set(52.15+Math.sin(k*Math.PI*2)*14*(1-k*.4));raf=requestAnimationFrame(step);
-        }
-        raf=requestAnimationFrame(step);
-      },2600);
+    function draw(){
+      var rr=[R*grow,R*.7*grow,R*.46*grow];
+      for(var i=0;i<3;i++){c[i].setAttribute('cx',pts[i].x);c[i].setAttribute('cy',pts[i].y);c[i].setAttribute('r',Math.max(0,rr[i]))}
+      var m=R*2.3;
+      filt.setAttribute('x',pts[0].x-m);filt.setAttribute('y',pts[0].y-m);filt.setAttribute('width',m*2);filt.setAttribute('height',m*2);
     }
+    function tick(now){
+      raf=0;
+      var t=now-t0;
+      grow+=(1-grow)*.07;
+      if(!pointer||now-lastMove>3500){
+        tgt.x=home.x+Math.sin(t*.0007)*W*.035;tgt.y=home.y+Math.cos(t*.0009)*H*.05;
+      }
+      pts.forEach(function(q,i){var to=i?pts[i-1]:tgt;q.x+=(to.x-q.x)*q.k;q.y+=(to.y-q.y)*q.k});
+      draw();
+      if(visible)raf=requestAnimationFrame(tick);
+    }
+    function start(){if(!raf&&!reduce)raf=requestAnimationFrame(tick)}
+    function place(e){var r=hero.getBoundingClientRect();tgt.x=e.clientX-r.left;tgt.y=e.clientY-r.top;pointer=true;lastMove=performance.now()}
+    hero.addEventListener('pointermove',place);
+    hero.addEventListener('pointerdown',place);
+    hero.addEventListener('pointerleave',function(){pointer=false});
+    window.addEventListener('resize',size);
+    size();
+    if(reduce){grow=1;draw();return}
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(es){visible=es[0].isIntersecting;if(visible)start()},{threshold:0}).observe(hero);
+    }
+    start();
   })();
 
   /* reveal on scroll */
@@ -150,50 +159,127 @@
   kt.addEventListener('touchstart',function(e){tx=e.touches[0].clientX},{passive:true});
   kt.addEventListener('touchend',function(e){if(tx===null)return;var d=e.changedTouches[0].clientX-tx;if(Math.abs(d)>40){ki+=d<0?1:-1;kUpdate()}tx=null});
 
-  /* interior guide */
-  var G=[
-    ['Service drawings','Decide your furniture layout before you finalise plans for false ceilings, lighting, wall electricals, plumbing and gas pipelines – it avoids obstructed loft openings or wall damage during installation later on.'],
-    ['Flooring','Decide on your finishes based on your existing flooring, so the design you dreamt of is the design you get.'],
-    ['Painting','Choose your finishes before your paint colour. It gives a cohesive, pleasing look and makes sure the paint complements the design.'],
-    ['Existing furniture','Tell your designer about the furniture you already own, so it can be integrated seamlessly – optimising design and function without compromise.'],
-    ['Doors & window colour','Make sure your designer knows the colours of your internal doors and windows, so they blend into your interior palette.'],
-    ['Wire management','Plan cable organisation as part of the installation, to prevent a chaotic network of cables – a tidy, clutter-free and safer space.'],
-    ['TV sizes','Decide the TV model and size in advance. It sets the back-panel size, keeps wire management tidy and gives you the right viewing distance.'],
-    ['Mattress & cot size','Ask your designer to explain the difference between cot size and mattress size – the terms vary from person to person. It avoids confusion in space planning and wall electrical points, and shows whether customisation is possible at this stage.'],
-    ['Natural light','Consider the natural light entering each room before you choose finishes. Darker colours in a poorly lit space can feel cramped and push up daytime electricity use.'],
-    ['Kitchen appliances','Tell your designer about the kitchen appliances you already have, to prevent service, access and safety issues – even the vent provisions can then be designed around them.'],
-    ['Barrier-friendly design','A barrier-free environment allows free, safe movement, function and access for everyone, regardless of age, gender or condition. It’s the designer’s duty to ensure this before any other aspect of design.'],
-    ['Budget','Set a realistic budget with your designer. Whether you are renovating a house or designing a new building, an accurate, well-thought-out budget is essential to the success of the project.']
+  /* interior guide: 16 questions, hover / tap for the detail card */
+  var IC={
+    layers:'M12 3 3 8l9 5 9-5-9-5ZM3 13l9 5 9-5',
+    drop:'M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11Z',
+    wind:'M3 8h11a3 3 0 1 0-3-3M3 12h16a3 3 0 1 1-3 3M3 16h8',
+    award:'M12 3a5 5 0 1 1 0 10 5 5 0 0 1 0-10ZM9 12.5 8 21l4-2 4 2-1-8.5M12 6.5v3',
+    frame:'M4 4h16v16H4ZM8 8h8v8H8Z',
+    glue:'M10 3h4v3h-4ZM8 6h8l1 4v10H7V10l1-4ZM10 14h4',
+    tool:'M14 6l4 4-8 8H6v-4l8-8ZM13 7l4 4',
+    box:'M4 7l8-4 8 4v10l-8 4-8-4V7ZM4 7l8 4 8-4M12 11v10',
+    scratch:'M4 4h16v16H4ZM8 16 16 8M8 12l4-4',
+    grid:'M4 4h16v16H4ZM4 10h16M10 4v16',
+    bars:'M5 20V10M12 20V4M19 20v-8',
+    gap:'M3 12h18M3 8v8M21 8v8M8 12h.01M16 12h.01',
+    palette:'M12 3a9 9 0 1 0 0 18c1.5 0 2-1 1.5-2s0-2 1.5-2h2a3 3 0 0 0 3-3c0-5-4-11-8-11ZM8 11h.01M12 8h.01M16 11h.01',
+    home:'M3 11 12 3l9 8M5 10v10h14V10M12 15a2 2 0 1 0 0 .01',
+    tag:'M3 12V4h8l10 10-8 8L3 12ZM7.5 8.5h.01',
+    check:'M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18ZM8 12l3 3 5-6'
+  };
+  var A='assets/';
+  var GD=[
+    ['layers','The board behind the surface','The board inside your cabinet decides how long it lasts.','Every shelf, shutter and drawer carries weight, day after day.','Common industry practice uses a mix of board types (BWR, MR, MDF, particle board, paper-foil board) and the grade is often not stated.','ISI-certified BWP / HDHMR E0 double-side post-laminated boards are used as the core material in every carcass.','Which board do you use for the carcass, and is it certified?',A+'home5/w7-5.webp','Core board'],
+    ['drop','Moisture, and the 72-hour boiling test','Kitchens and bathrooms are damp, hot and wet places.','Steam, spills and wall dampness reach your furniture every day.','Boards that are not water-tested can swell and weaken over time.','Every BWP-grade plywood is tested in boiling water for 72 hours, with results recorded before it is used in projects.','Can you show me the water-test results for this board?',A+'home5/w7-8.webp','Moisture resistance'],
+    ['wind','Healthy indoor air','What your furniture is made of is part of the air at home.','Wardrobes, kitchens and beds are in your rooms around the clock.','Boards differ in what they release into the room, and many vendors do not say which grade they use.','Core boards are E0 grade, with no formaldehyde, in all carcasses.','What emission grade are your boards, and can you show it in writing?',A+'home/living-room.jpg','Everyday living'],
+    ['award','Certified and tested','Certificates and test records are how you check a promise.','A claim about quality is only as good as the record behind it.','Many vendors give no clarity on which tests were done or what the results were.','ISI-certified boards, and an in-house material testing lab at our factory. Each material is tested twice: when it reaches the factory and when it is issued to a project. We can provide tested samples of the core materials.','Which tests do you run, and can I see a tested sample?',A+'home5/w7-1.webp','Material checks'],
+    ['frame','Sealed edges','Edge bands protect the core board from water and wear.','Wiping, steam and splashes meet the edges of every panel.','Conventional EVA glue applied by hand on ordinary machines may not give the same water resistance and bond strength.','Edge-banding on advanced IMA machines with PUR hot-melt glue. “Peel-off” tests every 2 hours on the lines, with edge strength above 7 Newtons.','How are the edges banded, and how is the bond tested?',A+'home5/guide-tile.webp','Edge-banding detail'],
+    ['glue','The glue you never see','Different parts of your furniture need different bonding systems.','Heat and steam from the kitchen, water splashing on it while cleaning, and years of everyday use affect the quality of furniture.','Poor bonding can lead to laminate lifting, bubbling, or edges coming loose.','Henkel D3 adhesive for laminate pressing, and PUR hot-melt glue for machine edge-banding and specified lamination – ideal for high-temperature environments like kitchens, withstanding up to 80° C.','“What adhesive do you use for pressing, and what for edge-banding?”',A+'home5/guide-06.webp','Edge-banding detail'],
+    ['tool','Hardware and joints','Hinges, runners and dowels do the moving and the holding.','Doors and drawers open and close many times a day.','Materials and accessories are often not tested.','A drawer and shutter cycle test for the durability of runners and hinges, and a compression test for the strength of the board and the load-bearing capacity of the dowel.','How do you test hinges, runners and joints?',A+'home5/w7-6.webp','Joints and fittings'],
+    ['box','Double-carcass boxes','How a cabinet box is built decides how it carries weight and how it can be repaired.','Kitchen tops and loft units hold a lot of weight.','Many major players use a single-carcass system to reduce costs, which can compromise quality and the weight-bearing capacity of the kitchen top.','A double-carcass system on every project, so a single unit can be replaced easily without disturbing the other cabinets.','Is the carcass single or double, and can one unit be replaced on its own?',A+'home5/why-photo.webp','Cabinet construction'],
+    ['scratch','Scratches and finish','Surface finishes need to cope with daily wear.','Pots, bags, keys and cleaning all touch your surfaces.','Many vendors give no information on scratch-resistance testing.','A scratch-resistance test on acrylics, laminates and foils. Acrylic is passed through the flat lamination line with PUR hot-melt glue, with an ABS backer of the same thickness and density on the back of the board.','Do you test scratch resistance, and what backer is used on acrylic?',A+'home5/fan-lamination.webp','Surface finish'],
+    ['grid','Factory-made precision','Where your furniture is made decides how precise it is.','Fitting is smoother when parts are cut and finished to the millimetre.','Many vendors depend on facilities owned by others, and do most of the work on site, which disturbs the home and can compromise quality.','Our own manufacturing facility with CNC and flat-lamination machinery imported from Italy and Germany. Site carpentry is kept for fillers, end panels and visible panels.','Who makes my furniture, and where?',A+'home5/w7-2.webp','In our factory'],
+    ['bars','Strength and load','Furniture has to carry real loads for years.','Shelves, tops and legs are loaded every day.','Vendors often give no clarity on strength testing.','A vertical force test for the load-bearing capacity of a panel, and a leg-strength test to find the breaking point of the leg.','How do you test load capacity and leg strength?',A+'home/factory-cnc.jpg','Load testing'],
+    ['gap','The 18mm gap from the wall','Walls hold dampness, and cabinets should not touch it.','Damp walls are common, especially on outer walls and in wet areas.','Most industry practice leaves no gap, so the carcass touches the wall and exposes plywood to moisture, reducing durability.','An 18mm gap between the wall and the carcass keeps the core materials away from wall dampness, so the product lasts longer.','Is there a gap between my cabinets and the wall?',A+'home/installation.jpg','Installation'],
+    ['palette','Range of finishes','The finish is what you see and touch every day.','Texture and colour set the mood of every room.','A narrow range can limit your design.','Lamination, membrane, acrylic and PU paint, in a wide range of designs, colours and finishing options for every room in your home.','Which finishes can I choose from, and can I see samples?',A+'home5/w7-3.webp','Finish samples'],
+    ['home','Customized for your family','Factory-made does not have to mean standard-sized.','Every home and every family stores and lives differently.','Standard sizes can leave gaps and awkward corners.','Furniture is designed around your room dimensions, storage needs and chosen finishes, with the design and measurements confirmed before production.','Will it be designed around my room and my storage needs?',A+'home/kitchen-l-shaped.jpg','Made for your space'],
+    ['tag','Module-wise pricing','How you are quoted decides how clear the cost is.','Each space needs specific materials, hardware and accessories, and costs differ from module to module.','Most vendors quote a square-foot price, which offers no clarity on the cost of materials and accessories and can lead to higher prices during completion.','Module-wise pricing, so the quotation is as close as possible to the final cost.','Can you give me a module-wise quote?',A+'home5/w7-4.webp','Clear quotes'],
+    ['check','The final quality check','A project should be checked before it reaches your home.','Small faults are easier to fix at the factory than in your living room.','Without a defined check, faults can reach site.','Every project goes through our quality checks before handover, backed by our in-house testing lab and 10-year warranty.','What is checked before my project is handed over?',A+'home/materials.jpg','Quality checks']
   ];
-  var gA=$('#glistA'),gB=$('#glistB'),gi=0,chips=[];
-  G.forEach(function(g,i){
-    var li=document.createElement('li'),n=('0'+(i+1)).slice(-2);
-    li.innerHTML='<button type="button" class="chip2"><b>'+n+'</b><span>'+esc(g[0])+'</span></button>';
-    (i<6?gA:gB).appendChild(li);chips.push($('button',li));
-    $('button',li).addEventListener('click',function(){setGuide(i)});
+  var gGrid=$('#gGrid'),gPop=$('#gPop'),gWrap=$('#gWrap'),gBack=$('#gBack'),gCur=-1,gTimer=0,gCells=[];
+  function mobileG(){return window.innerWidth<=980||(window.matchMedia&&matchMedia('(pointer:coarse)').matches&&window.innerWidth<=1100)}
+  GD.forEach(function(g,i){
+    var n=('0'+(i+1)).slice(-2),b=document.createElement('button');
+    b.type='button';b.className='g2c';b.setAttribute('aria-haspopup','dialog');
+    b.innerHTML='<div class="bg" style="background-image:url(\''+g[7]+'\')"></div><svg viewBox="0 0 24 24"><path d="'+IC[g[0]]+'"/></svg><span>'+n+'. '+esc(g[1])+'</span>';
+    gGrid.appendChild(b);gCells.push(b);
+    b.addEventListener('mouseenter',function(){if(!mobileG()){clearTimeout(gTimer);gTimer=setTimeout(function(){showG(i)},70)}});
+    b.addEventListener('focus',function(){if(!mobileG())showG(i)});
+    b.addEventListener('click',function(){if(mobileG()&&gCur===i){hideG()}else showG(i)});
   });
-  function setGuide(i){
-    gi=(i+G.length)%G.length;var n=('0'+(gi+1)).slice(-2),box=$('#gdText');
-    chips.forEach(function(c,k){c.classList.toggle('on',k===gi)});
-    $('#gdCount').textContent=n+' / 12';$('#gdNum').textContent=n;
-    box.innerHTML='<h3>'+esc(G[gi][0])+'</h3><p>'+esc(G[gi][1])+'</p>';
-    box.classList.remove('fade');void box.offsetWidth;box.classList.add('fade');
+  function showG(i){
+    var g=GD[i],n=('0'+(i+1)).slice(-2),cell=gCells[i];
+    gCur=i;gCells.forEach(function(c,k){c.classList.toggle('on',k===i)});
+    gPop.innerHTML='<button type="button" class="pop-x" aria-label="Close"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg></button>'+
+      '<div class="pop-t"><p class="pop-n">'+n+'</p><h3>'+esc(g[1])+'</h3><p>'+esc(g[2])+'</p>'+
+      '<h4>In daily life:</h4><p>'+esc(g[3])+'</p><h4>The risk:</h4><p>'+esc(g[4])+'</p><h4>The Homworks standard:</h4><p>'+esc(g[5])+'</p><h4>What to ask:</h4><p>'+(g[6].charAt(0)==='“'?esc(g[6]):'“'+esc(g[6])+'”')+'</p></div>'+
+      '<div class="pop-i"><img src="'+g[7]+'" alt=""><div class="cap">'+esc(g[8])+'</div></div>';
+    gPop.hidden=false;gPop.setAttribute('role','dialog');gPop.setAttribute('aria-label',g[1]);
+    $('.pop-x',gPop).addEventListener('click',hideG);
+    if(mobileG()){gPop.style.left=gPop.style.top='';gBack.hidden=false;return}
+    gBack.hidden=true;
+    var col=i%4,pw=gPop.offsetWidth,ph=gPop.offsetHeight,wh=gWrap.offsetHeight;
+    var left=col<2?cell.offsetLeft+cell.offsetWidth:cell.offsetLeft-pw;
+    left=Math.max(0,Math.min(left,gWrap.offsetWidth-pw));
+    var top=Math.max(0,Math.min(cell.offsetTop-85,wh-ph+50));
+    gPop.style.left=left+'px';gPop.style.top=top+'px';
   }
-  $('#gprev').addEventListener('click',function(){setGuide(gi-1)});
-  $('#gnext').addEventListener('click',function(){setGuide(gi+1)});
-  setGuide(0);
+  function hideG(){clearTimeout(gTimer);gPop.hidden=true;gBack.hidden=true;gCells.forEach(function(c){c.classList.remove('on')});gCur=-1}
+  gWrap.addEventListener('mouseleave',function(){if(!mobileG()){clearTimeout(gTimer);gTimer=setTimeout(hideG,260)}});
+  gWrap.addEventListener('mouseenter',function(){clearTimeout(gTimer)});
+  gBack.addEventListener('click',hideG);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')hideG()});
+  document.addEventListener('click',function(e){if(gCur>-1&&!e.target.closest('#gWrap'))hideG()});
+
+  /* finishes fan */
+  var FIN=[
+    ['Lamination',[['check','Most common finish; withstands rough surfaces.'],['layers','Understated appearance lets the material take centre stage.'],['leaf','Creates a natural, seamless look.'],['home','Cohesive finish that complements interiors—from clean, contemporary spaces to warm, traditional settings.']]],
+    ['Membrane',[['check','A unique finish with a natural appeal.'],['home','At home in traditional and contemporary designs.'],['palette','Available in matte, gloss, wooden and many colours.']]],
+    ['Acrylic',[['layers','A glassy, almost mirror-like surface with a plush sheen.'],['leaf','Non-toxic.'],['palette','Available in a wide range of colours.']]],
+    ['PU paint',[['layers','A finish that elevates the space.'],['check','Protects the cabinets.'],['home','Lasts longer — sturdier and stronger.']]]
+  ];
+  var FI={check:'M12 3 5 6v5c0 4.5 3 8 7 9 4-1 7-4.5 7-9V6l-7-3ZM9 12l2 2 4-4',layers:IC.layers,leaf:'M5 19c0-8 5-14 15-14 0 9-5 15-13 14M5 19c3-5 6-8 10-10',home:'M4 11 12 4l8 7M6 10v9h12v-9M10 19v-5h4v5',palette:IC.palette};
+  var fan=$('#fan'),fcs=$$('.fcd',fan),fInfo=$('#fanInfo'),front=0;
+  function setFan(){
+    fcs.forEach(function(c,i){c.dataset.p=(i-front+4)%4});
+    var f=FIN[front];
+    fInfo.classList.remove('swap');void fInfo.offsetWidth;fInfo.classList.add('swap');
+    fInfo.innerHTML='<h3>'+f[0]+'</h3><ul>'+f[1].map(function(b){return '<li><i><svg viewBox="0 0 24 24"><path d="'+FI[b[0]]+'"/></svg></i><span>'+esc(b[1])+'</span></li>'}).join('')+'</ul>';
+  }
+  $('#fprev').addEventListener('click',function(){front=(front+3)%4;setFan()});
+  $('#fnext').addEventListener('click',function(){front=(front+1)%4;setFan()});
+  fcs.forEach(function(c,i){c.addEventListener('click',function(){if(i!==front){front=i;setFan()}})});
+  setFan();
+
+  /* philosophy quote: words light up as you scroll */
+  (function(){
+    var q=$('.quote blockquote'),sec=$('.quote');if(!q)return;
+    var words=q.textContent.trim().split(/\s+/);
+    q.innerHTML=words.map(function(w){return '<span class="wd">'+esc(w)+'</span> '}).join('');
+    var spans=$$('.wd',q),tick=0;
+    function upd(){
+      tick=0;var r=sec.getBoundingClientRect(),vh=window.innerHeight;
+      var pr=Math.min(1,Math.max(0,(vh*.9-r.top-r.height*.15)/(r.height*.55)));
+      var n=Math.round(pr*spans.length);
+      spans.forEach(function(w,i){w.classList.toggle('lit',i<n)});
+    }
+    window.addEventListener('scroll',function(){if(!tick)tick=requestAnimationFrame(upd)},{passive:true});
+    window.addEventListener('resize',upd);upd();
+  })();
 
   /* testimonials */
-  var tt=$('#ttrack'),ts=$$('.tslide',tt),ti=1;
+  var tt=$('#ttrack'),ts=$$('.tc',tt),ti=0;
   function tUpdate(){
-    var sw=ts[0].getBoundingClientRect().width,vw=tt.parentNode.getBoundingClientRect().width;
-    tt.style.transform='translateX('+((vw-sw)/2-ti*(sw+32))+'px)';
+    var step=ts[0].getBoundingClientRect().width+40;
+    tt.style.transform='translateX('+(-ti*step)+'px)';
     ts.forEach(function(s,k){s.classList.toggle('on',k===ti)});
   }
   $('#tprev').addEventListener('click',function(){ti=(ti-1+ts.length)%ts.length;tUpdate()});
   $('#tnext').addEventListener('click',function(){ti=(ti+1)%ts.length;tUpdate()});
   ts.forEach(function(s,k){s.addEventListener('click',function(){if(k!==ti){ti=k;tUpdate()}})});
-  window.addEventListener('resize',tUpdate);window.addEventListener('load',tUpdate);tUpdate();requestAnimationFrame(function(){requestAnimationFrame(function(){tt.classList.add('ready')})});
+  window.addEventListener('resize',tUpdate);window.addEventListener('load',tUpdate);tUpdate();
+  requestAnimationFrame(function(){requestAnimationFrame(function(){tt.classList.add('ready')})});
   var sx=null;
   tt.addEventListener('touchstart',function(e){sx=e.touches[0].clientX},{passive:true});
   tt.addEventListener('touchend',function(e){if(sx===null)return;var d=e.changedTouches[0].clientX-sx;if(Math.abs(d)>50){ti=Math.min(ts.length-1,Math.max(0,ti+(d<0?1:-1)));tUpdate()}sx=null});

@@ -26,7 +26,7 @@
       svg.setAttribute('width',W);svg.setAttribute('height',H);
       [img,mask].forEach(function(n){n.setAttribute('width',W);n.setAttribute('height',H)});
       var small=W<860;
-      img.setAttribute('preserveAspectRatio',small?'xMaxYMid slice':'xMidYMid slice');
+      img.setAttribute('preserveAspectRatio','xMidYMid slice');
       R=small?W*.42:Math.max(150,Math.min(W*.205,H*.46));
       home=small?{x:W*.58,y:H*.7}:{x:W*.74,y:H*.5};
       disp.setAttribute('scale',Math.round(R*.42));
@@ -42,22 +42,20 @@
     function tick(now){
       raf=0;
       var t=now-t0;
-      grow+=(1-grow)*.07;
-      if(!pointer||now-lastMove>3500){
-        tgt.x=home.x+Math.sin(t*.0007)*W*.035;tgt.y=home.y+Math.cos(t*.0009)*H*.05;
-      }
+      grow+=((pointer?1:0)-grow)*(pointer?.09:.06);
       pts.forEach(function(q,i){var to=i?pts[i-1]:tgt;q.x+=(to.x-q.x)*q.k;q.y+=(to.y-q.y)*q.k});
       draw();
-      if(visible)raf=requestAnimationFrame(tick);
+      if(visible&&(pointer||grow>.004))raf=requestAnimationFrame(tick);else{grow=pointer?grow:0;draw()}
     }
     function start(){if(!raf&&!reduce)raf=requestAnimationFrame(tick)}
-    function place(e){var r=hero.getBoundingClientRect();tgt.x=e.clientX-r.left;tgt.y=e.clientY-r.top;pointer=true;lastMove=performance.now()}
+    function place(e){var r=hero.getBoundingClientRect();tgt.x=e.clientX-r.left;tgt.y=e.clientY-r.top;if(!pointer){pts.forEach(function(q){q.x=tgt.x;q.y=tgt.y})}pointer=true;lastMove=performance.now();start()}
     hero.addEventListener('pointermove',place);
     hero.addEventListener('pointerdown',place);
-    hero.addEventListener('pointerleave',function(){pointer=false});
+    hero.addEventListener('pointerleave',function(){pointer=false;start()});
+    hero.addEventListener('pointerup',function(e){if(e.pointerType!=='mouse'){pointer=false;start()}});
     window.addEventListener('resize',size);
     size();
-    if(reduce){grow=1;draw();return}
+    if(reduce){return}
     if('IntersectionObserver' in window){
       new IntersectionObserver(function(es){visible=es[0].isIntersecting;if(visible)start()},{threshold:0}).observe(hero);
     }

@@ -52,7 +52,7 @@ em.ser{font-family:var(--serif);font-style:italic;font-weight:300;font-variation
 /* ============ HERO (cursor-follow before / after reveal) ============ */
 .hero{position:relative;margin-top:var(--nav-h);height:clamp(560px,58.5vw,1060px);overflow:hidden;display:flex;align-items:center;background:#fff;touch-action:pan-y}
 .hero-bg{position:absolute;inset:0}
-.hero-before{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 45%;filter:grayscale(1) brightness(1.25) contrast(.8);opacity:.34}
+.hero-before{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 50%;filter:grayscale(1) brightness(1.25) contrast(.8);opacity:.34}
 .hero-after{position:absolute;inset:0;width:100%;height:100%;display:block}
 .hero-copy{position:relative;z-index:2;padding-left:var(--gut);width:min(60%,860px);pointer-events:none}
 .hero-copy a{pointer-events:auto}
@@ -68,7 +68,7 @@ em.ser{font-family:var(--serif);font-style:italic;font-weight:300;font-variation
 @media(max-width:860px){
   .hero{height:clamp(640px,150vw,820px);align-items:flex-start}
   .hero-copy{width:100%;padding:44px 20px 0}
-  .hero-before{object-position:100% 50%}
+  .hero-before{object-position:50% 50%}
   .hero h1{font-size:clamp(46px,13.2vw,72px)}
 }
 

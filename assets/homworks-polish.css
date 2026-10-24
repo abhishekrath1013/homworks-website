@@ -158,11 +158,6 @@ header.top.scrolled .mnav{top:72px;height:calc(100vh - 72px);height:calc(100dvh 
 @keyframes hwDoor{0%,15%,85%,100%{transform:scaleX(1)}40%,60%{transform:scaleX(.22)}}
 @keyframes hwSteam{0%{transform:translateY(8px);opacity:0}30%{opacity:.9}100%{transform:translateY(-22px);opacity:0}}
 
-/* ---------- Custom Homworks cursor (logomark) ---------- */
-html,body{cursor:url(cursor.png) 28 28,auto}
-a,button,[role=button],[role=tab],select,summary,label,.btn,.button,.guide-chip,.hc-card,.roll-card,input[type=submit],input[type=range]{cursor:url(cursor-hover.png) 32 32,pointer}
-input[type=text],input[type=email],input[type=tel],input[type=search],input:not([type]),textarea{cursor:text}
-@media(pointer:coarse){html,body,a,button{cursor:auto}}
 
 /* ---------- Interior banners: text and enquiry card sit side by side in proportion ---------- */
 @media(min-width:901px){

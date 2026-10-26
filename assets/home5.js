@@ -17,7 +17,7 @@
   /* hero: cursor-follow before / after reveal (organic blob mask) */
   (function(){
     var hero=$('#hero'),svg=$('#heroSvg');if(!hero||!svg)return;
-    var img=$('#hImg'),mask=$('#hMask'),filt=$('#hGoo'),disp=$('feDisplacementMap',svg);
+    var inv=$('#heroInv'),hc=$('.hero-copy'),img=$('#hImg'),mask=$('#hMask'),filt=$('#hGoo'),disp=$('feDisplacementMap',svg);
     var c=[$('#hc0'),$('#hc1'),$('#hc2')],W=0,H=0,R=0,home={x:0,y:0};
     var pts=[{x:0,y:0,k:.16},{x:0,y:0,k:.085},{x:0,y:0,k:.05}],tgt={x:0,y:0};
     var pointer=false,lastMove=0,grow=0,raf=0,visible=true,t0=performance.now();
@@ -37,6 +37,7 @@
       var rr=[R*grow,R*.7*grow,R*.46*grow];
       for(var i=0;i<3;i++){c[i].setAttribute('cx',pts[i].x);c[i].setAttribute('cy',pts[i].y);c[i].setAttribute('r',Math.max(0,rr[i]))}
       var m=R*2.3;
+      if(inv){inv.style.setProperty('--mx',(pts[0].x-hc.offsetLeft)+'px');inv.style.setProperty('--my',(pts[0].y-hc.offsetTop)+'px');inv.style.setProperty('--mr',(R*grow*.82)+'px')}
       filt.setAttribute('x',pts[0].x-m);filt.setAttribute('y',pts[0].y-m);filt.setAttribute('width',m*2);filt.setAttribute('height',m*2);
     }
     function tick(now){
@@ -48,11 +49,11 @@
       if(visible&&(pointer||grow>.004))raf=requestAnimationFrame(tick);else{grow=pointer?grow:0;draw()}
     }
     function start(){if(!raf&&!reduce)raf=requestAnimationFrame(tick)}
-    function place(e){var r=hero.getBoundingClientRect();tgt.x=e.clientX-r.left;tgt.y=e.clientY-r.top;if(!pointer){pts.forEach(function(q){q.x=tgt.x;q.y=tgt.y})}pointer=true;hero.classList.add('hov');lastMove=performance.now();start()}
+    function place(e){var r=hero.getBoundingClientRect();tgt.x=e.clientX-r.left;tgt.y=e.clientY-r.top;if(!pointer){pts.forEach(function(q){q.x=tgt.x;q.y=tgt.y})}pointer=true;lastMove=performance.now();start()}
     hero.addEventListener('pointermove',place);
     hero.addEventListener('pointerdown',place);
-    hero.addEventListener('pointerleave',function(){pointer=false;hero.classList.remove('hov');start()});
-    hero.addEventListener('pointerup',function(e){if(e.pointerType!=='mouse'){pointer=false;hero.classList.remove('hov');start()}});
+    hero.addEventListener('pointerleave',function(){pointer=false;start()});
+    hero.addEventListener('pointerup',function(e){if(e.pointerType!=='mouse'){pointer=false;start()}});
     window.addEventListener('resize',size);
     size();
     if(reduce){return}

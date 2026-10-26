@@ -48,11 +48,11 @@
       if(visible&&(pointer||grow>.004))raf=requestAnimationFrame(tick);else{grow=pointer?grow:0;draw()}
     }
     function start(){if(!raf&&!reduce)raf=requestAnimationFrame(tick)}
-    function place(e){var r=hero.getBoundingClientRect();tgt.x=e.clientX-r.left;tgt.y=e.clientY-r.top;if(!pointer){pts.forEach(function(q){q.x=tgt.x;q.y=tgt.y})}pointer=true;lastMove=performance.now();start()}
+    function place(e){var r=hero.getBoundingClientRect();tgt.x=e.clientX-r.left;tgt.y=e.clientY-r.top;if(!pointer){pts.forEach(function(q){q.x=tgt.x;q.y=tgt.y})}pointer=true;hero.classList.add('hov');lastMove=performance.now();start()}
     hero.addEventListener('pointermove',place);
     hero.addEventListener('pointerdown',place);
-    hero.addEventListener('pointerleave',function(){pointer=false;start()});
-    hero.addEventListener('pointerup',function(e){if(e.pointerType!=='mouse'){pointer=false;start()}});
+    hero.addEventListener('pointerleave',function(){pointer=false;hero.classList.remove('hov');start()});
+    hero.addEventListener('pointerup',function(e){if(e.pointerType!=='mouse'){pointer=false;hero.classList.remove('hov');start()}});
     window.addEventListener('resize',size);
     size();
     if(reduce){return}

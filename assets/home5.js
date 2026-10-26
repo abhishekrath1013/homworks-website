@@ -275,8 +275,30 @@
     fcs.forEach(function(c,i){c.dataset.p=(i-front+4)%4});
     var f=FIN[front];
     fInfo.classList.remove('swap');void fInfo.offsetWidth;fInfo.classList.add('swap');
-    fInfo.innerHTML='<h3>'+f[0]+'</h3><ul>'+f[1].map(function(b){return '<li><i><svg viewBox="0 0 24 24"><path d="'+FI[b[0]]+'"/></svg></i><span>'+esc(b[1])+'</span></li>'}).join('')+'</ul><div class="vars" id="fVars"></div>';
-    renderVars();
+    fInfo.innerHTML='<h3>'+f[0]+'</h3><ul>'+f[1].map(function(b){return '<li><i><svg viewBox="0 0 24 24"><path d="'+FI[b[0]]+'"/></svg></i><span>'+esc(b[1])+'</span></li>'}).join('')+'</ul><div class="sw" id="fSw"></div><div class="vars" id="fVars"></div>';
+    renderSw();renderVars();
+  }
+
+  /* colour preview: tint the front card to see the finish in other colours */
+  var SW=[
+    [['Natural oak','#c99a62'],['Walnut','#6b4429'],['Teak','#a8723a'],['Ash grey','#8d8f91'],['Wenge','#3a2a22'],['Light maple','#e6c99d']],
+    [['Matte white','#f1efe9'],['Soft grey','#9a9ea3'],['Sage green','#8aa38a'],['Classic cream','#e8dcc2'],['Navy','#2b4570'],['Charcoal','#3a3d40']],
+    [['Glossy white','#fafafa'],['Deep red','#a8182b'],['Midnight blue','#1b3a6b'],['Forest green','#2c6a4a'],['Mustard','#d4a21e'],['Soft pink','#e7a1b0']],
+    [['Pastel pink','#f0a9b8'],['Warm white','#f3eee6'],['Sky blue','#8fc0dc'],['Sage','#9db39a'],['Terracotta','#c4674a'],['Navy','#1f3a63']]
+  ],swSel=[-1,-1,-1,-1];
+  function applyTint(fi){
+    var t=$('.tint',fcs[fi]),s=swSel[fi];
+    if(s<0){t.classList.remove('on');return}
+    t.style.setProperty('--tc',SW[fi][s][1]);t.classList.add('on');
+  }
+  function renderSw(){
+    var box=$('#fSw');if(!box)return;var fi=front;
+    box.innerHTML='<p class="swt">Try a colour <b id="swName">'+(swSel[fi]<0?'Original':esc(SW[fi][swSel[fi]][0]))+'</b></p><div class="swrow"><button type="button" class="swb orig'+(swSel[fi]<0?' on':'')+'" data-i="-1" data-tip="Original" aria-label="Original colour"></button>'+SW[fi].map(function(c,i){return '<button type="button" class="swb'+(swSel[fi]===i?' on':'')+'" data-i="'+i+'" data-tip="'+esc(c[0])+'" aria-label="'+esc(c[0])+'" style="--c:'+c[1]+'"></button>'}).join('')+'</div>';
+    $$('.swb',box).forEach(function(bt){bt.addEventListener('click',function(){
+      swSel[fi]=+bt.dataset.i;applyTint(fi);
+      $$('.swb',box).forEach(function(x){x.classList.toggle('on',x===bt)});
+      $('#swName').textContent=swSel[fi]<0?'Original':SW[fi][swSel[fi]][0];
+    })});
   }
   /* variants: drop HD photos into assets/home5/finishes/<slug>-1.webp ... -8.webp (-1 is the card photo). Missing files are skipped. */
   var SLUG=['lamination','membrane','acrylic','pu-paint'],VN=[

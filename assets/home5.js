@@ -281,7 +281,7 @@
 
   /* wooden block: starts plain; the selected finish is wrapped onto it */
   var blk=$('#blk'),blkCap=$('#blkCap'),blkBtn=$('#blkToggle'),blkOn=true,blkT=0,blkKey=-1;
-  var FSRC=fcs.map(function(c){return $('img',c).getAttribute('src')});
+  var FSRC=['lamination','membrane','acrylic','pu-paint'].map(function(n){return 'assets/home5/mat/'+n+'.webp'});
   function skin(on){
     $$('.skin',blk).forEach(function(s){s.classList.toggle('on',on)});
     blkBtn.textContent=on?'Show plain wood':'Apply '+FIN[front][0];
@@ -289,7 +289,7 @@
     blkOn=on;
   }
   function applyBlock(){
-    clearTimeout(blkT);
+    clearTimeout(blkT);blk.dataset.f=front;
     $$('.skin',blk).forEach(function(s){s.style.backgroundImage='url('+FSRC[front]+')'});
     skin(false);
     blkT=setTimeout(function(){skin(true)},blkKey<0?900:450);blkKey=front;

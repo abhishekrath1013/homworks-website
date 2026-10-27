@@ -276,58 +276,25 @@
     var f=FIN[front];
     fInfo.classList.remove('swap');void fInfo.offsetWidth;fInfo.classList.add('swap');
     fInfo.innerHTML='<h3>'+f[0]+'</h3><ul>'+f[1].map(function(b){return '<li><i><svg viewBox="0 0 24 24"><path d="'+FI[b[0]]+'"/></svg></i><span>'+esc(b[1])+'</span></li>'}).join('')+'</ul><div class="sw" id="fSw"></div><div class="vars" id="fVars"></div>';
-    renderSw();renderVars();
+    applyBlock();
   }
 
-  /* colour preview: tint the front card to see the finish in other colours */
-  var SW=[
-    [['Natural oak','#c99a62'],['Walnut','#6b4429'],['Teak','#a8723a'],['Ash grey','#8d8f91'],['Wenge','#3a2a22'],['Light maple','#e6c99d']],
-    [['Matte white','#f1efe9'],['Soft grey','#9a9ea3'],['Sage green','#8aa38a'],['Classic cream','#e8dcc2'],['Navy','#2b4570'],['Charcoal','#3a3d40']],
-    [['Glossy white','#fafafa'],['Deep red','#a8182b'],['Midnight blue','#1b3a6b'],['Forest green','#2c6a4a'],['Mustard','#d4a21e'],['Soft pink','#e7a1b0']],
-    [['Pastel pink','#f0a9b8'],['Warm white','#f3eee6'],['Sky blue','#8fc0dc'],['Sage','#9db39a'],['Terracotta','#c4674a'],['Navy','#1f3a63']]
-  ],swSel=[-1,-1,-1,-1];
-  function applyTint(fi){
-    var t=$('.tint',fcs[fi]),s=swSel[fi];
-    if(s<0){t.classList.remove('on');return}
-    t.style.setProperty('--tc',SW[fi][s][1]);t.classList.add('on');
+  /* wooden block: starts plain; the selected finish is wrapped onto it */
+  var blk=$('#blk'),blkCap=$('#blkCap'),blkBtn=$('#blkToggle'),blkOn=true,blkT=0,blkKey=-1;
+  var FSRC=fcs.map(function(c){return $('img',c).getAttribute('src')});
+  function skin(on){
+    $$('.skin',blk).forEach(function(s){s.classList.toggle('on',on)});
+    blkBtn.textContent=on?'Show plain wood':'Apply '+FIN[front][0];
+    blkCap.textContent=on?FIN[front][0]+' applied on the block':'Plain wood block';
+    blkOn=on;
   }
-  function renderSw(){
-    var box=$('#fSw');if(!box)return;var fi=front;
-    box.innerHTML='<p class="swt">Try a colour <b id="swName">'+(swSel[fi]<0?'Original':esc(SW[fi][swSel[fi]][0]))+'</b></p><div class="swrow"><button type="button" class="swb orig'+(swSel[fi]<0?' on':'')+'" data-i="-1" data-tip="Original" aria-label="Original colour"></button>'+SW[fi].map(function(c,i){return '<button type="button" class="swb'+(swSel[fi]===i?' on':'')+'" data-i="'+i+'" data-tip="'+esc(c[0])+'" aria-label="'+esc(c[0])+'" style="--c:'+c[1]+'"></button>'}).join('')+'</div>';
-    $$('.swb',box).forEach(function(bt){bt.addEventListener('click',function(){
-      swSel[fi]=+bt.dataset.i;applyTint(fi);
-      $$('.swb',box).forEach(function(x){x.classList.toggle('on',x===bt)});
-      $('#swName').textContent=swSel[fi]<0?'Original':SW[fi][swSel[fi]][0];
-    })});
+  function applyBlock(){
+    clearTimeout(blkT);
+    $$('.skin',blk).forEach(function(s){s.style.backgroundImage='url('+FSRC[front]+')'});
+    skin(false);
+    blkT=setTimeout(function(){skin(true)},blkKey<0?900:450);blkKey=front;
   }
-  /* variants: drop HD photos into assets/home5/finishes/<slug>-1.webp ... -8.webp (-1 is the card photo). Missing files are skipped. */
-  var SLUG=['lamination','membrane','acrylic','pu-paint'],VN=[
-    ['Natural oak','Walnut','Teak','Ash grey','Dark wenge','Light maple','Rustic wood','Cream white'],
-    ['Matte white','Soft grey','Wood-look','Classic cream','Sage green','Navy blue','Charcoal','Beige'],
-    ['Glossy white','Deep red','Midnight blue','Forest green','Mustard','Soft pink','Graphite','Ivory'],
-    ['Pastel pink','Warm white','Sky blue','Sage','Charcoal','Terracotta','Navy','Sand']];
-  var varSel=[0,0,0,0],origSrc=fcs.map(function(c){return $('img',c).getAttribute('src')});
-  function renderVars(){
-    var box=$('#fVars');if(!box)return;var fi=front,slug=SLUG[fi],list=[];
-    var pending=8,ok=[];
-    for(var k=1;k<=8;k++)(function(k){
-      var im=new Image(),src='assets/home5/finishes/'+slug+'-'+k+'.webp';
-      im.onload=function(){ok[k]=src;done()};im.onerror=function(){done()};im.src=src;
-    })(k);
-    function done(){
-      if(--pending)return;
-      if(fi!==front)return;
-      var items=[];for(var k=1;k<=8;k++)if(ok[k])items.push({k:k,src:ok[k],n:VN[fi][k-1]});
-      if(items.length<2){box.style.display='none';return}
-      box.innerHTML='<p class="vt">Explore '+esc(FIN[fi][0])+' options</p><div class="vrow">'+items.map(function(it,ix){return '<button type="button" class="vb'+(ix===varSel[fi]?' on':'')+'" data-ix="'+ix+'" title="'+esc(it.n)+'"><img src="'+it.src+'" alt="'+esc(it.n)+'" loading="lazy"><span>'+esc(it.n)+'</span></button>'}).join('')+'</div>';
-      $$('.vb',box).forEach(function(bt){bt.addEventListener('click',function(){
-        var ix=+bt.dataset.ix;varSel[fi]=ix;
-        $$('.vb',box).forEach(function(x){x.classList.toggle('on',x===bt)});
-        var img=$('img',fcs[fi]);img.style.opacity=0;
-        setTimeout(function(){img.src=items[ix].src;img.alt=items[ix].n+' '+FIN[fi][0];img.style.opacity=1},180);
-      })});
-    }
-  }
+  blkBtn.addEventListener('click',function(){clearTimeout(blkT);skin(!blkOn)});
   $('#fprev').addEventListener('click',function(){front=(front+3)%4;setFan()});
   $('#fnext').addEventListener('click',function(){front=(front+1)%4;setFan()});
   fcs.forEach(function(c,i){c.addEventListener('click',function(){if(i!==front){front=i;setFan()}})});

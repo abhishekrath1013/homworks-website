@@ -8,10 +8,18 @@
 
   /* nav */
   var nav=$('#nav'),burger=$('#burger'),mnav=$('#mnav');
-  function onScroll(){nav.classList.toggle('scrolled',window.scrollY>10)}
+  var lastY=window.scrollY;
+  function onScroll(){
+    var y=Math.max(0,window.scrollY);
+    nav.classList.toggle('scrolled',y>10);
+    if(y<=10||mnav.classList.contains('show'))nav.classList.remove('hide');
+    else if(y>lastY+4&&y>nav.offsetHeight)nav.classList.add('hide');
+    else if(y<lastY-4)nav.classList.remove('hide');
+    lastY=y;
+  }
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
-  burger.addEventListener('click',function(){var o=mnav.classList.toggle('show');burger.setAttribute('aria-expanded',o)});
-  $$('a',mnav).forEach(function(a){a.addEventListener('click',function(){mnav.classList.remove('show');burger.setAttribute('aria-expanded','false')})});
+  burger.addEventListener('click',function(){var o=mnav.classList.toggle('show');burger.setAttribute('aria-expanded',o);nav.classList.toggle('menu-open',o);nav.classList.remove('hide')});
+  $$('a',mnav).forEach(function(a){a.addEventListener('click',function(){mnav.classList.remove('show');nav.classList.remove('menu-open');burger.setAttribute('aria-expanded','false')})});
 
 
   /* hero: cursor-follow before / after reveal (organic blob mask) */
@@ -82,13 +90,13 @@
   var track=$('#stepsTrack'),stepsEl=$('#steps'),headEl=$('.hiw-head'),deskQ=window.matchMedia('(min-width:981px)');
   function layoutSteps(){
     var hh=headEl.offsetHeight;document.documentElement.style.setProperty('--hh',hh+'px');
-    var ph=Math.max(560,window.innerHeight-parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-h'))-hh);
+    var ph=Math.max(560,window.innerHeight-hh);
     document.documentElement.style.setProperty('--ph',ph+'px');
   }
   function stepScroll(){
     if(!deskQ.matches)return;
     var r=track.getBoundingClientRect(),stuck=stepsEl.offsetHeight,range=track.offsetHeight-stuck;
-    var navH=nav.offsetHeight+headEl.offsetHeight;
+    var navH=headEl.offsetHeight;
     var p=(navH-r.top)/range; /* r.top reaches navH when pinned */
     p=Math.min(.9999,Math.max(0,p));
     openStage(Math.floor(p*3));
@@ -96,8 +104,7 @@
   stages.forEach(function(s,i){
     $('.stage-btn',s).addEventListener('click',function(){
       if(deskQ.matches){
-        var range=track.offsetHeight-stepsEl.offsetHeight,navH=nav.offsetHeight+headEl.offsetHeight;
-        var y=track.getBoundingClientRect().top+scrollY+navH*0-0+(-navH)*0; /* base */
+        var range=track.offsetHeight-stepsEl.offsetHeight,navH=headEl.offsetHeight;
         var start=track.getBoundingClientRect().top+scrollY-navH;
         window.scrollTo({top:start+range*((i+.5)/3),behavior:'smooth'});
       }else openStage(i);
@@ -161,12 +168,21 @@
     kcards=$$('.kcard',kt);ki=0;kUpdate();
   }
   var cards=$('#cards'),cats=$$('.cat',cards),cur=cats.findIndex(function(c){return c.classList.contains('on')}),timer,shown=cur,DUR=6000;
+  /* mobile: the examples panel sits inside the open card, like an accordion */
+  var kitSec=$('#kitchens'),kitHome=document.createComment('kit-home'),mobQ=window.matchMedia('(max-width:860px)');
+  kitSec.parentNode.insertBefore(kitHome,kitSec);
+  function placeKit(){
+    if(mobQ.matches){var on=cats[cur];if(on.nextSibling!==kitSec)on.parentNode.insertBefore(kitSec,on.nextSibling);kitSec.classList.add('in-cards')}
+    else if(kitSec.classList.contains('in-cards')){kitHome.parentNode.insertBefore(kitSec,kitHome.nextSibling);kitSec.classList.remove('in-cards')}
+    kUpdate();
+  }
   function showPanel(i){
     if(i===shown)return;shown=i;kitIn.classList.add('swap');
     setTimeout(function(){renderKit(P[i]);kitIn.classList.remove('swap')},280);
   }
   function setCat(i){
     cur=(i+cats.length)%cats.length;
+    placeKit();
     cats.forEach(function(c,k){c.classList.toggle('on',k===cur);var pr=$('.prog i',c);if(pr){pr.style.animation='none';void pr.offsetWidth;pr.style.animation=''}});
     showPanel(cur);
   }
@@ -176,15 +192,18 @@
   var hold=false;
   function pause(){hold=true;cards.classList.add('paused');clearInterval(timer)}
   function resume(){hold=false;cards.classList.remove('paused');setCat(cur);play()}
-  [cards,$('#kitchens')].forEach(function(el){el.addEventListener('mouseenter',pause);el.addEventListener('mouseleave',resume)});
+  var hoverQ=window.matchMedia('(hover:hover)');
+  cards.addEventListener('mouseenter',function(){if(hoverQ.matches&&!mobQ.matches)pause()});
+  cards.addEventListener('mouseleave',function(){if(hold)resume()});
   if('IntersectionObserver' in window){
-    var cio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){if(!hold){setCat(cur);play()}}else clearInterval(timer)})},{threshold:.35});
+    var cio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){if(!hold){setCat(cur);play()}}else clearInterval(timer)})},{threshold:.12});
     cio.observe(cards);
   }else play();
   kp.addEventListener('click',function(){ki--;kUpdate()});
   kn.addEventListener('click',function(){ki++;kUpdate()});
   window.addEventListener('resize',kUpdate);
-  renderKit(P[cur]);
+  renderKit(P[cur]);placeKit();
+  mobQ.addEventListener&&mobQ.addEventListener('change',placeKit);
   var tx=null;
   kt.addEventListener('touchstart',function(e){tx=e.touches[0].clientX},{passive:true});
   kt.addEventListener('touchend',function(e){if(tx===null)return;var d=e.changedTouches[0].clientX-tx;if(Math.abs(d)>40){ki+=d<0?1:-1;kUpdate()}tx=null});
@@ -319,7 +338,7 @@
   /* testimonials */
   var tt=$('#ttrack'),ts=$$('.tc',tt),ti=0;
   function tUpdate(){
-    var step=ts[0].getBoundingClientRect().width+40;
+    var step=ts[0].getBoundingClientRect().width+(parseFloat(getComputedStyle(tt).columnGap)||120);
     tt.style.transform='translateX('+(-ti*step)+'px)';
     ts.forEach(function(s,k){s.classList.toggle('on',k===ti)});
   }

@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&family=Newsreader:ital,opsz,wght@0,6..72,300..500;1,6..72,300..500&family=Manrope:wght@200..800&family=Public+Sans:wght@600&family=Cormorant+Garamond:wght@600&family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&family=Archivo:wght@800&family=IBM+Plex+Mono:wght@600&display=swap" rel="stylesheet">
   <script>(function(d){var e=d.documentElement;e.className+=' js';setTimeout(function(){if(!window.__hw5)e.classList.add('motion-off')},2600)})(document)</script>
   <link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" href="assets/favicon-64.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="assets/home5.css?v=e90c10a">
+  <link rel="stylesheet" href="assets/home5.css?v=r2">
 </head>
 <body>
 
@@ -154,7 +154,7 @@
               <li><span class="ic"><img src="assets/home5/ic-eye.svg" alt=""></span>See finished modular and custom kitchens in person.</li>
             </ul>
             <span class="vis">Your vision, made personal</span>
-          </div></div>
+          <div class="stage-img"><img src="assets/home5/stage-main.webp" alt="A designer reviewing a floor plan" loading="lazy"></div></div></div>
         </div>
       </div>
       <div class="stage" data-i="1">
@@ -167,7 +167,7 @@
               <li><span class="ic"><img src="assets/home5/ic-eye.svg" alt=""></span>The clock starts when you approve your 3D design and fixed quote.</li>
               <li><span class="ic"><img src="assets/home5/ic-search.svg" alt=""></span>Your modules move into our own factory — not a third-party workshop.</li>
             </ul>
-          </div></div>
+          <div class="stage-img"><img src="assets/home5/step-2.webp" alt="Planning a design and quote together" loading="lazy"></div></div></div>
         </div>
       </div>
       <div class="stage" data-i="2">
@@ -180,7 +180,7 @@
               <li><span class="ic"><img src="assets/home5/ic-chat.svg" alt=""></span>A thorough 100+ point quality check before final handover.</li>
               <li><span class="ic"><img src="assets/home5/ic-video.svg" alt=""></span>Handover on Day 30, and your 10-year warranty begins.</li>
             </ul>
-          </div></div>
+          <div class="stage-img"><img src="assets/home5/step-3.webp" alt="A couple receiving the keys to their new home" loading="lazy"></div></div></div>
         </div>
       </div>
     </div>
@@ -248,8 +248,8 @@
         <div class="fcd" data-i="3"><span class="lab">PU paint</span><img src="assets/home5/fan-pu.webp" alt="PU paint finish" loading="lazy"></div>
       </div>
       <div class="fan-nav">
-        <button type="button" id="fprev" aria-label="Previous finish"><img src="assets/home5/arrow-prev.svg" alt=""></button>
-        <button type="button" id="fnext" aria-label="Next finish"><img src="assets/home5/arrow-next.svg" alt=""></button>
+        <button type="button" id="fprev" aria-label="Previous finish"><svg viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+        <button type="button" id="fnext" aria-label="Next finish"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
       </div>
     </div>
     <div class="fan-side">
@@ -297,7 +297,7 @@
   <div class="t2-in">
     <div class="t2-l rv">
       <p class="t2-k">Trusted by</p>
-      <h2 id="testiH">600+ customers worldwide</h2>
+      <h2 id="testiH">600+ <br class="mb">customers worldwide</h2>
       <ul class="stats">
         <li><svg viewBox="0 0 24 24"><path d="M3 11 12 3l9 8M5 10v10h14V10"/><path d="M12 17s-3-1.8-3-4a1.7 1.7 0 0 1 3-1 1.7 1.7 0 0 1 3 1c0 2.2-3 4-3 4Z"/></svg><div><b>14,000+</b><span>happy homes</span></div></li>
         <li><svg viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.5 3 8 7 9 4-1 7-4.5 7-9V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg><div><b>10 years</b><span>on warranty</span></div></li>
@@ -306,8 +306,8 @@
     </div>
     <div class="t2-r rv d1">
       <div class="t-nav">
-        <button type="button" id="tprev" aria-label="Previous story"><img src="assets/home5/arrow-prev.svg" alt=""></button>
-        <button type="button" id="tnext" aria-label="Next story"><img src="assets/home5/arrow-next.svg" alt=""></button>
+        <button type="button" id="tprev" aria-label="Previous story"><svg viewBox="0 0 24 24"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+        <button type="button" id="tnext" aria-label="Next story"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
       </div>
       <div class="t2-win"><div class="ttrack" id="ttrack">
         <article class="tc"><img class="tbg" src="assets/home5/t-bg.webp" alt=""><div class="ph"><img src="assets/home5/t-room-1.webp" alt="" loading="lazy"></div><p class="tq">They transformed our home into a beautiful, welcoming space we absolutely love.</p><div class="who"><span class="av"><img src="assets/home5/t-avatar.webp" alt="" loading="lazy"></span><div><b>Priya Ramesh, Homemaker</b><small>Chennai, Tamil Nadu</small></div></div></article>
@@ -349,9 +349,10 @@
 <!-- FAQ -->
 <section class="faq2" id="faq" aria-labelledby="faqH">
   <div class="faq-in">
-    <div class="rv">
+    <div class="rv faq-l">
       <h2 id="faqH">How we build and install your space</h2>
       <p class="sub">Made in our factory. Fitted in your home. Learn how our approach keeps furniture fabrication off-site and focuses on installation at your place.</p>
+      <img class="faq-img" src="assets/home5/faq-desk.webp" alt="A fluted wooden sideboard styled with a vase and bowl" loading="lazy">
     </div>
     <div class="faq-list rv d1" id="faqList"><div class="qa open"><button type="button" aria-expanded="true">Where are the furniture parts manufactured?<svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button><div class="a"><p>Your furniture parts are made in our factory and brought to your home for fitting. Cutting and fabrication happen off-site rather than turning your home into a carpentry workshop.</p></div></div><div class="qa open"><button type="button" aria-expanded="true">Why do you avoid on-site carpentry?<svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button><div class="a"><p>Factory fabrication reduces the cutting, sanding, dust, and noise at your property. Your home becomes the installation site, not the workshop. Some drilling and final adjustments may still be needed during fitting.</p></div></div><div class="qa open"><button type="button" aria-expanded="true">What happens during the installation phase?<svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button><div class="a"><p>The factory-made parts are delivered to your property for assembly, positioning, leveling, and securing. The focus is on fitting the furniture into your space rather than building it from raw materials on-site.</p></div></div><div class="qa open"><button type="button" aria-expanded="true">Can factory-made furniture be customised for my space?<svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button><div class="a"><p>Factory-made does not have to mean standard-sized. Furniture can be designed around your room dimensions, storage needs, and chosen finishes, with the design and measurements confirmed before production.</p></div></div><div class="qa open"><button type="button" aria-expanded="true">Will any carpentry work still happen in my home?<svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button><div class="a"><p>Most fabrication happens in the factory. Installation may still involve drilling, fixing hardware, and small fitting adjustments. This reduces on-site carpentry, but does not mean installation will be completely dust- or noise-free.</p></div></div></div>
   </div>
@@ -391,6 +392,6 @@
 
 <a class="wa" href="https://wa.me/918925811898" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20.5l1.7-5A8.5 8.5 0 1 1 21 11.5Z"/><path d="M9.2 8.8c.2 2.3 2.7 4.8 5 5l1.3-1.4-1.9-1-.8.7a4 4 0 0 1-1.8-1.8l.7-.8-1-1.9-1.5 1.2Z"/></svg></a>
 
-<script src="assets/home5.js?v=e90c10a"></script>
+<script src="assets/home5.js?v=r2"></script>
 </body>
 </html>

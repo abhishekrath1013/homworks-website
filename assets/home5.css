@@ -445,7 +445,7 @@ em.ser{font-family:var(--serif);font-style:italic;font-weight:300;font-variation
 @media(max-width:980px){
   .t2-in{grid-template-columns:1fr}
   .t2-r{padding-top:56px}
-  .t2-win{padding-left:54px;margin-left:-54px}
+  .t2-win{padding-left:30px;margin-left:0}
   .tc{padding-top:clamp(260px,62vw,420px)}
   .tc .ph{left:-30px;width:calc(100% + 0px);width:min(92%,818px);height:clamp(240px,56vw,380px)}
   .stats{max-width:none}

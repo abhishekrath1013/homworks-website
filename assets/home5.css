@@ -450,7 +450,7 @@ em.ser{font-family:var(--serif);font-style:italic;font-weight:300;font-variation
   .tc .ph{left:-30px;width:calc(100% + 0px);width:min(92%,818px);height:clamp(240px,56vw,380px)}
   .stats{max-width:none}
 }
-@media(max-width:600px){.mb{display:inline}.t2-l h2{max-width:none}}
+
 
 /* ============ CTA ============ */
 .cta2{position:relative;overflow:hidden;color:#fff;background:#3a2a22;padding:clamp(70px,7.2vw,128px) clamp(20px,6.25vw,111px)}
@@ -535,3 +535,9 @@ em.ser{font-family:var(--serif);font-style:italic;font-weight:300;font-variation
 .rail-nav button:active svg,.fan-nav button:active svg,.t-nav button:active svg{stroke:#fff}
 .rail-nav button[disabled]{opacity:.35;cursor:default;border-color:#ccc;pointer-events:none}
 .mb{display:none}
+@media(max-width:980px){.mb{display:inline}.t2-l h2{max-width:none}
+  .stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;margin-top:26px}
+  .stats li{flex-direction:column;gap:8px;padding:4px 10px;border-bottom:0;border-right:1px dotted #bdbdbd}
+  .stats li:first-child{padding-left:0}.stats li:last-child{border-right:0}
+  .stats svg{margin-top:0}
+  .stats b{font-size:clamp(19px,5.4vw,28px)}.stats span{font-size:11.5px}}

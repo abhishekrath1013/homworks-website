@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&family=Newsreader:ital,opsz,wght@0,6..72,300..500;1,6..72,300..500&family=Manrope:wght@200..800&family=Public+Sans:wght@600&family=Cormorant+Garamond:wght@600&family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&family=Archivo:wght@800&family=IBM+Plex+Mono:wght@600&display=swap" rel="stylesheet">
   <script>(function(d){var e=d.documentElement;e.className+=' js';setTimeout(function(){if(!window.__hw5)e.classList.add('motion-off')},2600)})(document)</script>
   <link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" href="assets/favicon-64.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="assets/home5.css?v=r11">
+  <link rel="stylesheet" href="assets/home5.css?v=r12">
 </head>
 <body>
 
@@ -64,6 +64,7 @@
     <a class="hero-btn" href="#contact">Call for a FREE design**</a>
     <div class="hero-fn"><span>* Guarantee excludes client-side delays, design changes, site readiness. +10 days for North East India and out-of-inventory finishes.</span><span>** For one room only</span></div>
   </div>
+  <button class="hero-drag" id="heroDrag" type="button" aria-label="Drag to compare before and after"><svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18M12 3l-3 3M12 3l3 3M12 21l-3-3M12 21l3-3M3 12l3-3M3 12l3 3M21 12l-3-3M21 12l-3 3"/></svg></button>
 </section>
 
 <!-- AWARDS BAR -->
@@ -123,7 +124,7 @@
 <section class="guide2" id="guide" aria-labelledby="guideH">
   <div class="g2-h">
     <div class="rv"><p class="eyebrow">Homeworks Interior Guide</p><h2 id="guideH">16 key questions<br><em>you need to ask.</em></h2></div>
-    <p class="g2-sub rv d1">Your home’s quality and longevity will depend on the answers.<br><br>Ask them before you choose any interior designer.</p>
+    <p class="g2-sub rv d1">Consider these points before you choose any interior designer – including us.<br><br>Your home’s quality and longevity will depend on the answers.</p>
   </div>
   <div class="g2-wrap" id="gWrap">
     <div class="g2-grid rv" id="gGrid"></div>
@@ -136,7 +137,7 @@
 <div class="stk">
   <div class="hiw-head" id="how-it-works-head">
     <div>
-      <h2 id="hiwH">The seamless Homworks process</h2>
+      <h2 id="hiwH">The seamless <br class="mb">Homworks process</h2>
       <p>A clear step-by-step path to a beautifully designed home.</p>
     </div>
     <div class="hiw-cta"><a href="#contact">Get Started</a><span>Book a FREE consultation today!</span></div>
@@ -191,7 +192,17 @@
           <a class="tile" href="design-styles.html" data-p="83"><img src="assets/home5/tile5.webp" alt="" loading="lazy"><span>Heritage</span></a>
           <a class="tile" href="design-styles.html" data-p="100"><img src="assets/home5/tile6.webp" alt="" loading="lazy"><span>Luxury</span></a>
         </div>
-        <div class="pbar"><i id="pfill"></i></div>
+        <div class="pbar"><i></i></div>
+      </div>
+      <div class="style-card off" id="styleCard1">
+        <h4>Before we build</h4>
+        <div class="tiles"><a class="tile on" href="how-it-works.html" data-p="17"><img src="assets/home5/set-1.webp" alt="" loading="lazy"><span>3D model</span></a><a class="tile" href="how-it-works.html" data-p="33"><img src="assets/home5/set-2.webp" alt="" loading="lazy"><span>Quality check</span></a><a class="tile" href="how-it-works.html" data-p="50"><img src="assets/home5/set-3.webp" alt="" loading="lazy"><span>Design freeze</span></a><a class="tile" href="how-it-works.html" data-p="67"><img src="assets/home5/set-4.webp" alt="" loading="lazy"><span>BOM + drawings</span></a><a class="tile" href="how-it-works.html" data-p="83"><img src="assets/home5/set-5.webp" alt="" loading="lazy"><span>Site validation</span></a><a class="tile" href="how-it-works.html" data-p="100"><img src="assets/home5/set-6.webp" alt="" loading="lazy"><span>Final sign-off</span></a></div>
+        <div class="pbar"><i></i></div>
+      </div>
+      <div class="style-card off" id="styleCard2">
+        <h4>From factory to home</h4>
+        <div class="tiles"><a class="tile on" href="how-it-works.html" data-p="17"><img src="assets/home5/go-1.webp" alt="" loading="lazy"><span>Execution</span></a><a class="tile" href="how-it-works.html" data-p="33"><img src="assets/home5/go-2.webp" alt="" loading="lazy"><span>Factory</span></a><a class="tile" href="how-it-works.html" data-p="50"><img src="assets/home5/go-3.webp" alt="" loading="lazy"><span>Production</span></a><a class="tile" href="how-it-works.html" data-p="67"><img src="assets/home5/go-4.webp" alt="" loading="lazy"><span>Site readiness</span></a><a class="tile" href="how-it-works.html" data-p="83"><img src="assets/home5/go-5.webp" alt="" loading="lazy"><span>Installation</span></a><a class="tile" href="how-it-works.html" data-p="100"><img src="assets/home5/go-6.webp" alt="" loading="lazy"><span>Handover</span></a></div>
+        <div class="pbar"><i></i></div>
       </div>
      </div>
     </div>
@@ -231,10 +242,12 @@
     <div class="fan-col">
       <div class="niche" id="niche">
         <img class="niche-img" src="assets/home5/fin-niche.png" alt="" loading="lazy"><img class="niche-img niche-off" src="assets/home5/fin-niche-off.webp" alt="" loading="lazy">
-        <div class="fl oak act" data-i="0"><img class="oak-on" src="assets/home5/fin-oak-on.webp" alt="Lamination finish, lit" loading="lazy"><img class="oak-off" src="assets/home5/fin-oak-off.webp" alt="Lamination finish, unlit" loading="lazy"></div>
-        <div class="fl oak" data-i="1"><img class="oak-on" src="assets/home5/fin-membrane-on.webp" alt="Membrane finish, lit" loading="lazy"><img class="oak-off" src="assets/home5/fin-membrane-off.webp" alt="Membrane finish, unlit" loading="lazy"></div>
-        <div class="fl oak" data-i="2"><img class="oak-on" src="assets/home5/fin-acrylic-on.webp" alt="Acrylic finish, lit" loading="lazy"><img class="oak-off" src="assets/home5/fin-acrylic-off.webp" alt="Acrylic finish, unlit" loading="lazy"></div>
-        <div class="fl oak" data-i="3"><img class="oak-on" src="assets/home5/fin-pu-on.webp" alt="PU paint finish, lit" loading="lazy"><img class="oak-off" src="assets/home5/fin-pu-off.webp" alt="PU paint finish, unlit" loading="lazy"></div>
+        <div class="fl-win">
+          <div class="fl oak act" data-i="0"><img class="oak-on" src="assets/home5/fin-oak-on.webp" alt="Lamination finish, lit" loading="lazy"><img class="oak-off" src="assets/home5/fin-oak-off.webp" alt="Lamination finish, unlit" loading="lazy"></div>
+          <div class="fl oak" data-i="1"><img class="oak-on" src="assets/home5/fin-membrane-on.webp" alt="Membrane finish, lit" loading="lazy"><img class="oak-off" src="assets/home5/fin-membrane-off.webp" alt="Membrane finish, unlit" loading="lazy"></div>
+          <div class="fl oak" data-i="2"><img class="oak-on" src="assets/home5/fin-acrylic-on.webp" alt="Acrylic finish, lit" loading="lazy"><img class="oak-off" src="assets/home5/fin-acrylic-off.webp" alt="Acrylic finish, unlit" loading="lazy"></div>
+          <div class="fl oak" data-i="3"><img class="oak-on" src="assets/home5/fin-pu-on.webp" alt="PU paint finish, lit" loading="lazy"><img class="oak-off" src="assets/home5/fin-pu-off.webp" alt="PU paint finish, unlit" loading="lazy"></div>
+        </div>
       </div>
       <button type="button" class="lt-sw" id="ltSw" role="switch" aria-checked="true" aria-label="Lights"><svg viewBox="0 0 24 24"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3Z"/></svg><span class="lt-t">Lights on</span><i class="lt-trk"><b></b></i></button>
       <div class="fin-dots" id="finDots" role="tablist" aria-label="Choose a finish">
@@ -267,7 +280,7 @@
 </section>
 
 <!-- PHILOSOPHY -->
-<section class="quote" aria-label="Our philosophy">
+<section class="quote" aria-label="Our philosophy" hidden>
   <img src="assets/home5/quote-bg.webp" alt="" loading="lazy">
   <div class="rv">
     <h2 class="q-h">A pledge of quality and service.<br><em>From our desk to yours.</em></h2>
@@ -281,11 +294,11 @@
   <div class="t2-in">
     <div class="t2-l rv">
       <p class="t2-k">Trusted by</p>
-      <h2 id="testiH">600+ <br class="mb">Customers worldwide</h2>
+      <h2 id="testiH"><span class="cnt" data-to="600" data-suf="+">600+</span> <br class="mb">Customers worldwide</h2>
       <ul class="stats">
-        <li><svg viewBox="0 0 24 24"><path d="M3 11 12 3l9 8M5 10v10h14V10"/><path d="M12 17s-3-1.8-3-4a1.7 1.7 0 0 1 3-1 1.7 1.7 0 0 1 3 1c0 2.2-3 4-3 4Z"/></svg><div><b>14,000+</b><span>happy homes</span></div></li>
-        <li><svg viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.5 3 8 7 9 4-1 7-4.5 7-9V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg><div><b>10 years</b><span>on warranty</span></div></li>
-        <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div><b>30 days</b><span>from sign-off*</span></div></li>
+        <li><svg viewBox="0 0 24 24"><path d="M3 11 12 3l9 8M5 10v10h14V10"/><path d="M12 17s-3-1.8-3-4a1.7 1.7 0 0 1 3-1 1.7 1.7 0 0 1 3 1c0 2.2-3 4-3 4Z"/></svg><div><b><span class="cnt" data-to="14000" data-suf="+">14,000+</span></b><span>happy homes</span></div></li>
+        <li><svg viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.5 3 8 7 9 4-1 7-4.5 7-9V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg><div><b><span class="cnt" data-to="10" data-suf=" years">10 years</span></b><span>on warranty</span></div></li>
+        <li><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><div><b><span class="cnt" data-to="30" data-suf=" days">30 days</span></b><span>from sign-off*</span></div></li>
       </ul>
     </div>
     <div class="t2-r rv d1">
@@ -294,7 +307,7 @@
         <button type="button" id="tnext" aria-label="Next story"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
       </div>
       <div class="t2-win"><div class="ttrack" id="ttrack">
-        <article class="tc"><img class="tbg" src="assets/home5/t-bg.webp" alt=""><div class="ph"><img src="assets/home5/t-room-1.webp" alt="" loading="lazy"></div><p class="tq">They transformed our home into a beautiful, welcoming space we absolutely love.</p><div class="who"><span class="av"><img src="assets/home5/t-avatar.webp" alt="" loading="lazy"></span><div><b>Priya Ramesh, Homemaker</b><small>Chennai, Tamil Nadu</small></div></div></article>
+        <article class="tc"><img class="tbg" src="assets/home5/t-bg.webp" alt=""><div class="ph"><video src="assets/villa-interior.mp4" poster="assets/home/villa-interior-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Home interior walkthrough"></video></div><p class="tq">They transformed our home into a beautiful, welcoming space we absolutely love.</p><div class="who"><span class="av"><img src="assets/home5/t-avatar.webp" alt="" loading="lazy"></span><div><b>Priya Ramesh, Homemaker</b><small>Chennai, Tamil Nadu</small></div></div></article>
         <article class="tc"><img class="tbg" src="assets/home5/t-bg.webp" alt=""><div class="ph"><img src="assets/home/living-room.jpg" alt="" loading="lazy"></div><p class="tq">They understood not just our Pinterest board, but the way our family actually lives.</p><div class="who"><span class="av">M</span><div><b>Meera &amp; Arjun</b><small>3BHK, Bangalore</small></div></div></article>
         <article class="tc"><img class="tbg" src="assets/home5/t-bg.webp" alt=""><div class="ph"><img src="assets/home/dining.jpg" alt="" loading="lazy"></div><p class="tq">Every small concern was answered before it became a problem. That is rare.</p><div class="who"><span class="av">V</span><div><b>Vignesh Kumar</b><small>Villa, Coimbatore</small></div></div></article>
         <article class="tc"><img class="tbg" src="assets/home5/t-bg.webp" alt=""><div class="ph"><img src="assets/home/bedroom.jpg" alt="" loading="lazy"></div><p class="tq">It feels polished, but it also feels like us. We did not know both were possible.</p><div class="who"><span class="av">A</span><div><b>Aditi Shah</b><small>2BHK, Chennai</small></div></div></article>
@@ -371,6 +384,6 @@
 
 <a class="wa" href="https://wa.me/918925811898" target="_blank" rel="noopener" aria-label="Chat on WhatsApp"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20.5l1.7-5A8.5 8.5 0 1 1 21 11.5Z"/><path d="M9.2 8.8c.2 2.3 2.7 4.8 5 5l1.3-1.4-1.9-1-.8.7a4 4 0 0 1-1.8-1.8l.7-.8-1-1.9-1.5 1.2Z"/></svg></a>
 
-<script src="assets/home5.js?v=r8"></script>
+<script src="assets/home5.js?v=r12"></script>
 </body>
 </html>

@@ -6,6 +6,12 @@
   var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
   var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
 
+  /* Sub-pages are not part of the review build: links stay inert (href="#") until SUBPAGES is switched on. */
+  var SUBPAGES=false;
+  function lk(u){return SUBPAGES?u:'#'}
+  $$('a[data-href]').forEach(function(a){if(SUBPAGES)a.setAttribute('href',a.getAttribute('data-href'))});
+  document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a');if(a&&a.getAttribute('href')==='#')e.preventDefault()});
+
   /* nav */
   var nav=$('#nav'),burger=$('#burger'),mnav=$('#mnav');
   var lastY=window.scrollY,userAt=0;
@@ -184,10 +190,10 @@
   }
   function renderKit(d){
     $('#kitH').textContent=d.h;$('#kitP').textContent=d.p;
-    $('#kitPills').innerHTML=d.pills.map(function(t){return '<a href="'+d.link[1]+'">'+esc(t)+'</a>'}).join('');
-    var l=$('#kitLink');l.href=d.link[1];l.innerHTML='<span>'+esc(d.link[0])+'</span><span>›</span>';
+    $('#kitPills').innerHTML=d.pills.map(function(t){return '<a href="'+lk('design-styles.html')+'">'+esc(t)+'</a>'}).join('');
+    var l=$('#kitLink');l.href=lk(d.link[1]);l.innerHTML='<span>'+esc(d.link[0])+'</span><span>›</span>';
     kt.innerHTML=d.cards.map(function(c){
-      return '<a class="kcard" href="'+c[0]+'"><figure><img src="assets/'+c[1]+'" alt="'+esc(c[2])+'" loading="lazy"></figure><div><h3>'+esc(c[2])+'</h3><p>'+esc(c[3])+'</p>'+
+      return '<a class="kcard" href="'+lk(c[0])+'"><figure><img src="assets/'+c[1]+'" alt="'+esc(c[2])+'" loading="lazy"></figure><div><h3>'+esc(c[2])+'</h3><p>'+esc(c[3])+'</p>'+
         (c[4]?'<span class="pal">'+c[4].map(function(x){return '<i style="--c:'+x+'"></i>'}).join('')+'</span>':'')+'</div></a>'}).join('');
     kcards=$$('.kcard',kt);ki=0;kUpdate();
   }

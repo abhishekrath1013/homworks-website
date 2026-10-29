@@ -8,13 +8,16 @@
 
   /* nav */
   var nav=$('#nav'),burger=$('#burger'),mnav=$('#mnav');
-  var lastY=window.scrollY;
+  var lastY=window.scrollY,userAt=0;
+  ['wheel','touchstart','touchmove','keydown','mousedown','click'].forEach(function(ev){window.addEventListener(ev,function(){userAt=performance.now()},{passive:true,capture:true})});
   function onScroll(){
-    var y=Math.max(0,window.scrollY);
+    var y=Math.max(0,window.scrollY),dy=y-lastY,mine=performance.now()-userAt<900;
     nav.classList.toggle('scrolled',y>10);
     if(y<=10||mnav.classList.contains('show'))nav.classList.remove('hide');
-    else if(y>lastY+4&&y>nav.offsetHeight)nav.classList.add('hide');
-    else if(y<lastY-4)nav.classList.remove('hide');
+    else if(mine){
+      if(dy>4&&y>nav.offsetHeight)nav.classList.add('hide');
+      else if(dy<-4)nav.classList.remove('hide');
+    }
     lastY=y;
   }
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
@@ -122,25 +125,25 @@
 
   /* what we design: expanding cards (autoplay) that also drive the lower showcase */
   var P=[
-    {h:'One plan for every room',p:'One cohesive plan for every room, with one team accountable from the first design to final handover.',pills:['Kitchen','Bedrooms','Living room','Pooja room','Home office','Dining'],link:['Explore full home interiors','full-home-interiors.html'],cards:[
+    {h:'Custom designs for each room',p:'A cohesive plan for every space, with one team accountable from the first design to final handover.',pills:['Kitchen','Bedrooms','Living room','Pooja room','Home office','Dining'],link:['Explore full home interiors','full-home-interiors.html'],cards:[
       ['full-home-interiors.html','home/home-office.jpg','Home office','A bright, light place to think and create – a minimal, stylish and elegant office with sleek interiors of your choice.'],
       ['foyer-pooja-units.html','home/pooja-room.jpg','Pooja room','Designed with vastu for prayer and meditation – a peaceful interior that brings a positive vibration to your home.'],
       ['full-home-interiors.html','home/dining.jpg','Dining','“The family that eats together stays together.” Spacious or compact, with every inch detailed and well designed.'],
       ['full-home-interiors.html','home/vanity.jpg','Vanity','A perfectly blended vanity brings out the beauty of the room – a timeless contemporary style for your home.']]},
-    {h:'Styles for your entertainment space',p:'Console units, partitions, wall panels and TV units – cabinets are the most underrated, trend-making part of a living room.',pills:['Console units','Living partitions','Wall panels','TV units'],link:['Explore living rooms','living-rooms.html'],cards:[
+    {h:'Enhancing your entertainment space.',p:'Console units, partitions, wall panels and TV units - let custom cabinets become style statements.',pills:['Console units','Living partitions','Wall panels','TV units'],link:['Explore living rooms','living-rooms.html'],cards:[
       ['living-rooms.html','home/living-console.jpg','Console unit','A definite eye-catcher, in many styles.'],
       ['living-rooms.html','home/living-partition.jpg','Living partition','Decor at its finest – it can make or break your living room’s style.'],
       ['living-rooms.html','home/living-wall-panel.jpg','Wall panel','Exquisite panelling that ties the whole room together.'],
       ['tv-units.html','home/tv-floor-standing.jpg','TV unit · floor-standing','Low cabinets on a baseboard, for a contemporary look.'],
       ['tv-units.html','home/tv-wall-hung.jpg','TV unit · wall-hung','Floating cabinets that leave the floor clear; a plinth can be added.']]},
-    {h:'The kitchen of your dreams',p:'Once only a place to cook, the kitchen is now where families gather. Choose from six layouts in six styles, shaped around the people who use it.',pills:['Indian Classic','Contemporary','Indian Traditional','Minimalistic','Modern','English Classic'],link:['Explore modular kitchens','modular-kitchens.html'],cards:[
+    {h:'The kitchen of your dreams',p:'Beyond just a place to cook, a space where families gather. Pick from 6 layouts in 6 styles, shaped around people who use it.',pills:['Indian Classic','Contemporary','Indian Traditional','Minimalistic','Modern','English Classic'],link:['Explore modular kitchens','modular-kitchens.html'],cards:[
       ['kitchen-l-shaped.html','home/kitchen-l-shaped.jpg','L-shaped','A popular corner layout with an efficient work triangle and room for an island.',['#b4a9a0','#756d69','#534b46','#ce9f6c']],
       ['kitchen-u-shaped.html','home/kitchen-u-shaped.jpg','U-shaped','Three-sided cabinetry saves space and adds storage for shared cooking.',['#b59f8c','#6f6e6c','#73675f','#50422b']],
       ['kitchen-galley.html','home/kitchen-galley.jpg','Galley','Facing walls maximize storage and create an efficient work triangle in narrow spaces.',['#d4c9c3','#8b746c','#7f6c63','#9a5b3f']],
       ['kitchen-one-wall.html','home/kitchen-straight.jpg','One-wall','Every workstation along a single wall – simple, unobstructed and ideal for a smaller villa or condo.',['#dbd1ca','#6b6661','#222120','#473e38']],
       ['kitchen-peninsular.html','home/kitchen-peninsular.jpg','Peninsular','A U-shape with a connected extension – extra counter, a breakfast corner and a defined open-plan space.',['#b3aca4','#353236','#3f4860','#8a837d']],
       ['kitchen-island.html','home/kitchen-island.jpg','Island','Any layout, plus a freestanding island for prep, socialising and appliances.',['#cfc2b8','#7a5e49','#342718','#b8824e']]]},
-    {h:'Foundation for your dreams',p:'Made from quality materials, our cots are the foundation for your sweet dreams – styled to suit your interior.',pills:['Cots','Headboards','Wardrobes',"Kids' rooms"],link:['Explore bedrooms','bedrooms.html'],cards:[
+    {h:'Cots crafted for comfort',p:'Made from quality materials, our cots are the foundation for your dreams – styled to suit your interior.',pills:['Cots','Headboards','Wardrobes',"Kids' rooms"],link:['Explore bedrooms','bedrooms.html'],cards:[
       ['bedrooms.html','home/cot-hydraulic.jpg','Hydraulic cot','A modern, clinical finish for someone who likes a little gadgetry.'],
       ['bedrooms.html','home/cot-storage.jpg','Cot with storage','A handy storage space built in underneath.'],
       ['bedrooms.html','home/cot-fabric.jpg','Fabric headboard','Popular for the soft comfort that wood can’t give.'],
@@ -264,14 +267,15 @@
       '<div class="pop-t"><p class="pop-n">'+n+'</p><h3>'+esc(g[1])+'</h3><p>'+esc(g[2])+'</p>'+
       '<h4>In daily life:</h4><p>'+esc(g[3])+'</p><h4>The risk:</h4><p>'+esc(g[4])+'</p><h4>The Homworks standard:</h4><p>'+esc(g[5])+'</p><h4>What to ask:</h4><p>'+(g[6].charAt(0)==='“'?esc(g[6]):'“'+esc(g[6])+'”')+'</p></div>'+
       '<div class="pop-i"><img src="'+g[7]+'" alt=""><div class="cap">'+esc(g[8])+'</div></div>';
-    gPop.hidden=false;gPop.setAttribute('role','dialog');gPop.setAttribute('aria-label',g[1]);
+    gPop.classList.toggle('tip',!mobileG());
+    gPop.hidden=false;gPop.setAttribute('role',mobileG()?'dialog':'tooltip');gPop.setAttribute('aria-label',g[1]);
     $('.pop-x',gPop).addEventListener('click',hideG);
     if(mobileG()){gPop.style.left=gPop.style.top='';gBack.hidden=false;return}
     gBack.hidden=true;
     var col=i%4,pw=gPop.offsetWidth,ph=gPop.offsetHeight,wh=gWrap.offsetHeight;
-    var left=col<2?cell.offsetLeft+cell.offsetWidth:cell.offsetLeft-pw;
+    var left=col<2?cell.offsetLeft+cell.offsetWidth+8:cell.offsetLeft-pw-8;
     left=Math.max(0,Math.min(left,gWrap.offsetWidth-pw));
-    var top=Math.max(0,Math.min(cell.offsetTop-85,wh-ph+50));
+    var top=Math.max(0,Math.min(cell.offsetTop+cell.offsetHeight/2-ph/2,wh-ph));
     gPop.style.left=left+'px';gPop.style.top=top+'px';
   }
   function hideG(){clearTimeout(gTimer);gPop.hidden=true;gBack.hidden=true;gCells.forEach(function(c){c.classList.remove('on')});gCur=-1}
@@ -289,34 +293,23 @@
     ['PU paint',[['layers','A finish that elevates the space.'],['check','Protects the cabinets.'],['home','Lasts longer — sturdier and stronger.']]]
   ];
   var FI={check:'M12 3 5 6v5c0 4.5 3 8 7 9 4-1 7-4.5 7-9V6l-7-3ZM9 12l2 2 4-4',layers:IC.layers,leaf:'M5 19c0-8 5-14 15-14 0 9-5 15-13 14M5 19c3-5 6-8 10-10',home:'M4 11 12 4l8 7M6 10v9h12v-9M10 19v-5h4v5',palette:IC.palette};
-  var fan=$('#fan'),fcs=$$('.fcd',fan),fInfo=$('#fanInfo'),front=0;
+  var fInfo=$('#fanInfo'),dots=$$('#finDots button'),front=0;
   function setFan(){
-    fcs.forEach(function(c,i){c.dataset.p=(i-front+4)%4});
     var f=FIN[front];
     fInfo.classList.remove('swap');void fInfo.offsetWidth;fInfo.classList.add('swap');
-    fInfo.innerHTML='<h3>'+f[0]+'</h3><ul>'+f[1].map(function(b){return '<li><i><svg viewBox="0 0 24 24"><path d="'+FI[b[0]]+'"/></svg></i><span>'+esc(b[1])+'</span></li>'}).join('')+'</ul><div class="sw" id="fSw"></div><div class="vars" id="fVars"></div>';
-    applyBlock();
+    fInfo.innerHTML='<h3>'+f[0]+'</h3><ul>'+f[1].map(function(b){return '<li><i><svg viewBox="0 0 24 24"><path d="'+FI[b[0]]+'"/></svg></i><span>'+esc(b[1])+'</span></li>'}).join('')+'</ul>';
+    $$('.fl').forEach(function(l){l.classList.toggle('act',+l.dataset.i===front)});
+    dots.forEach(function(d,i){d.classList.toggle('on',i===front);d.setAttribute('aria-selected',i===front)});
   }
-
-  /* wooden block: starts plain; the selected finish is wrapped onto it */
-  var blk=$('#blk'),blkCap=$('#blkCap'),blkBtn=$('#blkToggle'),blkOn=true,blkT=0,blkKey=-1;
-  var FSRC=['lamination','membrane','acrylic','pu-paint'].map(function(n){return 'assets/home5/mat/'+n+'.webp'});
-  function skin(on){
-    $$('.skin',blk).forEach(function(s){s.classList.toggle('on',on)});
-    blkBtn.textContent=on?'Show plain wood':'Apply '+FIN[front][0];
-    blkCap.textContent=on?FIN[front][0]+' applied on the block':'Plain wood block';
-    blkOn=on;
-  }
-  function applyBlock(){
-    clearTimeout(blkT);blk.dataset.f=front;
-    $$('.skin',blk).forEach(function(s){s.style.backgroundImage='url('+FSRC[front]+')'});
-    skin(false);
-    blkT=setTimeout(function(){skin(true)},blkKey<0?900:450);blkKey=front;
-  }
-  blkBtn.addEventListener('click',function(){clearTimeout(blkT);skin(!blkOn)});
-  $('#fprev').addEventListener('click',function(){front=(front+3)%4;setFan()});
-  $('#fnext').addEventListener('click',function(){front=(front+1)%4;setFan()});
-  fcs.forEach(function(c,i){c.addEventListener('click',function(){if(i!==front){front=i;setFan()}})});
+  var ltSw=$('#ltSw');
+  ltSw.addEventListener('click',function(e){
+    e.stopPropagation();
+    var on=ltSw.getAttribute('aria-checked')!=='true';
+    ltSw.setAttribute('aria-checked',on);$('.lt-t',ltSw).textContent=on?'Lights on':'Lights off';
+    $('#niche').classList.toggle('off',!on);
+  });
+  dots.forEach(function(d,i){d.addEventListener('click',function(){if(i!==front){front=i;setFan()}})});
+  $('#niche').addEventListener('click',function(){front=(front+1)%4;setFan()});
   setFan();
 
   /* philosophy quote: words light up as you scroll */

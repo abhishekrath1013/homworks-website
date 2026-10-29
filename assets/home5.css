@@ -592,3 +592,5 @@ em.ser{font-family:var(--serif);font-style:italic;font-weight:300;font-variation
 }
 
 .bul .ic svg{width:18px;height:18px;stroke:var(--pink-2);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+
+.foot{padding-bottom:clamp(40px,4.4vw,72px)}

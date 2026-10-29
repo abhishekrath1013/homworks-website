@@ -661,3 +661,6 @@ em.ser{font-family:var(--serif);font-style:italic;font-weight:300;font-variation
   .foot ul{gap:11px;font-size:11px}.fc-contact p{font-size:11px;margin-bottom:11px}
 }
 .stats b .cnt{display:inline;margin:0;font:inherit;color:inherit;letter-spacing:inherit}
+
+.hero-line{display:none;position:absolute;inset:0;z-index:3;background:#fff;pointer-events:none;filter:drop-shadow(0 0 4px rgba(0,0,0,.35))}
+@media(max-width:860px){.hero-line{display:block}.hero-drag{width:52px;height:52px;margin:-26px 0 0 -26px}}

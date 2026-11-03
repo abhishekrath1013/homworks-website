@@ -68,7 +68,7 @@ em.ser{font-family:var(--serif);font-style:italic;font-weight:300;font-variation
 }
 
 /* ============ HERO (cursor-follow before / after reveal) ============ */
-.hero{position:relative;margin-top:0;padding-top:var(--nav-h);height:clamp(520px,49vw,880px);overflow:hidden;display:flex;align-items:center;background:#fff;touch-action:pan-y}
+.hero{position:relative;margin-top:0;padding-top:var(--nav-h);height:100vh;height:100svh;min-height:560px;overflow:hidden;display:flex;align-items:center;background:#fff;touch-action:pan-y}
 .hero-bg{position:absolute;inset:0}
 .hero-before{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 50%;filter:grayscale(1) brightness(1.25) contrast(.8);opacity:.34}
 .hero-after{position:absolute;inset:0;width:100%;height:100%;display:block}

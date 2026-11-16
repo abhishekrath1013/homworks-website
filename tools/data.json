@@ -1,0 +1,724 @@
+{
+ "GD": [
+  [
+   "layers",
+   "The board behind the surface",
+   "The board inside your cabinet decides how long it lasts.",
+   "Every shelf, shutter and drawer carries weight, day after day.",
+   "Common industry practice uses a mix of board types (BWR, MR, MDF, particle board, paper-foil board) and the grade is often not stated.",
+   "ISI-certified BWP / HDHMR E0 double-side post-laminated boards are used as the core material in every carcass.",
+   "Which board do you use for the carcass, and is it certified?",
+   "assets/home5/w7-5.webp",
+   "Core board"
+  ],
+  [
+   "drop",
+   "Moisture, and the 72-hour boiling test",
+   "Kitchens and bathrooms are damp, hot and wet places.",
+   "Steam, spills and wall dampness reach your furniture every day.",
+   "Boards that are not water-tested can swell and weaken over time.",
+   "Every BWP-grade plywood is tested in boiling water for 72 hours, with results recorded before it is used in projects.",
+   "Can you show me the water-test results for this board?",
+   "assets/home5/w7-8.webp",
+   "Moisture resistance"
+  ],
+  [
+   "wind",
+   "Healthy indoor air",
+   "What your furniture is made of is part of the air at home.",
+   "Wardrobes, kitchens and beds are in your rooms around the clock.",
+   "Boards differ in what they release into the room, and many vendors do not say which grade they use.",
+   "Core boards are E0 grade, with no formaldehyde, in all carcasses.",
+   "What emission grade are your boards, and can you show it in writing?",
+   "assets/home/living-room.jpg",
+   "Everyday living"
+  ],
+  [
+   "award",
+   "Certified and tested",
+   "Certificates and test records are how you check a promise.",
+   "A claim about quality is only as good as the record behind it.",
+   "Many vendors give no clarity on which tests were done or what the results were.",
+   "ISI-certified boards, and an in-house material testing lab at our factory. Each material is tested twice: when it reaches the factory and when it is issued to a project. We can provide tested samples of the core materials.",
+   "Which tests do you run, and can I see a tested sample?",
+   "assets/home5/w7-1.webp",
+   "Material checks"
+  ],
+  [
+   "frame",
+   "Sealed edges",
+   "Edge bands protect the core board from water and wear.",
+   "Wiping, steam and splashes meet the edges of every panel.",
+   "Conventional EVA glue applied by hand on ordinary machines may not give the same water resistance and bond strength.",
+   "Edge-banding on advanced IMA machines with PUR hot-melt glue. “Peel-off” tests every 2 hours on the lines, with edge strength above 7 Newtons.",
+   "How are the edges banded, and how is the bond tested?",
+   "assets/home5/guide-tile.webp",
+   "Edge-banding detail"
+  ],
+  [
+   "glue",
+   "The glue you never see",
+   "Different parts of your furniture need different bonding systems.",
+   "Heat and steam from the kitchen, water splashing on it while cleaning, and years of everyday use affect the quality of furniture.",
+   "Poor bonding can lead to laminate lifting, bubbling, or edges coming loose.",
+   "Henkel D3 adhesive for laminate pressing, and PUR hot-melt glue for machine edge-banding and specified lamination – ideal for high-temperature environments like kitchens, withstanding up to 80° C.",
+   "“What adhesive do you use for pressing, and what for edge-banding?”",
+   "assets/home5/guide-06.webp",
+   "Edge-banding detail"
+  ],
+  [
+   "tool",
+   "Hardware and joints",
+   "Hinges, runners and dowels do the moving and the holding.",
+   "Doors and drawers open and close many times a day.",
+   "Materials and accessories are often not tested.",
+   "A drawer and shutter cycle test for the durability of runners and hinges, and a compression test for the strength of the board and the load-bearing capacity of the dowel.",
+   "How do you test hinges, runners and joints?",
+   "assets/home5/w7-6.webp",
+   "Joints and fittings"
+  ],
+  [
+   "box",
+   "Double-carcass boxes",
+   "How a cabinet box is built decides how it carries weight and how it can be repaired.",
+   "Kitchen tops and loft units hold a lot of weight.",
+   "Many major players use a single-carcass system to reduce costs, which can compromise quality and the weight-bearing capacity of the kitchen top.",
+   "A double-carcass system on every project, so a single unit can be replaced easily without disturbing the other cabinets.",
+   "Is the carcass single or double, and can one unit be replaced on its own?",
+   "assets/home5/why-photo.webp",
+   "Cabinet construction"
+  ],
+  [
+   "scratch",
+   "Scratches and finish",
+   "Surface finishes need to cope with daily wear.",
+   "Pots, bags, keys and cleaning all touch your surfaces.",
+   "Many vendors give no information on scratch-resistance testing.",
+   "A scratch-resistance test on acrylics, laminates and foils. Acrylic is passed through the flat lamination line with PUR hot-melt glue, with an ABS backer of the same thickness and density on the back of the board.",
+   "Do you test scratch resistance, and what backer is used on acrylic?",
+   "assets/home5/fan-lamination.webp",
+   "Surface finish"
+  ],
+  [
+   "grid",
+   "Factory-made precision",
+   "Where your furniture is made decides how precise it is.",
+   "Fitting is smoother when parts are cut and finished to the millimetre.",
+   "Many vendors depend on facilities owned by others, and do most of the work on site, which disturbs the home and can compromise quality.",
+   "Our own manufacturing facility with CNC and flat-lamination machinery imported from Italy and Germany. Site carpentry is kept for fillers, end panels and visible panels.",
+   "Who makes my furniture, and where?",
+   "assets/home5/w7-2.webp",
+   "In our factory"
+  ],
+  [
+   "bars",
+   "Strength and load",
+   "Furniture has to carry real loads for years.",
+   "Shelves, tops and legs are loaded every day.",
+   "Vendors often give no clarity on strength testing.",
+   "A vertical force test for the load-bearing capacity of a panel, and a leg-strength test to find the breaking point of the leg.",
+   "How do you test load capacity and leg strength?",
+   "assets/home/factory-cnc.jpg",
+   "Load testing"
+  ],
+  [
+   "gap",
+   "The 18mm gap from the wall",
+   "Walls hold dampness, and cabinets should not touch it.",
+   "Damp walls are common, especially on outer walls and in wet areas.",
+   "Most industry practice leaves no gap, so the carcass touches the wall and exposes plywood to moisture, reducing durability.",
+   "An 18mm gap between the wall and the carcass keeps the core materials away from wall dampness, so the product lasts longer.",
+   "Is there a gap between my cabinets and the wall?",
+   "assets/home/installation.jpg",
+   "Installation"
+  ],
+  [
+   "palette",
+   "Range of finishes",
+   "The finish is what you see and touch every day.",
+   "Texture and colour set the mood of every room.",
+   "A narrow range can limit your design.",
+   "Lamination, membrane, acrylic and PU paint, in a wide range of designs, colours and finishing options for every room in your home.",
+   "Which finishes can I choose from, and can I see samples?",
+   "assets/home5/w7-3.webp",
+   "Finish samples"
+  ],
+  [
+   "home",
+   "Customized for your family",
+   "Factory-made does not have to mean standard-sized.",
+   "Every home and every family stores and lives differently.",
+   "Standard sizes can leave gaps and awkward corners.",
+   "Furniture is designed around your room dimensions, storage needs and chosen finishes, with the design and measurements confirmed before production.",
+   "Will it be designed around my room and my storage needs?",
+   "assets/home/kitchen-l-shaped.jpg",
+   "Made for your space"
+  ],
+  [
+   "tag",
+   "Module-wise pricing",
+   "How you are quoted decides how clear the cost is.",
+   "Each space needs specific materials, hardware and accessories, and costs differ from module to module.",
+   "Most vendors quote a square-foot price, which offers no clarity on the cost of materials and accessories and can lead to higher prices during completion.",
+   "Module-wise pricing, so the quotation is as close as possible to the final cost.",
+   "Can you give me a module-wise quote?",
+   "assets/home5/w7-4.webp",
+   "Clear quotes"
+  ],
+  [
+   "check",
+   "The final quality check",
+   "A project should be checked before it reaches your home.",
+   "Small faults are easier to fix at the factory than in your living room.",
+   "Without a defined check, faults can reach site.",
+   "Every project goes through our quality checks before handover, backed by our in-house testing lab and 10-year warranty.",
+   "What is checked before my project is handed over?",
+   "assets/home/materials.jpg",
+   "Quality checks"
+  ]
+ ],
+ "P": [
+  {
+   "h": "Custom designs for each room",
+   "p": "A cohesive plan for every space, with one team accountable from the first design to final handover.",
+   "pills": [
+    "Kitchen",
+    "Bedrooms",
+    "Living room",
+    "Pooja room",
+    "Home office",
+    "Dining"
+   ],
+   "link": [
+    "Explore full home interiors",
+    "full-home-interiors.html"
+   ],
+   "cards": [
+    [
+     "full-home-interiors.html",
+     "home/home-office.jpg",
+     "Home office",
+     "A bright, light place to think and create – a minimal, stylish and elegant office with sleek interiors of your choice."
+    ],
+    [
+     "foyer-pooja-units.html",
+     "home/pooja-room.jpg",
+     "Pooja room",
+     "Designed with vastu for prayer and meditation – a peaceful interior that brings a positive vibration to your home."
+    ],
+    [
+     "full-home-interiors.html",
+     "home/dining.jpg",
+     "Dining",
+     "“The family that eats together stays together.” Spacious or compact, with every inch detailed and well designed."
+    ],
+    [
+     "full-home-interiors.html",
+     "home/vanity.jpg",
+     "Vanity",
+     "A perfectly blended vanity brings out the beauty of the room – a timeless contemporary style for your home."
+    ]
+   ]
+  },
+  {
+   "h": "Enhancing your entertainment space.",
+   "p": "Console units, partitions, wall panels and TV units - let custom cabinets become style statements.",
+   "pills": [
+    "Console units",
+    "Living partitions",
+    "Wall panels",
+    "TV units"
+   ],
+   "link": [
+    "Explore living rooms",
+    "living-rooms.html"
+   ],
+   "cards": [
+    [
+     "living-rooms.html",
+     "home/living-console.jpg",
+     "Console unit",
+     "A definite eye-catcher, in many styles."
+    ],
+    [
+     "living-rooms.html",
+     "home/living-partition.jpg",
+     "Living partition",
+     "Decor at its finest – it can make or break your living room’s style."
+    ],
+    [
+     "living-rooms.html",
+     "home/living-wall-panel.jpg",
+     "Wall panel",
+     "Exquisite panelling that ties the whole room together."
+    ],
+    [
+     "tv-units.html",
+     "home/tv-floor-standing.jpg",
+     "TV unit · floor-standing",
+     "Low cabinets on a baseboard, for a contemporary look."
+    ],
+    [
+     "tv-units.html",
+     "home/tv-wall-hung.jpg",
+     "TV unit · wall-hung",
+     "Floating cabinets that leave the floor clear; a plinth can be added."
+    ]
+   ]
+  },
+  {
+   "h": "The kitchen of your dreams",
+   "p": "Beyond just a place to cook, a space where families gather. Pick from 6 layouts in 6 styles, shaped around people who use it.",
+   "pills": [
+    "Indian Classic",
+    "Contemporary",
+    "Indian Traditional",
+    "Minimalistic",
+    "Modern",
+    "English Classic"
+   ],
+   "link": [
+    "Explore modular kitchens",
+    "modular-kitchens.html"
+   ],
+   "cards": [
+    [
+     "kitchen-l-shaped.html",
+     "home/kitchen-l-shaped.jpg",
+     "L-shaped",
+     "A popular corner layout with an efficient work triangle and room for an island.",
+     [
+      "#b4a9a0",
+      "#756d69",
+      "#534b46",
+      "#ce9f6c"
+     ]
+    ],
+    [
+     "kitchen-u-shaped.html",
+     "home/kitchen-u-shaped.jpg",
+     "U-shaped",
+     "Three-sided cabinetry saves space and adds storage for shared cooking.",
+     [
+      "#b59f8c",
+      "#6f6e6c",
+      "#73675f",
+      "#50422b"
+     ]
+    ],
+    [
+     "kitchen-galley.html",
+     "home/kitchen-galley.jpg",
+     "Galley",
+     "Facing walls maximize storage and create an efficient work triangle in narrow spaces.",
+     [
+      "#d4c9c3",
+      "#8b746c",
+      "#7f6c63",
+      "#9a5b3f"
+     ]
+    ],
+    [
+     "kitchen-one-wall.html",
+     "home/kitchen-straight.jpg",
+     "One-wall",
+     "Every workstation along a single wall – simple, unobstructed and ideal for a smaller villa or condo.",
+     [
+      "#dbd1ca",
+      "#6b6661",
+      "#222120",
+      "#473e38"
+     ]
+    ],
+    [
+     "kitchen-peninsular.html",
+     "home/kitchen-peninsular.jpg",
+     "Peninsular",
+     "A U-shape with a connected extension – extra counter, a breakfast corner and a defined open-plan space.",
+     [
+      "#b3aca4",
+      "#353236",
+      "#3f4860",
+      "#8a837d"
+     ]
+    ],
+    [
+     "kitchen-island.html",
+     "home/kitchen-island.jpg",
+     "Island",
+     "Any layout, plus a freestanding island for prep, socialising and appliances.",
+     [
+      "#cfc2b8",
+      "#7a5e49",
+      "#342718",
+      "#b8824e"
+     ]
+    ]
+   ]
+  },
+  {
+   "h": "Cots crafted for comfort",
+   "p": "Made from quality materials, our cots are the foundation for your dreams – styled to suit your interior.",
+   "pills": [
+    "Cots",
+    "Headboards",
+    "Wardrobes",
+    "Kids' rooms"
+   ],
+   "link": [
+    "Explore bedrooms",
+    "bedrooms.html"
+   ],
+   "cards": [
+    [
+     "bedrooms.html",
+     "home/cot-hydraulic.jpg",
+     "Hydraulic cot",
+     "A modern, clinical finish for someone who likes a little gadgetry."
+    ],
+    [
+     "bedrooms.html",
+     "home/cot-storage.jpg",
+     "Cot with storage",
+     "A handy storage space built in underneath."
+    ],
+    [
+     "bedrooms.html",
+     "home/cot-fabric.jpg",
+     "Fabric headboard",
+     "Popular for the soft comfort that wood can’t give."
+    ],
+    [
+     "wardrobes.html",
+     "home/wardrobe-l-shaped.jpg",
+     "L-shaped wardrobe",
+     "For those who want to use every bedroom corner – often fitted with a sliding-door system, in a corner with good light.",
+     [
+      "#dfdbd6",
+      "#9b8474",
+      "#826050",
+      "#91522f"
+     ]
+    ],
+    [
+     "wardrobes.html",
+     "home/wardrobe-walk-in.jpg",
+     "Walk-in wardrobe",
+     "The dream wardrobe and an epitome of luxury – best built inside an unused room, and lit like a showroom.",
+     [
+      "#b8ad9a",
+      "#918a84",
+      "#804f31",
+      "#583522"
+     ]
+    ],
+    [
+     "bedrooms.html",
+     "home/kids-bunk.jpg",
+     "Bunk bed with steps",
+     "A bunk bed with a built-in staircase."
+    ]
+   ]
+  }
+ ],
+ "FIN": [
+  [
+   "Lamination",
+   [
+    [
+     "check",
+     "Most common finish; withstands rough surfaces."
+    ],
+    [
+     "layers",
+     "Understated appearance lets the material take centre stage."
+    ],
+    [
+     "leaf",
+     "Creates a natural, seamless look."
+    ],
+    [
+     "home",
+     "Cohesive finish that complements interiors—from clean, contemporary spaces to warm, traditional settings."
+    ]
+   ]
+  ],
+  [
+   "Membrane",
+   [
+    [
+     "check",
+     "A unique finish with a natural appeal."
+    ],
+    [
+     "home",
+     "At home in traditional and contemporary designs."
+    ],
+    [
+     "palette",
+     "Available in matte, gloss, wooden and many colours."
+    ]
+   ]
+  ],
+  [
+   "Acrylic",
+   [
+    [
+     "layers",
+     "A glassy, almost mirror-like surface with a plush sheen."
+    ],
+    [
+     "leaf",
+     "Non-toxic."
+    ],
+    [
+     "palette",
+     "Available in a wide range of colours."
+    ]
+   ]
+  ],
+  [
+   "PU paint",
+   [
+    [
+     "layers",
+     "A finish that elevates the space."
+    ],
+    [
+     "check",
+     "Protects the cabinets."
+    ],
+    [
+     "home",
+     "Lasts longer — sturdier and stronger."
+    ]
+   ]
+  ]
+ ],
+ "KL": [
+  {
+   "slug": "l-shaped",
+   "name": "L-Shaped",
+   "h1": "The L-shaped kitchen,<br>done right.",
+   "blurb": "Two adjoining walls meet at a corner to free up the centre of the room — the most requested layout for Indian homes because it works in almost any footprint.",
+   "bestFor": "2–3BHK homes",
+   "footprint": "70–110 sqft",
+   "pros": [
+    {
+     "t": "Shorter walk, less waiting",
+     "b": "A tight work triangle between hob, sink and fridge means less walking for the same amount of cooking."
+    },
+    {
+     "t": "The centre stays open",
+     "b": "No cabinetry runs through the middle of the room — ideal if you want a breakfast table or open floor."
+    },
+    {
+     "t": "Scales with your home",
+     "b": "Works as a compact corner kitchen or a full family kitchen, in the same basic shape."
+    },
+    {
+     "t": "Easiest to ventilate",
+     "b": "A single uninterrupted wall makes it simple to plan a window and chimney together."
+    }
+   ]
+  },
+  {
+   "slug": "u-shaped",
+   "name": "U-Shaped",
+   "h1": "Three walls of worktop.<br>Zero wasted reach.",
+   "blurb": "Three connected walls of cabinetry give you the most storage and counter space of any layout — built for households that cook often, and together.",
+   "bestFor": "Large families",
+   "footprint": "110–160 sqft",
+   "pros": [
+    {
+     "t": "Maximum storage",
+     "b": "Three connected walls give more counter and cabinet length than any other layout of the same room size."
+    },
+    {
+     "t": "A dedicated zone for everything",
+     "b": "Prep, cook and clean each get their own wall, so nothing competes for the same counter."
+    },
+    {
+     "t": "A room of its own",
+     "b": "Naturally closes the kitchen off from the rest of the home — useful for Indian cooking and its aromas."
+    },
+    {
+     "t": "Room for two cooks",
+     "b": "Wide enough for two people to work at once without getting in each other's way."
+    }
+   ]
+  },
+  {
+   "slug": "galley",
+   "name": "Galley",
+   "h1": "Two parallel walls.<br>Nothing extra.",
+   "blurb": "Worktops face each other across a single walkway — the fastest layout to cook in, and the smartest use of a narrow room.",
+   "bestFor": "Compact apartments",
+   "footprint": "45–75 sqft",
+   "pros": [
+    {
+     "t": "The fastest kitchen to cook in",
+     "b": "Everything sits within arm's reach across a single walkway."
+    },
+    {
+     "t": "Built for narrow rooms",
+     "b": "Makes full use of rooms as tight as 6–8 ft wide, where other layouts would not fit."
+    },
+    {
+     "t": "Nothing is ever far away",
+     "b": "Hob, sink and storage all sit on one of two facing walls."
+    },
+    {
+     "t": "The most cost-efficient shape",
+     "b": "Least cabinetry required for the storage you actually get."
+    }
+   ]
+  },
+  {
+   "slug": "one-wall",
+   "name": "One-Wall",
+   "h1": "One clean wall.<br>An open home.",
+   "blurb": "Every function lines up along a single wall — the layout of choice for studios and homes that want the kitchen to open into the living room.",
+   "bestFor": "Studios & 1BHKs",
+   "footprint": "35–55 sqft",
+   "pros": [
+    {
+     "t": "Keeps the room open",
+     "b": "Everything lines up on one wall, leaving the rest of the space free for living."
+    },
+    {
+     "t": "The simplest install",
+     "b": "One run of plumbing and electrical keeps installation fast and predictable."
+    },
+    {
+     "t": "Pairs well with an island",
+     "b": "Add a freestanding counter later without disturbing the working wall."
+    },
+    {
+     "t": "Our most affordable modular layout",
+     "b": "Fewer cabinet runs mean a lower starting cost without cutting corners on quality."
+    }
+   ]
+  },
+  {
+   "slug": "peninsular",
+   "name": "Peninsular",
+   "h1": "An L-shape,<br>with a landing.",
+   "blurb": "An L-shaped layout extended with a connected peninsula — extra counter and seating without the floor space a full island needs.",
+   "bestFor": "Open-plan 3BHKs",
+   "footprint": "90–130 sqft",
+   "pros": [
+    {
+     "t": "A built-in breakfast counter",
+     "b": "Get extra seating without giving up floor area the way a full island would."
+    },
+    {
+     "t": "A natural screen",
+     "b": "The peninsula visually separates the kitchen from an open-plan living room."
+    },
+    {
+     "t": "Extra landing space",
+     "b": "A dedicated counter for serving food and setting down groceries."
+    },
+    {
+     "t": "Great for homes that entertain",
+     "b": "Guests can sit at the counter while you cook, instead of standing in the doorway."
+    }
+   ]
+  },
+  {
+   "slug": "island",
+   "name": "Island",
+   "h1": "Room to gather,<br>right in the kitchen.",
+   "blurb": "A freestanding counter sits at the heart of the room — for larger homes that want the kitchen to be where everyone ends up.",
+   "bestFor": "Villas & 4BHK+",
+   "footprint": "150+ sqft",
+   "pros": [
+    {
+     "t": "A second prep zone",
+     "b": "The island can be a chopping station, a breakfast bar, or both."
+    },
+    {
+     "t": "The social centre of the home",
+     "b": "Turns cooking into something everyone gathers around, not a room apart."
+    },
+    {
+     "t": "Flexible by design",
+     "b": "Add a hob, a sink or just seating to the island face — your call."
+    },
+    {
+     "t": "Built for larger homes",
+     "b": "Needs more floor area than other layouts, so it suits villas and bigger 4BHKs best."
+    }
+   ]
+  }
+ ],
+ "CITIES": [
+  {
+   "slug": "coimbatore",
+   "name": "Coimbatore",
+   "tag": "Corporate Office · HQ",
+   "address": "538/2, Airport Service Rd, Peelamedu, Alagu Nagar, Civil Aerodrome Post, Coimbatore – 641014",
+   "addrShort": "538/2, Airport Service Rd, Peelamedu, Coimbatore – 641014",
+   "homes": "4,800+",
+   "since": "2012",
+   "days": "32 days",
+   "blurb": "Home to the Homworks factory and design studio — every module made in-house starts here, whichever city it ships to."
+  },
+  {
+   "slug": "chennai",
+   "name": "Chennai",
+   "tag": "Kovilambakkam Centre",
+   "address": "Plot No: 492, 200 Feet Radial Road, Indirajit Avenue Kovilambakkam, Chennai – 600 117",
+   "addrShort": "Plot 492, 200 Feet Radial Road, Kovilambakkam, Chennai – 600 117",
+   "homes": "3,100+",
+   "since": "2016",
+   "days": "30 days",
+   "blurb": "A fast-growing metro team serving apartments across OMR, Kovilambakkam and the wider Chennai suburbs."
+  },
+  {
+   "slug": "bangalore",
+   "name": "Bangalore",
+   "tag": "Banashankari Centre",
+   "address": "#37/5 (New Pid No.6), 13th Cross, 30th Main, Banashankari 2nd Stage, Bengaluru – 560070",
+   "addrShort": "#37/5, 13th Cross, 30th Main, Banashankari 2nd Stage – 560070",
+   "homes": "2,600+",
+   "since": "2018",
+   "days": "34 days",
+   "blurb": "Built for Bangalore's apartment-first families — compact-footprint modular design is our specialty here."
+  },
+  {
+   "slug": "erode",
+   "name": "Erode",
+   "tag": "Perundurai Road Centre",
+   "address": "108/1, Perundurai Road, Near Ambal Autos, Kumalan Kuttai, Erode – 638 011",
+   "addrShort": "108/1, Perundurai Road, Kumalan Kuttai, Erode – 638 011",
+   "homes": "1,900+",
+   "since": "2014",
+   "days": "28 days",
+   "blurb": "One of our earliest centres outside Coimbatore, close enough to the factory for some of our fastest deliveries."
+  },
+  {
+   "slug": "hyderabad",
+   "name": "Hyderabad",
+   "tag": "Shamshabad Centre",
+   "address": "ABC Spacery, Opp. Mayfair Convention Center, Shamshabad, Hyderabad, Telangana 501218",
+   "addrShort": "ABC Spacery, Opp. Mayfair Convention Center, Shamshabad – 501218",
+   "homes": "420+",
+   "since": "2024",
+   "days": "36 days",
+   "blurb": "Our newest south-of-the-river centre, bringing the full in-house Homworks process to Hyderabad."
+  },
+  {
+   "slug": "guwahati",
+   "name": "Guwahati",
+   "tag": "Lalmati Centre",
+   "address": "R K Metals, NH37, Opp. Nidhi Bhavan, Lalmati Near AEE Tower, Guwahati, Assam – 781029",
+   "addrShort": "R K Metals, NH37, Lalmati, Near AEE Tower, Guwahati – 781029",
+   "homes": "260+",
+   "since": "2025",
+   "days": "38 days",
+   "blurb": "Homworks' first Northeast centre — the same in-house manufacturing and 10-year warranty, now in Guwahati."
+  }
+ ]
+}

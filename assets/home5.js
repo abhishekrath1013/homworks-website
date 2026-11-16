@@ -7,9 +7,7 @@
   var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
 
   /* Sub-pages are not part of the review build: links stay inert (href="#") until SUBPAGES is switched on. */
-  var SUBPAGES=false;
-  function lk(u){return SUBPAGES?u:'#'}
-  $$('a[data-href]').forEach(function(a){if(SUBPAGES)a.setAttribute('href',a.getAttribute('data-href'))});
+  /*LIVE*/var LIVE=["30-day-delivery.html", "about-us.html", "bedrooms.html", "contact.html", "faqs.html", "full-home-interiors.html", "how-it-works.html", "interiors.html", "kitchen-galley.html", "kitchen-island.html", "kitchen-l-shaped.html", "kitchen-one-wall.html", "kitchen-peninsular.html", "kitchen-u-shaped.html", "living-rooms.html", "location-bangalore.html", "location-chennai.html", "location-coimbatore.html", "location-erode.html", "location-guwahati.html", "location-hyderabad.html", "locations.html", "modular-kitchens.html", "projects.html", "quality-factory.html", "wardrobes.html", "warranty-after-sales.html", "why-homworks.html"];function lk(u){return LIVE.indexOf(u)>-1?u:'#'}$$('a[data-href]').forEach(function(a){var u=a.getAttribute('data-href');if(LIVE.indexOf(u.split('#')[0])>-1)a.setAttribute('href',u)});/*/LIVE*/
   document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a');if(a&&a.getAttribute('href')==='#')e.preventDefault()});
 
   /* nav */

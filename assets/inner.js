@@ -24,19 +24,6 @@
   var bar=$('#rprog i');
   function progress(){var h=document.documentElement.scrollHeight-window.innerHeight;if(bar)bar.style.width=(h>0?Math.min(100,window.scrollY/h*100):0)+'%'}
 
-  /* "on this page" rail: one dot per section, built from the page itself */
-  (function(){
-    var secs=$$('section[data-title]');if(secs.length<3)return;
-    var r=document.createElement('nav');r.className='prail';r.setAttribute('aria-label','On this page');
-    secs.forEach(function(s){var a=document.createElement('a');a.href='#'+s.id;a.setAttribute('aria-label',s.getAttribute('data-title'));a.innerHTML='<span>'+s.getAttribute('data-title')+'</span>';r.appendChild(a)});
-    document.body.appendChild(r);
-    var links=$$('a',r);
-    if(HAS_IO){
-      var o=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)links.forEach(function(l){l.classList.toggle('on',l.getAttribute('href')==='#'+e.target.id)})})},{rootMargin:'-45% 0px -50% 0px'});
-      secs.forEach(function(s){o.observe(s)});
-    }
-  })();
-
   /* scroll reveals (+ staggered children) */
   $$('.stagger').forEach(function(g){Array.prototype.forEach.call(g.children,function(c,i){c.style.transitionDelay=(Math.min(i,8)*.09)+'s'})});
   if(HAS_IO){

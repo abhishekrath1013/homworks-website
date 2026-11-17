@@ -301,3 +301,9 @@
 .rcp i{right:26px;top:28px;width:44px;height:44px}.rcp i svg{width:18px;height:18px}
 @media(max-width:1000px){.rcps{grid-template-columns:repeat(2,minmax(0,1fr))}.rcp{grid-column:auto!important}}
 @media(max-width:700px){.rcps{grid-template-columns:1fr}.visit-img{aspect-ratio:4/3.4}}
+
+/* r3: smaller centred hero header (FAQ, Projects, Locations) */
+.ht h1{font-size:clamp(32px,4.6vw,76px);max-width:14em;letter-spacing:-.05em}
+.ht .lede{margin-top:clamp(14px,1.6vw,24px);font-size:clamp(13px,1.05vw,17px)}
+.ht-in{padding-bottom:clamp(30px,3.6vw,60px)}
+.ht h1{font-size:clamp(30px,3.5vw,54px);max-width:22em;letter-spacing:-.045em;line-height:1.08}

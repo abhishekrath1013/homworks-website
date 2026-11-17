@@ -36,60 +36,63 @@ CITY_IMG = ['kit-white', 'kit-l', 'kit-island', 'bed-1', 'living-2', 'kit-modern
 BUILT = set()
 
 # ------------------------------------------------------------------ chrome
-MEGA = [
+NAV = [
     ('Interiors', 'interiors.html', [
-        ('Rooms', [('Full Home Interiors', 'A cohesive plan for every space', 'full-home-interiors.html'),
-                   ('Modular Kitchens', 'Six layouts in six styles', 'modular-kitchens.html'),
-                   ('Living Rooms', 'Console, partition, wall panel and TV units', 'living-rooms.html'),
-                   ('Bedrooms', 'Cots crafted for comfort', 'bedrooms.html'),
-                   ('Wardrobes', 'L-shaped to walk-in', 'wardrobes.html')]),
-        ('Kitchen layouts', [(l['name'], l['bestFor'], 'kitchen-%s.html' % l['slug']) for l in KL])],
-     ('Perfect interiors', 'Done in just 30 days.', 'Your interiors done in just 30 working days. Or it’s free*', '30-day-delivery.html', 'See the 30-day promise')),
+        ('Rooms', [('Full Home Interiors', 'Design-to-installation for every room', 'full-home-interiors.html'),
+                   ('Modular Kitchens', 'Six engineered layouts to pick from', 'modular-kitchens.html'),
+                   ('Living Rooms', 'Storage and TV units built for family life', 'living-rooms.html'),
+                   ('Bedrooms', 'Restful layouts, master to kids rooms', 'bedrooms.html')]),
+        ('Units & Styles', [('TV Units', 'Media walls built around your screen', 'tv-units.html'),
+                            ('Wardrobes', 'Storage that fits two lives, not one', 'wardrobes.html'),
+                            ('Shoe & Crockery Units', 'Dedicated storage, done right', 'shoe-crockery-units.html'),
+                            ('Foyer & Pooja Units', 'Vastu-aware, beautifully made', 'foyer-pooja-units.html')])],
+     ('Moving soon?', 'Plan your 30-day delivery.', 'Choose rooms and city, then see a realistic route to move-in.', 'delivery-planner.html', 'Build my plan')),
     ('Projects', 'projects.html', [
-        ('Explore homes', [('Featured works', 'Bespoke homes crafted from the ground up', 'projects.html'),
-                           ('Full home interiors', 'Whole-home design, one team', 'full-home-interiors.html')]),
-        ('Browse by room', [('Modular kitchens', 'Six layouts', 'modular-kitchens.html'), ('Living rooms', 'Entertainment spaces', 'living-rooms.html'),
-                            ('Bedrooms', 'Cots and kids’ rooms', 'bedrooms.html')])],
-     ('See it built', 'Find a home like yours.', 'Browse the homes we have crafted from the ground up.', 'projects.html', 'Featured works')),
-    ('Why Homworks', 'why-homworks.html', [
-        ('Our promise', [('About Homworks', 'Who we are', 'about-us.html'), ('How it works', 'Get, Set, Go', 'how-it-works.html'),
-                         ('30-day delivery', 'The promise, with its terms', '30-day-delivery.html')]),
-        ('Our standards', [('Quality & factory', 'Tested materials, own factory', 'quality-factory.html'),
-                           ('Warranty & after-sales', '10 years, one clear promise', 'warranty-after-sales.html'),
-                           ('16 key questions', 'Ask them before you choose', 'why-homworks.html#the-16-questions')])],
-     ('Every detail matters', 'Checked, so you don’t have to.', 'Surface inspection under calibrated light. Because, every single detail matters.', 'why-homworks.html', 'Why Homworks')),
+        ('Explore homes', [('Project Gallery', 'Filter real homes by city and room', 'projects.html'),
+                           ('Case Studies', 'The full story behind three homes', 'customer-stories.html'),
+                           ('Customer Stories', 'Reviews, in homeowners’ own words', 'customer-stories.html')]),
+        ('Browse by', [('City', 'See projects near you', 'locations.html'), ('Room Type', 'Kitchens, bedrooms and more', 'interiors.html'),
+                       ('Full Home', 'Whole-home transformations', 'full-home-interiors.html')])],
+     ('See it built', 'Find a home like yours.', 'Real stories from real Homworks homes.', 'customer-stories.html', 'Browse stories')),
     ('Location', 'locations.html', [
-        ('Our centres', [(c['name'], c['tag'], 'location-%s.html' % c['slug']) for c in CITIES[:3]]),
-        ('More centres', [(c['name'], c['tag'], 'location-%s.html' % c['slug']) for c in CITIES[3:]])],
-     ('Visit a Homworks centre', 'Meet a designer.', 'Find your nearest centre and talk to the team in person.', 'locations.html', 'Find your centre')),
+        ('Our centres', [(c['name'], c['tag'].replace('Office', 'office').replace('Centre', 'centre'), 'location-%s.html' % c['slug']) for c in CITIES[:3]]),
+        ('More centres', [(c['name'], c['tag'].replace('Office', 'office').replace('Centre', 'centre'), 'location-%s.html' % c['slug']) for c in CITIES[3:]])],
+     ('See. touch. experience.', 'Visit a Homworks centre.', 'Find your nearest show home and meet a designer.', 'show-home-visit.html', 'Book a visit')),
 ]
-TOP = [('FAQs', 'faqs.html'), ('Contact', 'contact.html')]
+TOP = [('About us', 'about-us.html'), ('Blogs', 'blog.html'), ('Contact', 'contact.html')]
 
 
-def nav_html(active=''):
+def lk(u, extra=''):
+    """Pages that are built link through; the rest stay inert (href="#") until they exist."""
+    return 'href="%s"%s' % (u, extra) if u.split('#')[0] in BUILT else 'href="#" data-href="%s"%s' % (u, extra)
+
+
+def nav_html(active='', home=False):
     out = []
-    for label, href, cols, feat in MEGA:
-        h = '<div class="ni"><a class="ni-a" href="%s" aria-haspopup="true"%s>%s</a><div class="mega" role="group" aria-label="%s">' % (href, ' aria-current="page"' if active == href else '', label, label)
+    cur = lambda u: ' aria-current="page"' if active == u else ''
+    for label, href, cols, feat in NAV:
+        h = '<div class="ni"><a class="ni-a" %s aria-haspopup="true">%s</a><div class="mega" role="group" aria-label="%s">' % (lk(href, cur(href)), label, label)
         for ch, links in cols:
             h += '<div class="mg-col"><h4>%s</h4>' % e(ch)
             for t, d, u in links:
-                h += '<a class="mg-link" href="%s"><b>%s</b><small>%s</small></a>' % (u, e(t), e(d))
+                h += '<a class="mg-link" %s><b>%s</b><small>%s</small></a>' % (lk(u), e(t), e(d))
             h += '</div>'
-        h += '<div class="mg-feat"><span>%s</span><b>%s</b><p>%s</p><a href="%s">%s <i>→</i></a></div></div></div>' % (e(feat[0]), e(feat[1]), e(feat[2]), feat[3], e(feat[4]))
+        h += '<div class="mg-feat"><span>%s</span><b>%s</b><p>%s</p><a %s>%s <i>→</i></a></div></div></div>' % (e(feat[0]), e(feat[1]), e(feat[2]), lk(feat[3]), e(feat[4]))
         out.append(h)
     for label, href in TOP:
-        out.append('<div class="ni"><a class="ni-a" href="%s"%s>%s</a></div>' % (href, ' aria-current="page"' if active == href else '', label))
+        out.append('<div class="ni"><a class="ni-a" %s>%s</a></div>' % (lk(href, cur(href)), label))
     nav = '<nav class="nav-links" aria-label="Primary">\n    ' + '\n    '.join(out) + '\n  </nav>'
-    mob = '<nav class="mnav" id="mnav" aria-label="Mobile">\n' + ''.join('  <a href="%s">%s</a>\n' % (h, l) for l, h in
-          [('Interiors', 'interiors.html'), ('Projects', 'projects.html'), ('Why Homworks', 'why-homworks.html'), ('Location', 'locations.html'), ('FAQs', 'faqs.html'), ('Contact', 'contact.html')]) + \
-          '  <a class="go" href="contact.html">Book a FREE Consultation</a>\n</nav>'
-    return nav, mob
+    cta = '#contact' if home else 'contact.html'
+    mob = '<nav class="mnav" id="mnav" aria-label="Mobile">\n' + ''.join('  <a %s>%s</a>\n' % (lk(h), l) for l, h in
+          [('Interiors', 'interiors.html'), ('Projects', 'projects.html'), ('Location', 'locations.html'), ('About us', 'about-us.html'), ('Blogs', 'blog.html'), ('Contact', 'contact.html')]) + \
+          '  <a class="go" href="%s">Book a FREE Consultation</a>\n</nav>' % cta
+    return nav, mob, cta
 
 
-def header_html(active=''):
-    nav, mob = nav_html(active)
+def header_html(active='', home=False):
+    nav, mob, cta = nav_html(active, home)
     return ('<header class="nav" id="nav">\n  <a class="nav-logo" href="index.html" aria-label="Homworks home"><img src="assets/home5/logo-nav.svg" alt="Homworks" width="176" height="42"></a>\n  '
-            + nav + '\n  <a class="nav-cta" href="contact.html">Book a FREE Consultation</a>\n'
+            + nav + '\n  <a class="nav-cta" href="%s">Book a FREE Consultation</a>\n' % cta +
             '  <button class="nav-burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mnav"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>\n</header>\n' + mob)
 
 
@@ -584,18 +587,18 @@ WHY = [('Certified quality raw material', 'Every material clears a stringent QC 
 body = hero_full([HOME, ('Why Homworks', None)], 'Why Homworks', 'Every <em>detail</em> is checked, so you don’t have to',
                  'Surface inspection under calibrated light. Because, every single detail matters.',
                  [('Call for a FREE design', 'contact.html', 'pink'), ('The 16 key questions', '#the-16-questions', 'line')],
-                 [('100+', 'point quality check'), ('30', 'days from sign-off*'), ('10 years', 'warranty'), ('16', 'questions to ask any designer')], ST('shop-1'), 'A craftsman working with wood in a workshop', dark=True)
+                 [('100+', 'point quality check'), ('30', 'days from sign-off*'), ('10 years', 'warranty'), ('16', 'questions to ask any designer')], ST('fac-1'), 'Workers operating woodworking machinery on a modern factory floor', dark=True)
 body += answer('Why choose Homworks', 'Homworks checks every raw material before it reaches your home, pairs AI-driven design software with skilled workmanship, and builds in its own factory to a 10-year warranty.',
                'From premium hardwood selection to advanced moisture resistance, your home is built to outlast trends - and withstand the test of time.')
 body += statband([('100+', 'point quality check before handover'), ('72 hrs', 'boiling-water test on BWP-grade plywood'), ('30', 'days from design sign-off*'), ('10 years', 'warranty on every project')], 'dark')
 body += section(sh('What sets us apart', 'Built to outlast <em>trends.</em>', 'We subject every raw material to a rigorous quality control mandate before it reaches your home.') + bento([
-    ('img', ST('shop-5'), 'Hand-carved wood panel in an Indian workshop', WHY[0][0], WHY[0][1], 'w2 h2'),
+    ('img', ST('qc-1'), 'Measuring a wooden board for a quality check', WHY[0][0], WHY[0][1], 'w2 h2'),
     ('text', '02', WHY[1][0], WHY[1][1], ''), ('text', '03', WHY[2][0], WHY[2][1], ''),
     ('text', '04', WHY[3][0], WHY[3][1], 'w2'), ('stat', '8', 'reasons homeowners trust the Homworks standard', 'dark'),
     ('text', '05', WHY[4][0], WHY[4][1], ''), ('text', '06', WHY[5][0], WHY[5][1], ''), ('text', '07', WHY[6][0], WHY[6][1], ''),
     ('text', '08', WHY[7][0], WHY[7][1], '')]), 'alt', 'What sets us apart', 'Eight reasons homeowners trust the standard.')
 body += section(sh('The process', 'The seamless <em>Homworks process</em>', 'A clear step-by-step path to a beautifully designed home.') + steps3(), '', 'The process', 'Get, Set and Go.')
-body += pxb(ST('cnc-2'), 'A CNC machine cutting a board', 'Leave the checking <em>to us.</em>', 'Every raw material meets a rigorous quality control mandate before it reaches your home.')
+body += pxb(ST('fac-3'), 'A technician operating a machine on the factory floor', 'Leave the checking <em>to us.</em>', 'Every raw material meets a rigorous quality control mandate before it reaches your home.')
 body += section(sh('The Interior Guide', '16 key questions <em>you need to ask.</em>', 'Your home’s quality and longevity will depend on the answers. Consider these points before you choose any interior designer – including us.') +
                 '<div class="faqw one"><div class="rv">%s</div></div>' % ''.join(
                     '<div class="qa"><button type="button" aria-expanded="false">%02d. %s<svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button><div class="a"><p>%s %s</p></div></div>' % (i + 1, e(g[1]), e(g[2]), e('The Homworks standard: ' + g[5])) for i, g in enumerate(GD)),
@@ -603,14 +606,14 @@ body += section(sh('The Interior Guide', '16 key questions <em>you need to ask.<
 body = body.replace('<section class="sec alt" id="the-16-questions"', '<section class="sec alt" id="the-16-questions"')
 body += recap() + cta('Quality you can see. <em>Care you can count on.</em>', 'Call for a free design and see how the Homworks process feels different.')
 add('why-homworks', 'Why Choose Homworks | 100+ Quality Checks, 10-Year Warranty', 'Why homeowners choose Homworks: every material checked, an own factory, a 30-day delivery promise* and a 10-year warranty. Plus 16 questions to ask any designer.',
-    body, 'why-homworks.html', gd_qas(), crumbs=[HOME, ('Why Homworks', 'why-homworks.html')], og=ST('shop-1'))
+    body, 'why-homworks.html', gd_qas(), crumbs=[HOME, ('Why Homworks', 'why-homworks.html')], og=ST('fac-1'))
 
 # ------------------------------------------------------------------ ABOUT
 body = hero_collage([HOME, ('Why Homworks', 'why-homworks.html'), ('About Us', None)], 'About Homworks', 'Thoughtful home interiors, <em>crafted for India.</em>',
                     'Homworks (Stylcove Modulars Pvt Ltd) designs, manufactures and installs home interiors, engineered in our own Coimbatore factory and built for longevity.',
                     [('Call for a FREE design', 'contact.html', 'solid'), ('Find a centre', 'locations.html', 'line')],
                     [('6', 'cities'), ('1', 'own factory'), ('10 years', 'warranty')],
-                    [(ST('shop-1'), 'A craftsman at work'), (ST('cnc-2'), 'A CNC machine'), (ST('shop-4'), 'An elderly carpenter shaping wood in his workshop')], pill='Made in Coimbatore')
+                    [(ST('fac-1'), 'Workers on a modern woodworking factory floor'), (ST('cnc-1'), 'An automated drilling and machining line'), (ST('fac-2'), 'An operator working at a CNC machine')], pill='Made in Coimbatore')
 body += answer('Who is Homworks?', 'Homworks is a home interiors company that designs, manufactures and installs furniture and interiors for the way India lives now.',
                'Interiors are engineered in Homworks’ own Coimbatore factory and fitted at your home by the Homworks team. Homworks operates as Stylcove Modulars Pvt Ltd, with centres in six cities.')
 body += section(sh('What we believe', 'Four things <em>we hold to.</em>') + grid('g2', [
@@ -619,14 +622,14 @@ body += section(sh('What we believe', 'Four things <em>we hold to.</em>') + grid
     flat('03', 'Checked, so you don’t have to', 'Every raw material meets a rigorous quality control mandate before it reaches your home.'),
     flat('04', 'Built to last', 'A 10-year warranty and an after-sales service to stand behind the work.')]), '', 'What we believe', 'Design-led, in-house, checked and built to last.')
 body += pxb(ST('cnc-1'), 'CNC machining in a workshop', 'Made in our own <em>Coimbatore factory.</em>', 'CNC and flat-lamination machinery imported from Italy and Germany.')
-body += section(split(ST('shop-3'), 'A craftsman using a saw on a wooden plank', 'The factory', 'Each material is <em>tested twice.</em>',
+body += section(split(ST('fac-4'), 'Board stock being inspected in a materials warehouse', 'The factory', 'Each material is <em>tested twice.</em>',
                       ['When it reaches the factory, and when it is issued to a project. Our own manufacturing facility runs CNC and flat-lamination machinery imported from Italy and Germany.'],
                       ['An in-house material testing lab', 'Own installation team', 'Site carpentry kept for fillers, end panels and visible panels'], links=[('Quality & factory', 'quality-factory.html', 'line')]),
                 'alt', 'The factory', 'Own factory, in-house testing lab and installation team.')
 body += section(sh('Where we are', 'Six cities, <em>one standard.</em>') + citytiles(CITIES), '', 'Six cities', 'Coimbatore, Chennai, Bangalore, Erode, Hyderabad and Guwahati.')
 body += recap() + cta('Come see <em>how we build.</em>', 'Call for a free design and meet a Homworks designer.')
 add('about-us', 'About Homworks | Home Interiors Made in Coimbatore', 'Homworks (Stylcove Modulars Pvt Ltd) designs, manufactures and installs home interiors in its own Coimbatore factory, with centres in six cities.',
-    body, 'why-homworks.html', None, crumbs=[HOME, ('Why Homworks', 'why-homworks.html'), ('About Us', 'about-us.html')], og=ST('shop-1'), typ='AboutPage')
+    body, 'about-us.html', None, crumbs=[HOME, ('Why Homworks', 'why-homworks.html'), ('About Us', 'about-us.html')], og=ST('fac-1'), typ='AboutPage')
 
 # ------------------------------------------------------------------ HOW IT WORKS
 HOW = [('Get', ['Meet your designer', 'Requirement gathering', 'Initial design', 'Booking advance', 'Site measurement']),
@@ -684,7 +687,7 @@ CERT = [('isi', 'BIS ISI MARK', 'Licences IS 17634 & IS 17635'), ('gicg', 'ISO 9
 body = hero_full([HOME, ('Why Homworks', 'why-homworks.html'), ('Quality & Factory', None)], 'Quality & factory', 'Rigorous quality, <em>from raw material to handover.</em>',
                  'We subject every raw material to a rigorous quality control mandate before it reaches your home.',
                  [('Call for a FREE design', 'contact.html', 'pink'), ('Warranty', 'warranty-after-sales.html', 'line')],
-                 [('100+', 'point quality check'), ('2×', 'material testing'), ('16', 'checks in the Interior Guide'), ('10 years', 'warranty')], ST('cnc-2'), 'A CNC router cutting a board', dark=True)
+                 [('100+', 'point quality check'), ('2×', 'material testing'), ('16', 'checks in the Interior Guide'), ('10 years', 'warranty')], ST('fac-2'), 'An operator at a CNC machine in a factory', dark=True)
 body += answer('Quality at Homworks', 'Homworks tests every material twice – on arrival at the factory and again when it is issued to a project – in an in-house testing lab, and runs a 100+ point quality check before handover.',
                'Core boards are ISI-certified BWP / HDHMR E0, edges are PUR hot-melt banded, and hardware, joints, finishes and load are tested.')
 body += statband([('72 hrs', 'boiling-water test on every BWP-grade plywood'), ('E0', 'grade core boards, with no formaldehyde'), ('80° C', 'heat the PUR edge-banding withstands'), ('18 mm', 'gap kept between the wall and the carcass')], 'dark')
@@ -694,7 +697,7 @@ body += section(sh('Certified', 'Certificates and <em>test records.</em>', 'A cl
     '<li class="rv">%s<b>%s</b><span>%s</span></li>' % (img('assets/home5/cert/%s.webp' % k, t + ' logo'), e(t), e(s)) for k, t, s in CERT), 'alt', 'Certified', 'ISI, ISO, REHAU, TÜV, Technomelt and Fasto.')
 body += recap() + cta('See the standard <em>for yourself.</em>', 'Call for a free design, and ask for a tested sample of the core materials.')
 add('quality-factory', 'Quality & Factory: ISI Boards, 72-Hour Boil Test | Homworks', 'Inside the Homworks factory: ISI-certified BWP / HDHMR E0 boards, 72-hour boiling test, PUR edge-banding, an in-house testing lab and a 100+ point quality check.',
-    body, 'why-homworks.html', [(g[6].strip('“”"'), 'The Homworks standard: ' + g[5]) for g in GD], crumbs=[HOME, ('Why Homworks', 'why-homworks.html'), ('Quality & Factory', 'quality-factory.html')], og=ST('cnc-2'))
+    body, 'why-homworks.html', [(g[6].strip('“”"'), 'The Homworks standard: ' + g[5]) for g in GD], crumbs=[HOME, ('Why Homworks', 'why-homworks.html'), ('Quality & Factory', 'quality-factory.html')], og=ST('fac-2'))
 
 # ------------------------------------------------------------------ WARRANTY
 body = hero_split([HOME, ('Why Homworks', 'why-homworks.html'), ('Warranty & After-Sales', None)], 'Warranty & after-sales', 'A <em>10-year</em> warranty, real after-sales.',
@@ -803,7 +806,7 @@ opts = ''.join('<option>%s</option>' % c['name'] for c in CITIES) + '<option>Oth
 needs = ''.join('<option>%s</option>' % n for n in ['Full home interiors', 'Modular kitchen', 'Wardrobes', 'Living room', 'Bedroom', 'Renovation'])
 body = hero_split([HOME, ('Contact', None)], 'Contact', 'Make room for <em>finer living.</em>', 'Beautiful homes begin with Homworks. Tell us about your home and a designer will call you within 24 hours.',
                   [('Call %s' % PHONE, 'tel:' + PHONE_TEL, 'solid'), ('Email us', 'mailto:' + EMAIL, 'line')],
-                  [('24 hrs', 'we call you back'), ('6', 'cities'), ('Free', 'design consultation')], ST('fam-1'), 'An Indian family at home', pill='Call for a free design')
+                  [('24 hrs', 'we call you back'), ('6', 'cities'), ('Free', 'design consultation')], ST('fac-1'), 'Workers on a modern woodworking factory floor in Coimbatore', pill='Made in our own factory')
 body += section('<div class="contact"><form class="formcard rv" id="leadForm" novalidate><h2>Tell us a little about your home</h2><p class="fs">Our Homworks designer will call you within 24 hours to arrange your complimentary consultation.</p>'
                 '<input required name="name" placeholder="Your full name" autocomplete="name" aria-label="Your full name"><div class="row"><input required type="tel" name="phone" placeholder="Phone number" autocomplete="tel" aria-label="Phone number"><input required type="email" name="email" placeholder="Email address" autocomplete="email" aria-label="Email address"></div>'
                 '<select name="city" aria-label="Select your city"><option value="">Select your city</option>%s</select><select name="need" aria-label="What are you planning?"><option value="">What are you planning?</option>%s</select>'
@@ -812,10 +815,15 @@ body += section('<div class="contact"><form class="formcard rv" id="leadForm" no
                 '<ul class="cl rv d1"><li><b>Call us</b><span><a href="tel:%s">%s</a> (toll-free)</span></li><li><b>Email</b><span><a href="mailto:%s">%s</a></span></li><li><b>Coimbatore office</b><span>%s</span></li>'
                 '<li><b>Other centres</b><span>%s</span></li></ul></div>' % (opts, needs, PHONE_TEL, PHONE, EMAIL, EMAIL, CITIES[0]['address'],
                 ' · '.join('<a href="location-%s.html">%s</a>' % (c['slug'], c['name']) for c in CITIES[1:])), '', 'Get in touch', 'Form, phone, email and our Coimbatore office.')
+body += section(sh('Where your home is made', 'From this call to <em>our factory floor.</em>', 'Your interiors are engineered in our own Coimbatore factory, then fitted at your home by our installation team.') + bento([
+    ('img', ST('fac-1'), 'Workers on a modern woodworking factory floor', 'Own factory, Coimbatore', 'CNC and flat-lamination machinery imported from Italy and Germany.', 'w2 h2'),
+    ('img', ST('cnc-1'), 'An automated drilling and machining line', 'Made to the millimetre', 'Furniture parts are cut and fabricated off-site, so your home is not turned into a workshop.', ''),
+    ('img', ST('fac-4'), 'Board stock being inspected in a materials warehouse', 'Tested twice', 'On arrival at the factory, and again when issued to a project.', ''),
+    ('stat', '10 years', 'warranty on every project', 'dark w2')]), '', 'Our factory', 'Own Coimbatore factory, CNC machinery, material testing and a 10-year warranty.')
 body += section(faq_block('Before you <em>call</em>', 'Questions', F('start', 'time', 'cost', 'cities')), 'alt', 'Questions', 'How to start, timeline, cost and cities.')
 body += recap()
 add('contact', 'Contact Homworks | Book a Free Design Consultation', 'Contact Homworks: call 1800 833 4500, email enquiry@homworks.com or book a free design consultation. A designer calls within 24 hours.',
-    body, 'contact.html', F('start', 'time', 'cost', 'cities'), crumbs=[HOME, ('Contact', 'contact.html')], og=ST('fam-1'), typ='ContactPage')
+    body, 'contact.html', F('start', 'time', 'cost', 'cities'), crumbs=[HOME, ('Contact', 'contact.html')], og=ST('fac-1'), typ='ContactPage')
 
 
 # ------------------------------------------------------------------ write
@@ -842,7 +850,7 @@ def page_html(slug_, p):
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&family=Newsreader:ital,opsz,wght@0,6..72,300..500;1,6..72,300..500&family=Manrope:wght@200..800&family=Public+Sans:wght@600&display=swap" rel="stylesheet">
   <script>(function(d){var e=d.documentElement;e.className+=' js';setTimeout(function(){if(!window.__hw5)e.classList.add('motion-off')},2600)})(document)</script>
   <link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" href="assets/favicon-64.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="assets/home5.css?v=r19"><link rel="stylesheet" href="assets/inner.css?v=r3"><link rel="stylesheet" href="assets/inner-fx.css?v=r2">
+  <link rel="stylesheet" href="assets/home5.css?v=r19"><link rel="stylesheet" href="assets/inner.css?v=r3"><link rel="stylesheet" href="assets/inner-fx.css?v=r4">
   %s
 </head>
 <body class="inner">
@@ -855,7 +863,7 @@ def page_html(slug_, p):
 <script src="assets/inner.js?v=r4"></script>
 </body>
 </html>
-''' % (e(p['title']), e(p['desc']), url, e(p['title']), e(p['desc']), url, SITE, p['og'], '\n  '.join(ld(x) for x in lds), header_html(p['active']), p['body'], footer_html())
+''' % (e(p['title']), e(p['desc']), url, e(p['title']), e(p['desc']), url, SITE, p['og'], '\n  '.join(ld(x) for x in lds), header_html(p['active'] if p['active'] in ('interiors.html', 'projects.html', 'locations.html', 'about-us.html', 'contact.html') else ''), p['body'], footer_html())
 
 
 for slug_, p in PAGES.items():
@@ -873,7 +881,7 @@ print(len(PAGES), 'pages written')
 def patch_home():
     p = os.path.join(ROOT, 'index.html')
     h = open(p, encoding='utf-8').read()
-    h = re.sub(r'<header class="nav" id="nav">.*?</nav>\s*<nav class="mnav".*?</nav>', lambda m: header_html(''), h, count=1, flags=re.S)
+    h = re.sub(r'<header class="nav" id="nav">.*?</header>\s*<nav class="mnav".*?</nav>', lambda m: header_html('', home=True), h, count=1, flags=re.S)
     h = re.sub(r'<footer class="foot">.*?</footer>', lambda m: footer_core(), h, count=1, flags=re.S)
 
     def live(m):

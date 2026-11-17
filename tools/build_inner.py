@@ -153,9 +153,20 @@ CUR = []   # sections of the page being built, for the recap
 def slug(t): return re.sub(r'[^a-z0-9]+', '-', re.sub(r'<[^>]+>', '', t).lower()).strip('-')
 
 
+D30 = ('<img class="d30 n" src="assets/home5/30days.webp" alt="30 days or it’s free*" width="373" height="276">'
+       '<img class="d30 l" src="assets/home5/30days-light.webp" alt="" aria-hidden="true" width="373" height="276">')
+
+
+def lab(a, b):
+    """The 30-days logo already says DAYS, so the label drops its leading 'days'."""
+    return b[5:] if a.strip() == '30' and b.startswith('days ') else b
+
+
 def cnum(s):
     """Wrap the first number in a fact so it counts up from 0 on scroll."""
     s = s.strip()
+    if s == '30':
+        return D30
     m = re.match(r'^(\D*?)(\d[\d,]*)(.*)$', s)
     if not m or s.startswith(('Day', 'E0', '1800')) or re.match(r'^\D*\d+ \(', s):
         return e(s)
@@ -177,7 +188,7 @@ def btns(ctas, extra=''):
 
 
 def facts_ul(facts, cls='facts'):
-    return '<ul class="%s">' % cls + ''.join('<li><b>%s</b><span>%s</span></li>' % (cnum(x), e(y)) for x, y in facts) + '</ul>' if facts else ''
+    return '<ul class="%s">' % cls + ''.join('<li><b>%s</b><span>%s</span></li>' % (cnum(x), e(lab(x, y))) for x, y in facts) + '</ul>' if facts else ''
 
 
 # ------------------------------------------------------------------ heroes (four different openings)
@@ -295,7 +306,7 @@ def bento(tiles):
         if k == 'img':
             out += '<figure class="bt bt-i %s rv-clip">%s<figcaption><b>%s</b><span>%s</span></figcaption></figure>' % (t[5], img(t[1], t[2]), e(t[3]), e(t[4]))
         elif k == 'stat':
-            out += '<div class="bt bt-s %s rv"><b>%s</b><span>%s</span></div>' % (t[3], cnum(t[1]), e(t[2]))
+            out += '<div class="bt bt-s %s rv"><b>%s</b><span>%s</span></div>' % (t[3], cnum(t[1]), e(lab(t[1], t[2])))
         else:
             out += '<div class="bt bt-t %s rv"><span class="no">%s</span><h3>%s</h3><p>%s</p></div>' % (t[4], e(t[1]), e(t[2]), e(t[3]))
     return '<div class="bento">%s</div>' % out
@@ -315,7 +326,7 @@ def tlv(items):
 
 
 def statband(items, cls=''):
-    return '<section class="band %s"><div class="wrap"><ul>%s</ul></div></section>' % (cls, ''.join('<li class="rv"><b>%s</b><span>%s</span></li>' % (cnum(a), e(b)) for a, b in items))
+    return '<section class="band %s"><div class="wrap"><ul>%s</ul></div></section>' % (cls, ''.join('<li class="rv"><b>%s</b><span>%s</span></li>' % (cnum(a), e(lab(a, b))) for a, b in items))
 
 
 def pxb(src, alt, h, sub=''):
@@ -666,6 +677,7 @@ body = hero_full([HOME, ('Why Homworks', 'why-homworks.html'), ('30-Day Delivery
                  [('30', 'working days'), ('Day 0', 'is your design sign-off'), ('+10', 'days for NE India and out-of-inventory finishes'), ('10 years', 'warranty from handover')], ST('fam-1'), 'An Indian family laughing together on a sofa at home')
 body += answer('How long does Homworks take?', 'Homworks finishes your interiors in just 30 working days from design sign-off, or it’s free*.',
                'Day 0 is the day you approve your 3D design and fixed quote. ' + FOOT30[2:])
+body += '<section class="sec d30full"><div class="wrap"><figure class="rv"><img src="assets/home5/30days-full.webp" alt="30 days or it’s free*. Production and installation in 30 working days from design sign-off. If not, you don’t pay." width="745" height="900" loading="lazy"></figure></div></section>'
 body += section(sh('The clock', 'Thirty days, <em>on the record.</em>') + tlv([
     ('Day 0', 'You approve your 3D design and fixed quote', 'That is Day 0 of your 30 days.* Your modules move into our own factory.'),
     ('Days 1–29', 'Factory production, dispatch and installation', 'Modules are made in our factory, delivered, and fitted by our own team.'),
@@ -850,7 +862,7 @@ def page_html(slug_, p):
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&family=Newsreader:ital,opsz,wght@0,6..72,300..500;1,6..72,300..500&family=Manrope:wght@200..800&family=Public+Sans:wght@600&display=swap" rel="stylesheet">
   <script>(function(d){var e=d.documentElement;e.className+=' js';setTimeout(function(){if(!window.__hw5)e.classList.add('motion-off')},2600)})(document)</script>
   <link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" href="assets/favicon-64.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="assets/home5.css?v=r19"><link rel="stylesheet" href="assets/inner.css?v=r3"><link rel="stylesheet" href="assets/inner-fx.css?v=r4">
+  <link rel="stylesheet" href="assets/home5.css?v=r20"><link rel="stylesheet" href="assets/inner.css?v=r3"><link rel="stylesheet" href="assets/inner-fx.css?v=r5">
   %s
 </head>
 <body class="inner">

@@ -414,3 +414,19 @@
     $('button[type=submit]',form).firstChild.textContent='Request received ';
   });
 })();
+
+/* images: keep native lazy loading for the first paint, then pull every remaining image in
+   (nearest to the viewport first) so nothing is still loading when you scroll to it */
+(function(){
+  var imgs=[].slice.call(document.querySelectorAll('img[loading="lazy"]'));
+  if(!imgs.length)return;
+  function top(i){return i.getBoundingClientRect().top+window.scrollY}
+  function pull(im){if(im.loading!=='eager'){im.loading='eager';im.decoding='async'}}
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){pull(e.target);io.unobserve(e.target)}})},{rootMargin:'2400px 0px'});
+    imgs.forEach(function(i){io.observe(i)});
+  }
+  function pump(){var n=0;while(imgs.length&&n<3){pull(imgs.shift());n++}if(imgs.length)setTimeout(pump,140)}
+  function start(){imgs.sort(function(a,b){return top(a)-top(b)});pump()}
+  if(document.readyState==='complete')setTimeout(start,150);else window.addEventListener('load',function(){setTimeout(start,150)});
+})();

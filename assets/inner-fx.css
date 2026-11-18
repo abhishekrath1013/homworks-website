@@ -327,3 +327,24 @@
 .ct:hover .ct-a,.ct:focus-visible .ct-a{max-height:0;opacity:0;margin-top:0}
 .ct:hover .ct-d,.ct:focus-visible .ct-d{max-height:190px;opacity:1;margin-top:14px}
 @media(hover:none){.ct:before{opacity:.55}.ct-a{display:none}.ct-d{max-height:none;opacity:1;margin-top:12px}}
+
+/* r7: smooth city tiles. No layout changes on hover: two stacked layers cross-fade, nothing moves the tile itself */
+.ct,.ct.rv{transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1),box-shadow .45s}
+.ct:hover{transform:none}
+.js .rv.rvd{transition-property:transform,opacity,box-shadow,border-color,background-color;transition-duration:.35s;transition-delay:0s}
+.ct{min-height:clamp(300px,21vw,330px);justify-content:flex-end;will-change:auto}
+.ct:hover{box-shadow:0 22px 44px -18px rgba(4,36,38,.55)}
+.ct-base{position:relative;z-index:2;display:block;transition:opacity .35s ease,transform .5s cubic-bezier(.2,.7,.2,1)}
+.ct-base>span{display:block}
+.ct-over{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;justify-content:flex-end;padding:26px;opacity:0;transform:translateY(14px);pointer-events:none;transition:opacity .4s ease,transform .5s cubic-bezier(.2,.7,.2,1)}
+.ct-over .ct-t{position:relative}
+.ct-n2{margin-top:6px;font:200 clamp(30px,2.8vw,44px)/1.05 var(--jak);letter-spacing:-.05em}
+.ct-d{position:relative;display:flex;flex-direction:column;gap:7px;margin-top:14px;max-height:none;opacity:1;overflow:visible;transition:none}
+.ct:hover .ct-base,.ct:focus-visible .ct-base{opacity:0;transform:translateY(-10px)}
+.ct:hover .ct-over,.ct:focus-visible .ct-over{opacity:1;transform:none}
+.ct:hover .ct-a,.ct:focus-visible .ct-a{max-height:60px;opacity:1;margin-top:12px}
+.ct-a{transition:none}
+.ct:before{transition:opacity .4s ease}
+.ct>i{z-index:4}
+@media(hover:none){.ct-base{display:none}.ct-over{opacity:1;transform:none}}
+@media(max-width:700px){.ct{min-height:300px}}

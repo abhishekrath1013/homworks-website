@@ -331,9 +331,11 @@ def citytiles(cities):
     out = []
     for i, c in enumerate(cities):
         maps = 'https://www.google.com/maps/search/?api=1&query=' + urllib.parse.quote(c['address'])
-        out.append('<a class="ct c%d rv" id="%s" href="%s" target="_blank" rel="noopener" aria-label="Open the Homworks %s centre in Google Maps">%s<span class="ct-t">%s</span><span class="ct-n">%s</span>'
-                   '<span class="ct-a">%s</span><span class="ct-d"><span><b>Address</b>%s</span><span><b>Phone</b>%s</span><span><b>Email</b>%s</span><span class="ct-go">Open in Google Maps →</span></span><i>%s</i></a>' % (
-            i % 4, c['slug'], maps, e(c['name']), img(ST(LM[c['slug']][0]), LM[c['slug']][1], cls='ct-bg'), e(c['tag']), e(c['name']), e(c['addrShort']), e(c['address']), PHONE, EMAIL, ARROW))
+        out.append('<a class="ct c%d rv" id="%s" href="%s" target="_blank" rel="noopener" aria-label="Open the Homworks %s centre in Google Maps">%s'
+                   '<span class="ct-base"><span class="ct-t">%s</span><span class="ct-n">%s</span><span class="ct-a">%s</span></span>'
+                   '<span class="ct-over"><span class="ct-t">%s</span><span class="ct-n2">%s</span><span class="ct-d"><span><b>Address</b>%s</span><span><b>Phone</b>%s</span><span><b>Email</b>%s</span><span class="ct-go">Open in Google Maps →</span></span></span><i>%s</i></a>' % (
+            i % 4, c['slug'], maps, e(c['name']), img(ST(LM[c['slug']][0]), LM[c['slug']][1], cls='ct-bg'), e(c['tag']), e(c['name']), e(c['addrShort']),
+            e(c['tag']), e(c['name']), e(c['address']), PHONE, EMAIL, ARROW))
     return '<div class="cts stagger">%s</div>' % ''.join(out)
 
 
@@ -840,7 +842,7 @@ def page_html(slug_, p):
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&family=Newsreader:ital,opsz,wght@0,6..72,300..500;1,6..72,300..500&family=Manrope:wght@200..800&family=Public+Sans:wght@600&display=swap" rel="stylesheet">
   <script>(function(d){var e=d.documentElement;e.className+=' js';setTimeout(function(){if(!window.__hw5)e.classList.add('motion-off')},2600)})(document)</script>
   <link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" href="assets/favicon-64.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="assets/home5.css?v=r24"><link rel="stylesheet" href="assets/inner.css?v=r3"><link rel="stylesheet" href="assets/inner-fx.css?v=r6">
+  <link rel="stylesheet" href="assets/home5.css?v=r24"><link rel="stylesheet" href="assets/inner.css?v=r3"><link rel="stylesheet" href="assets/inner-fx.css?v=r7">
   %s
 </head>
 <body class="inner">
@@ -850,7 +852,7 @@ def page_html(slug_, p):
 %s
 </main>
 %s
-<script src="assets/inner.js?v=r4"></script>
+<script src="assets/inner.js?v=r5"></script>
 </body>
 </html>
 ''' % (e(p['title']), e(p['desc']), url, e(p['title']), e(p['desc']), url, SITE, p['og'], '\n  '.join(ld(x) for x in lds), header_html(p['active'] if p['active'] in ('interiors.html', 'projects.html', 'locations.html', 'about-us.html', 'contact.html') else ''), p['body'], footer_html())

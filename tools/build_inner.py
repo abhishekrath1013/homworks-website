@@ -394,8 +394,8 @@ PAGES = {}
 HOME = ('Home', 'index.html')
 
 
-def add(slug_, title, desc, body, active='', faq=None, extra_ld=None, crumbs=None, og='assets/stock/kit-warm.webp', typ='WebPage'):
-    PAGES[slug_] = dict(title=title, desc=desc, body=body, active=active, faq=faq, extra=extra_ld or [], crumbs=crumbs or [], og=og, typ=typ)
+def add(slug_, title, desc, body, active='', faq=None, extra_ld=None, crumbs=None, og='assets/stock/kit-warm.webp', typ='WebPage', ext=None):
+    PAGES[slug_] = dict(title=title, desc=desc, body=body, active=active, faq=faq, extra=extra_ld or [], crumbs=crumbs or [], og=og, typ=typ, ext=ext)
     BUILT.add(slug_ + '.html')
 
 
@@ -670,26 +670,79 @@ howto = {'@context': 'https://schema.org', '@type': 'HowTo', 'name': 'How Homwor
 add('how-it-works', 'How Homworks Works: Get, Set, Go | Interior Process', 'The Homworks process in three stages and 15 steps: meet your designer, approve your 3D design, and move in after factory production and installation.',
     body, 'why-homworks.html', F('start', 'time', 'changes', 'factory'), extra_ld=[howto], crumbs=[HOME, ('Why Homworks', 'why-homworks.html'), ('How It Works', 'how-it-works.html')], og=ST('plan-1'))
 
-# ------------------------------------------------------------------ 30-DAY
-body = hero_full([HOME, ('Why Homworks', 'why-homworks.html'), ('30-Day Delivery', None)], 'The 30-day promise', 'Flawless design at <em>matchless speed.</em>',
-                 'Perfect interiors done in just 30 days. Or it’s free*',
-                 [('Call for a FREE design**', 'contact.html', 'pink'), ('How it works', 'how-it-works.html', 'line')],
-                 [('30', 'working days'), ('Day 0', 'is your design sign-off'), ('+10', 'days for NE India and out-of-inventory finishes'), ('10 years', 'warranty from handover')], ST('fam-1'), 'An Indian family laughing together on a sofa at home')
+# ------------------------------------------------------------------ 30-DAY  (the company's USP: its own page system, same design language)
+import math
+
+
+def dial_html():
+    ticks = ''
+    for i in range(30):
+        ang = math.radians(i * 12 - 90)
+        major = i % 5 == 0
+        r0, r1 = (252 if major else 262), 284
+        ticks += '<line class="tk%s" data-i="%d" x1="%.1f" y1="%.1f" x2="%.1f" y2="%.1f"/>' % (' mj' if major else '', i, 300 + r0 * math.cos(ang), 300 + r0 * math.sin(ang), 300 + r1 * math.cos(ang), 300 + r1 * math.sin(ang))
+    labels = ''.join('<text class="tl" x="%.1f" y="%.1f">%d</text>' % (300 + 226 * math.cos(math.radians(n * 12 - 90)), 300 + 226 * math.sin(math.radians(n * 12 - 90)) + 4, n) for n in (5, 10, 15, 20, 25))
+    return ('<div class="dial" data-dial><svg viewBox="0 0 600 600" aria-hidden="true"><circle class="d-orb" cx="300" cy="300" r="206"/><circle class="d-base" cx="300" cy="300" r="270"/>'
+            '<circle class="d-arc" cx="300" cy="300" r="270" pathLength="100"/>%s%s<circle class="d-dot" cx="300" cy="30" r="9"/></svg>'
+            '<div class="d-core"><img src="assets/home5/30days-light.webp" alt="30 days or it’s free*" width="373" height="276"></div>'
+            '<div class="d-chip"><span>Day</span><b class="d-n">30</b><span>of 30</span></div></div>') % (ticks, labels)
+
+
+UH_FACTS = [('Day 0', 'is your design sign-off'), ('+10', 'days for NE India and out-of-inventory finishes'), ('10 years', 'warranty from handover')]
+CUR.clear()
+body = ('<section class="u-hero"><div class="wrap u-in"><div class="u-t"><div class="rv">%s<p class="eyebrow">The 30-day promise</p>'
+        '<h1>Flawless design at <em>matchless speed.</em></h1><p class="lede">Perfect interiors done in just 30 days. Or it’s free*</p>%s<p class="u-fn">%s &nbsp; ** For one room only.</p></div></div>'
+        '<div class="u-d rv d1">%s</div></div><div class="wrap u-fw">%s<a class="u-cue" href="#the-clock" aria-label="Watch the 30 days"><span>Watch the 30 days</span><i></i></a></div></section>') % (
+    crumb([HOME, ('Why Homworks', 'why-homworks.html'), ('30-Day Delivery', None)], True),
+    btns([('Call for a FREE design**', 'contact.html', 'pink'), ('How it works', 'how-it-works.html', 'line')]), e(FOOT30), dial_html(), facts_ul(UH_FACTS, 'hf-facts'))
+body += marquee(['Design sign-off', 'Factory production', 'Dispatch', 'Installation', 'Handover', 'Day 30'])
 body += answer('How long does Homworks take?', 'Homworks finishes your interiors in just 30 working days from design sign-off, or it’s free*.',
                'Day 0 is the day you approve your 3D design and fixed quote. ' + FOOT30[2:])
-body += section(sh('The clock', 'Thirty days, <em>on the record.</em>') + tlv([
-    ('Day 0', 'You approve your 3D design and fixed quote', 'That is Day 0 of your 30 days.* Your modules move into our own factory.'),
-    ('Days 1–29', 'Factory production, dispatch and installation', 'Modules are made in our factory, delivered, and fitted by our own team.'),
-    ('Day 30', 'Handover', 'A thorough 100+ point quality check before final handover, and your 10-year warranty begins.')]), '', 'The clock', 'Day 0 is sign-off; Day 30 is handover.')
-body += section(sh('The terms', 'Clear terms, <em>no fine print.</em>', 'The 30 days count from sign-off, not from your first phone call.') + bento([
-    ('text', 'Starts', 'When the clock starts', 'When you approve your 3D design and fixed quote.', ''), ('text', 'Excluded', 'What the guarantee excludes', 'Client-side delays, design changes and site readiness.', ''),
-    ('stat', '+10', 'days for North East India and out-of-inventory finishes', 'dark'), ('text', 'Ends', 'When it ends', 'Handover on Day 30, when your 10-year warranty begins.', '')]) +
-    '<p class="note">%s &nbsp; ** For one room only.</p>' % e(FOOT30), 'alt', 'The terms', 'What starts the clock, what is excluded and what adds days.')
+
+# the scroll-driven clock
+CUR.append(('The clock', 'the-clock', 'Day 0 is sign-off; Day 30 is handover.'))
+PH = [('Day 0', 'You approve your 3D design and fixed quote', 'That is Day 0 of your 30 days.* Your modules move into our own factory.'),
+      ('Days 1–29', 'Factory production, dispatch and installation', 'Modules are made in our factory, delivered, and fitted by our own team.'),
+      ('Day 30', 'Handover', 'A thorough 100+ point quality check before final handover, and your 10-year warranty begins.')]
+body += ('<section class="clk" id="the-clock" data-title="The clock" data-clk><div class="clk-st"><div class="wrap clk-in"><div class="clk-l"><p class="eyebrow">The clock</p>'
+         '<div class="clk-num"><span class="clk-day">Day</span><b class="clk-n" aria-live="off">0</b></div>'
+         '<div class="clk-ph">%s</div><div class="clk-bar" aria-hidden="true"><i></i></div></div>'
+         '<div class="clk-g" aria-hidden="true"><span class="dc dz">0</span>%s</div></div></div></section>') % (
+    ''.join('<div class="ph%s"><span>%s</span><h2>%s</h2><p>%s</p></div>' % (' on' if i == 0 else '', e(k), e(t), e(d)) for i, (k, t, d) in enumerate(PH)),
+    ''.join('<span class="dc">%d</span>' % n for n in range(1, 31)))
+
+body += statband([('30', 'working days from design sign-off*'), ('15', 'steps from first call to handover'), ('100+', 'point quality check before handover'), ('10 years', 'warranty, beginning at handover')], 'dark')
+
+body += section(sh('How we keep the promise', 'Built in a factory, <em>not on your floor.</em>', 'A fixed quote, a fixed date, and one team accountable from sign-off to handover.') + bento([
+    ('img', ST('fac-1'), 'Workers on a modern woodworking factory floor', 'Our own Coimbatore factory', 'Your modules move into our own factory – not a third-party workshop.', 'w2 h2'),
+    ('text', '01', 'Imported machinery', 'CNC and flat-lamination machinery imported from Italy and Germany.', ''),
+    ('text', '02', 'Tested twice', 'Every material is tested on arrival at the factory and again when issued to a project.', ''),
+    ('text', '03', 'Fitted by our own team', 'Parts are made in the factory and fitted at your home by our own installation team, with a 100+ point quality check before handover.', 'w2')]),
+    '', 'How we keep it', 'Own factory, imported machinery, material testing and our own installation team.')
+
+body += section(sh('The route', 'Fifteen steps, <em>one accountable team.</em>', 'Get, Set and Go: from your first call to the day we hand over the keys.') + steps3(), 'alt', 'The route', 'Get, Set and Go: fifteen steps.')
+
 body += pxb(ST('inst-1'), 'A kitchen being fitted on site', 'Get. Set. <em>Go.</em>', 'Fifteen steps, one accountable team.')
-body += section(faq_block('Delivery <em>questions</em>', 'Questions', F('time', 'changes', 'factory', 'warranty')), '', 'Questions', 'Timeline, changes, factory and warranty.')
+
+# the guarantee
+CUR.append(('The guarantee', 'the-guarantee', 'If not, you don’t pay. Plus the exact terms.'))
+body += ('<section class="sec gar" id="the-guarantee" data-title="The guarantee"><div class="wrap"><div class="gar-q rv"><p class="eyebrow">The guarantee</p>'
+         '<h2>If not, <em>you don’t pay.</em></h2><p>Perfect interiors done in just 30 days. Or it’s free*</p></div>'
+         '<div class="gar-c stagger"><div class="gc rv"><span>Starts</span><h3>When the clock starts</h3><p>When you approve your 3D design and fixed quote.</p></div>'
+         '<div class="gc rv"><span>Excluded</span><h3>What the guarantee excludes</h3><p>Client-side delays, design changes and site readiness.</p></div>'
+         '<div class="gc rv"><span>Adds days</span><h3>+<span class="cnt" data-to="10">10</span> days</h3><p>For North East India and out-of-inventory finishes.</p></div>'
+         '<div class="gc rv"><span>Ends</span><h3>When it ends</h3><p>Handover on Day 30, when your 10-year warranty begins.</p></div></div>'
+         '<p class="note">%s &nbsp; ** For one room only.</p></div></section>') % e(FOOT30)
+
+body += section(split(ST('plan-1'), 'A couple reviewing a home plan together', 'Keep it on track', 'Three things <em>that protect your 30 days.</em>',
+                      ['The guarantee is about speed from sign-off, so a little preparation on your side keeps every day on the clock.'],
+                      ['Settle your design before sign-off: design changes are outside the guarantee.', 'Have your site ready: site readiness is outside the guarantee.',
+                       'Plan for +10 days if you are in North East India or choose a finish that is out of inventory.'], links=[('How it works', 'how-it-works.html', 'line')]),
+                '', 'Keep it on track', 'Settle the design, have the site ready and allow +10 days where it applies.')
+body += section(faq_block('Delivery <em>questions</em>', 'Questions', F('time', 'changes', 'factory', 'warranty')), 'alt', 'Questions', 'Timeline, changes, factory and warranty.')
 body += recap() + cta('Let’s get you <em>home on time.</em>', 'Call for a free design** – for one room only.')
-add('30-day-delivery', 'The 30-Day Interior Delivery Promise | Homworks', 'Homworks delivers perfect interiors in just 30 working days from design sign-off, or it’s free*. See what starts the clock and the exact terms.',
-    body, 'why-homworks.html', F('time', 'changes', 'factory', 'warranty'), crumbs=[HOME, ('Why Homworks', 'why-homworks.html'), ('30-Day Delivery', '30-day-delivery.html')], og=ST('fam-1'))
+add('30-day-delivery', 'The 30-Day Interior Delivery Promise | Homworks', 'Homworks delivers perfect interiors in just 30 working days from design sign-off, or it’s free*. Watch the 30 days, see what starts the clock and the exact terms.',
+    body, 'why-homworks.html', F('time', 'changes', 'factory', 'warranty'), crumbs=[HOME, ('Why Homworks', 'why-homworks.html'), ('30-Day Delivery', '30-day-delivery.html')], og=ST('fac-1'), ext='usp')
 
 # ------------------------------------------------------------------ QUALITY
 CERT = [('isi', 'BIS ISI MARK', 'Licences IS 17634 & IS 17635'), ('gicg', 'ISO 9001:2015', 'Quality Management · GICG'), ('gicg', 'ISO 14001:2015', 'Environmental Management · GICG'),
@@ -842,7 +895,7 @@ def page_html(slug_, p):
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&family=Newsreader:ital,opsz,wght@0,6..72,300..500;1,6..72,300..500&family=Manrope:wght@200..800&family=Public+Sans:wght@600&display=swap" rel="stylesheet">
   <script>(function(d){var e=d.documentElement;e.className+=' js';setTimeout(function(){if(!window.__hw5)e.classList.add('motion-off')},2600)})(document)</script>
   <link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" href="assets/favicon-64.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="assets/home5.css?v=r24"><link rel="stylesheet" href="assets/inner.css?v=r3"><link rel="stylesheet" href="assets/inner-fx.css?v=r7">
+  <link rel="stylesheet" href="assets/home5.css?v=r24"><link rel="stylesheet" href="assets/inner.css?v=r3"><link rel="stylesheet" href="assets/inner-fx.css?v=r7">%s
   %s
 </head>
 <body class="inner">
@@ -852,10 +905,10 @@ def page_html(slug_, p):
 %s
 </main>
 %s
-<script src="assets/inner.js?v=r5"></script>
+<script src="assets/inner.js?v=r5"></script>%s
 </body>
 </html>
-''' % (e(p['title']), e(p['desc']), url, e(p['title']), e(p['desc']), url, SITE, p['og'], '\n  '.join(ld(x) for x in lds), header_html(p['active'] if p['active'] in ('interiors.html', 'projects.html', 'locations.html', 'about-us.html', 'contact.html') else ''), p['body'], footer_html())
+''' % (e(p['title']), e(p['desc']), url, e(p['title']), e(p['desc']), url, SITE, p['og'], '<link rel="stylesheet" href="assets/%s.css?v=u1">' % p['ext'] if p['ext'] else '', '\n  '.join(ld(x) for x in lds), header_html(p['active'] if p['active'] in ('interiors.html', 'projects.html', 'locations.html', 'about-us.html', 'contact.html') else ''), p['body'], footer_html(), '<script src="assets/%s.js?v=u1"></script>' % p['ext'] if p['ext'] else '')
 
 
 for slug_, p in PAGES.items():

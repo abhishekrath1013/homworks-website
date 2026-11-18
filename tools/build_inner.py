@@ -270,10 +270,12 @@ def marquee(words, cls=''):
 
 def rail(items, note=''):
     cards = ''
-    for i, (href, src, alt, tag, title, body) in enumerate(items):
+    for i, it in enumerate(items):
+        href, src, alt, tag, title, body = it[:6]
+        more = '<span class="more">%s%s</span>' % (e(it[6]), ARROW) if len(it) > 6 and href else ''
         t = 'a' if href else 'div'
-        cards += '<%s class="rc"%s><figure>%s</figure><i class="rc-n">%02d</i><div class="rc-b"><span class="tag">%s</span><h3>%s</h3><p>%s</p></div></%s>' % (
-            t, ' href="%s"' % href if href else '', img(src, alt), i + 1, e(tag), e(title), e(body), t)
+        cards += '<%s class="rc"%s><figure>%s</figure><i class="rc-n">%02d</i><div class="rc-b"><span class="tag">%s</span><h3>%s</h3><p>%s</p>%s</div></%s>' % (
+            t, ' href="%s"' % href if href else '', img(src, alt), i + 1, e(tag), e(title), e(body), more, t)
     return ('<div class="rail2 rv"><div class="rail2-ar"><button type="button" data-d="-1" aria-label="Previous">%s</button><button type="button" data-d="1" aria-label="Next">%s</button></div>'
             '<div class="rail2-vp"><div class="rail2-tr">%s</div></div></div>%s') % (ARROW, ARROW, cards, '<p class="note wrap">%s</p>' % e(note) if note else '')
 
@@ -439,30 +441,47 @@ body += recap() + cta('Not sure where <em>to start?</em>', 'Call for a free desi
 add('interiors', 'Interior Design for Every Room | Homworks', 'Homworks designs, makes and installs kitchens, bedrooms, wardrobes and living rooms in 30 days from sign-off, with a 10-year warranty.',
     body, 'interiors.html', F('cost', 'time', 'finish', 'start'), crumbs=[HOME, ('Interiors', 'interiors.html')], og=ST('kit-warm'))
 
-# ------------------------------------------------------------------ FULL HOME
-body = hero_full([HOME, ('Interiors', 'interiors.html'), ('Full Home Interiors', None)], 'Full home interiors', 'Custom designs <em>for each room</em>',
-                 'A cohesive plan for every space, with one team accountable from the first design to final handover.',
-                 [('Call for a FREE design', 'contact.html', 'pink'), ('The Homworks process', 'how-it-works.html', 'line')],
-                 [('1', 'accountable team'), ('30', 'days from sign-off*'), ('10 years', 'warranty'), ('15', 'clear steps')], ST('living-2'), 'A finished living and dining room')
-body += answer('Full home interiors at Homworks', 'Homworks plans, manufactures and installs interiors for every room of your home as one project, with one team accountable from the first design to final handover.',
-               'Your 3D design and fixed quote are approved once, the clock starts at sign-off, and your 10-year warranty begins at handover.')
-body += section(sh('One plan', 'Get. Set. <em>Go.</em>', 'A clear step-by-step path to a beautifully designed home.') + sticky([
-    (ST('plan-1'), 'A couple reviewing a floor plan together', 'GET', 'Talk to a designer and get personalised designs and a quote for your dream home.', ['Meet your designer', 'Requirement gathering', 'Initial design', 'Booking advance', 'Site measurement']),
-    (ST('samples'), 'Finish samples laid out on a table', 'SET', 'Your 3D model is checked, frozen and turned into production drawings.', ['3D model + Quality check', 'Design freeze', 'BOM + Production drawings', 'Site validation', 'Final sign-off']),
-    (ST('inst-1'), 'A fitted kitchen being finished on site', 'GO', 'Production, delivery and installation, with a quality check before handover.', ['Execution begins', 'Factory production', 'Site readiness', 'Dispatch & delivery', 'Installation, QC, Handover'])]),
-    '', 'One plan', 'Get, Set and Go: fifteen steps from first meeting to handover.')
-body += section(sh('Room by room', 'Start with the room <em>that matters most.</em>') + rows([
-    ('Modular kitchen', P[2]['p'], ST('kit-island'), 'A modular kitchen with an island', 'modular-kitchens.html'),
-    ('Living room', P[1]['p'], ST('living-tv'), 'A living room TV wall', 'living-rooms.html'),
-    ('Bedroom', P[3]['p'], ST('bed-1'), 'A bedroom with a wooden headboard', 'bedrooms.html'),
-    ('Wardrobes', 'L-shaped corner wardrobes and walk-ins, built to use every inch.', ST('ward-2'), 'A walk-in wardrobe', 'wardrobes.html'),
-    ('Kids’ rooms', P[3]['cards'][5][3], ST('kids-1'), 'A kids’ room with a bunk bed', 'bedrooms.html')]), 'alt', 'Room by room', 'Kitchen, living room, bedroom, wardrobes and kids’ rooms.')
-body += section(sh('And more', 'Rooms made <em>to measure.</em>', 'A cohesive plan covers the rest of the home too.') + bento([('text', '%02d' % (i + 1), c[2], c[3], 'w2') for i, c in enumerate(P[0]['cards'])]), '', 'And more', 'Home office, pooja room, dining and vanity.')
-body += statband([('1', 'accountable team from first design to handover'), ('30', 'days from design sign-off*'), ('10 years', 'warranty on every project'), ('15', 'steps, laid out plainly')])
-body += section(faq_block('Full home <em>questions</em>', 'Questions', F('time', 'cost', 'changes', 'factory')), '', 'Questions', 'Timeline, cost, changes and the factory.')
-body += recap() + cta('Make your whole home <em>work beautifully.</em>', 'Call for a free design and meet a designer within 24 hours.')
-add('full-home-interiors', 'Full Home Interior Design & Installation | Homworks', 'Full home interiors by Homworks: one team from design to handover, made in our own factory, 30 days from sign-off*, 10-year warranty.',
-    body, 'interiors.html', F('time', 'cost', 'changes', 'factory'), crumbs=[HOME, ('Interiors', 'interiors.html'), ('Full Home Interiors', 'full-home-interiors.html')], og=ST('living-2'), typ='Service')
+# ------------------------------------------------------------------ FULL HOME  (copy: Homworks_room_carousels_copy.docx)
+FH_FAQ = [('How long will it take to complete my home interiors?', 'We aim to complete your interiors within 30 working days from design sign-off, as per our 30-day promise. Certain conditions and exclusions apply.'),
+          ('How much will my home interiors cost?', 'It depends on your home, design and material choices. Book a free consultation to get a design plan and clear quotation.'),
+          ('Can I make changes after approving the design?', 'Minor changes may be possible before production. Changes after production begins may affect the cost and timeline.'),
+          ('Are Homworks interiors made in your own factory?', 'Yes! We manufacture your furniture at our Coimbatore factory using advanced CNC and flat-lamination machinery.')]
+body = hero_full([HOME, ('Interiors', 'interiors.html'), ('Full Home Interiors', None)], 'Full home interiors', 'Your entire home, <em>designed your way.</em>',
+                 'From kitchens to bedrooms and living rooms, we design, make and install everything your home needs.',
+                 [('Book a FREE Consultation', 'contact.html', 'pink'), ('Explore Our Process', '#our-process', 'line')],
+                 [('One team', 'from design to handover'), ('30', 'working days from design sign-off*'), ('10 years', 'warranty'), ('15', 'simple steps')], ST('living-2'), 'A finished living and dining room')
+body += section(split(ST('living-tv'), 'A living room with a partition and TV wall', 'Full home interiors', 'Everything your home needs, <em>under one roof.</em>',
+                      ['Getting your home interiors done doesn’t have to be complicated. At Homworks, we take care of everything, from design and manufacturing to installation.',
+                       'Every room is planned together, manufactured and installed by one team. Approve your design and quotation, and we’ll work towards completing your interiors in 30 working days*.'],
+                      ['One home.', 'One team.', 'One complete interior solution.']),
+                '', 'Under one roof', 'One home, one team, one complete interior solution.')
+body += section(sh('Our process · Get. Set. Go.', 'From your ideas <em>to your dream home.</em>', 'We’ve made the entire interior process simple with 15 clear steps, from your first meeting to the final handover.') + sticky([
+    (ST('plan-1'), 'A couple reviewing a floor plan together', 'GET', 'We understand your needs, discuss your ideas and get started with the right designs and quotation.', ['Meet Your Designer', 'Understand Your Requirements', 'Initial Design', 'Booking Advance', 'Site Measurement']),
+    (ST('samples'), 'Finish samples laid out on a table', 'SET', 'Review your 3D designs, choose your finishes and finalise every detail before production begins.', ['3D Design & Quality Check', 'Finalise Your Design', 'Material List & Production Drawings', 'Site Check', 'Final Design Approval']),
+    (ST('inst-1'), 'A fitted kitchen being finished on site', 'GO', 'We make your furniture, deliver it to your home and take care of the installation and final quality check.', ['Project Execution Begins', 'Factory Production', 'Site Readiness', 'Delivery & Installation', 'Quality Check & Handover'])]),
+    'alt', 'Our process', 'Get, Set and Go: 15 clear steps from first meeting to handover.')
+body += full('<div class="wrap">%s</div>%s' % (sh('Room by room', 'Let’s start with the room <em>you love most.</em>', 'From kitchens to bedrooms and living rooms, we design every space to suit your needs and style.'), rail([
+    ('modular-kitchens.html', ST('kit-island'), 'A modular kitchen with an island', 'Kitchen', 'Modular Kitchen', 'Choose from 6 layouts and 6 styles to create a kitchen that makes everyday cooking easier.', 'Explore Modular Kitchens'),
+    ('living-rooms.html', ST('living-tv'), 'A living room TV wall with a partition', 'Living', 'Living Room', 'From TV units to wall panels and partitions, we make your living room look good and work better.', 'Explore Living Rooms'),
+    ('bedrooms.html', ST('bed-1'), 'A bedroom with a wooden headboard', 'Bedroom', 'Bedroom', 'From comfortable cots to stylish headboards, we design bedrooms that help you relax and unwind.', 'Explore Bedrooms'),
+    ('wardrobes.html', ST('ward-2'), 'A walk-in wardrobe with open shelves', 'Storage', 'Wardrobes', 'Make the most of your space with wardrobes designed around your room and everyday needs.', 'Explore Wardrobes'),
+    ('bedrooms.html#kids-rooms', ST('kids-1'), 'A kids’ room with a bunk bed', 'Kids’ room', 'Kids’ Rooms', 'From beds and study tables to storage, we create spaces where children can sleep, study and play.', 'Explore Kids’ Rooms')],
+    'Images are illustrative stock photography.')), '', 'Room by room', 'Kitchen, living room, bedroom, wardrobes and kids’ rooms.')
+body += section(sh('And more', 'Rooms made <em>to measure.</em>', 'We also design the little spaces that make your house feel like home.') + bento([
+    ('text', '01', 'Home Office', 'A comfortable workspace with the right desk, shelves and storage to keep you organised.', 'w2'),
+    ('text', '02', 'Pooja Room', 'Create a peaceful interior that brings a positive vibration to your home, with vastu-based planning if required.', 'w2'),
+    ('text', '03', 'Dining', 'From compact dining corners to family dining spaces, we design furniture that fits your home.', 'w2'),
+    ('text', '04', 'Vanity', 'A stylish vanity with the right storage and lighting to make your everyday routine easier.', 'w2')]), 'alt', 'And more', 'Home office, pooja room, dining and vanity.')
+body += section(sh('Why choose Homworks?', 'One team, <em>start to finish.</em>') + grid('g4', [
+    flat('01', 'One Team from Start to Finish', 'From design to installation, our team takes care of everything.'),
+    flat('02', '30 Working Days from Design Sign-off*', 'Get your home interiors completed within our 30-day promise.'),
+    flat('03', '10 Years Warranty', 'Enjoy peace of mind with a 10-year warranty on your project.'),
+    flat('04', '15 Clear Steps', 'A simple, step-by-step process from your first meeting to handover.')]), '', 'Why Homworks', 'One team, 30 working days, 10-year warranty and 15 clear steps.')
+body += section(faq_block('Got questions? <em>We have answers.</em>', 'Questions', FH_FAQ), 'alt', 'Questions', 'Timeline, cost, changes and the factory.')
+body += recap() + cta('Let’s make your dream home <em>a reality.</em>', 'Tell us what you need. Our team will help you plan your home interiors and get started with a free consultation. Our team will get in touch within 24 hours.',
+                      primary=('Book a FREE Consultation', 'contact.html'))
+add('full-home-interiors', 'Full Home Interior Design & Installation | Homworks', 'Full home interiors by Homworks: one team from design to handover, made in our own factory, 30 working days from sign-off*, 10-year warranty.',
+    body, 'interiors.html', FH_FAQ, crumbs=[HOME, ('Interiors', 'interiors.html'), ('Full Home Interiors', 'full-home-interiors.html')], og=ST('living-2'), typ='Service')
 
 # ------------------------------------------------------------------ MODULAR KITCHENS
 STYLES = ['Indian Classic', 'Contemporary', 'Indian Traditional', 'Minimalistic', 'Modern', 'English Classic']
@@ -891,7 +910,7 @@ def page_html(slug_, p):
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&family=Newsreader:ital,opsz,wght@0,6..72,300..500;1,6..72,300..500&family=Manrope:wght@200..800&family=Public+Sans:wght@600&display=swap" rel="stylesheet">
   <script>(function(d){var e=d.documentElement;e.className+=' js';setTimeout(function(){if(!window.__hw5)e.classList.add('motion-off')},2600)})(document)</script>
   <link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" href="assets/favicon-64.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="assets/home5.css?v=r25"><link rel="stylesheet" href="assets/inner.css?v=r3"><link rel="stylesheet" href="assets/inner-fx.css?v=r7">%s
+  <link rel="stylesheet" href="assets/home5.css?v=r25"><link rel="stylesheet" href="assets/inner.css?v=r3"><link rel="stylesheet" href="assets/inner-fx.css?v=r9">%s
   %s
 </head>
 <body class="inner">

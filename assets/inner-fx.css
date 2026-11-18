@@ -348,3 +348,9 @@
 .ct>i{z-index:4}
 @media(hover:none){.ct-base{display:none}.ct-over{opacity:1;transform:none}}
 @media(max-width:700px){.ct{min-height:300px}}
+
+/* room carousel cards: link label */
+.rc .more{margin-top:14px;padding:0;color:#fff;font:600 12px var(--jak);letter-spacing:.04em}
+.rc .more{display:inline-flex;align-items:center;gap:7px}
+.rc .more svg{width:15px;height:15px;stroke:#f7aab7;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s}
+.rc:hover .more svg{transform:translateX(4px)}

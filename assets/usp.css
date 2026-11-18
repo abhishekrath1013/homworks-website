@@ -41,7 +41,7 @@
 .d-chip b{font:200 28px/1 var(--jak);letter-spacing:-.04em;min-width:1.1em;text-align:center;font-variant-numeric:tabular-nums}
 
 /* ---------- the clock (scroll-driven) ---------- */
-.clk{position:relative;height:340vh;background:#03292b;color:#fff}
+.clk{position:relative;height:230vh;background:#03292b;color:#fff}
 .clk-st{position:sticky;top:0;height:100vh;height:100svh;display:flex;align-items:center;overflow:hidden;padding-top:var(--nav-h)}
 .clk-st:before{content:"";position:absolute;inset:0;background:radial-gradient(900px 520px at 85% 50%,rgba(9,155,159,.22),transparent 70%);pointer-events:none}
 .clk-in{position:relative;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(28px,5vw,96px);align-items:center;width:100%}
@@ -94,11 +94,14 @@
   .gar-c{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media(max-width:900px){
-  .clk{height:380vh}
+  .clk{height:250vh}
   .clk-in{grid-template-columns:1fr;gap:18px;align-content:center}
   .clk-n{font-size:clamp(96px,30vw,180px)}
   .clk-day{font-size:clamp(32px,10vw,60px)}
-  .clk-ph{min-height:150px}
+  .clk-ph{min-height:122px}
+  .clk-num{margin:0 0 8px}
+  .clk-in{gap:12px}
+  .clk-st{align-items:flex-start;padding-top:calc(var(--nav-h) + 22px)}
   .clk-g{max-width:none;justify-self:stretch;gap:5px}
   .dc{border-radius:9px;font-size:11px}
   .dc.dz{height:32px}
@@ -108,3 +111,11 @@
   .d-chip{padding:7px 14px}.d-chip b{font-size:22px}
 }
 @media(prefers-reduced-motion:reduce){.d-orb,.u-cue i:after{animation:none}}
+
+/* days 0-29 play by themselves; scrolling then selects Day 30 */
+.clk-hint{margin:14px 0 0;font:600 11px var(--jak);letter-spacing:.14em;text-transform:uppercase;color:#f7aab7;opacity:0;transform:translateY(6px);transition:opacity .5s,transform .5s}
+.clk.hint .clk-hint{opacity:1;transform:none;animation:uhint 1.8s ease-in-out infinite}
+@keyframes uhint{50%{transform:translateY(5px)}}
+.dc.fin{background:#e17c8d!important;border-color:#e17c8d!important;color:#fff;transform:scale(1.12);box-shadow:0 0 0 6px rgba(225,124,141,.22),0 14px 34px -8px rgba(225,124,141,.8);animation:ufin 1.6s ease-out 1}
+@keyframes ufin{0%{box-shadow:0 0 0 0 rgba(225,124,141,.7)}100%{box-shadow:0 0 0 18px rgba(225,124,141,0)}}
+.dc{transition:background .2s,color .2s,border-color .2s,transform .35s cubic-bezier(.2,.7,.2,1)}

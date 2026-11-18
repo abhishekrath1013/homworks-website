@@ -706,7 +706,7 @@ PH = [('Day 0', 'You approve your 3D design and fixed quote', 'That is Day 0 of 
       ('Day 30', 'Handover', 'A thorough 100+ point quality check before final handover, and your 10-year warranty begins.')]
 body += ('<section class="clk" id="the-clock" data-title="The clock" data-clk><div class="clk-st"><div class="wrap clk-in"><div class="clk-l"><p class="eyebrow">The clock</p>'
          '<div class="clk-num"><span class="clk-day">Day</span><b class="clk-n" aria-live="off">0</b></div>'
-         '<div class="clk-ph">%s</div><div class="clk-bar" aria-hidden="true"><i></i></div></div>'
+         '<div class="clk-ph">%s</div><div class="clk-bar" aria-hidden="true"><i></i></div><p class="clk-hint" aria-hidden="true">Keep scrolling to reach Day 30</p></div>'
          '<div class="clk-g" aria-hidden="true"><span class="dc dz">0</span>%s</div></div></div></section>') % (
     ''.join('<div class="ph%s"><span>%s</span><h2>%s</h2><p>%s</p></div>' % (' on' if i == 0 else '', e(k), e(t), e(d)) for i, (k, t, d) in enumerate(PH)),
     ''.join('<span class="dc">%d</span>' % n for n in range(1, 31)))
@@ -721,8 +721,6 @@ body += section(sh('How we keep the promise', 'Built in a factory, <em>not on yo
     '', 'How we keep it', 'Own factory, imported machinery, material testing and our own installation team.')
 
 body += section(sh('The route', 'Fifteen steps, <em>one accountable team.</em>', 'Get, Set and Go: from your first call to the day we hand over the keys.') + steps3(), 'alt', 'The route', 'Get, Set and Go: fifteen steps.')
-
-body += pxb(ST('inst-1'), 'A kitchen being fitted on site', 'Get. Set. <em>Go.</em>', 'Fifteen steps, one accountable team.')
 
 # the guarantee
 CUR.append(('The guarantee', 'the-guarantee', 'If not, you don’t pay. Plus the exact terms.'))

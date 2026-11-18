@@ -354,3 +354,6 @@
 .rc .more{display:inline-flex;align-items:center;gap:7px}
 .rc .more svg{width:15px;height:15px;stroke:#f7aab7;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s}
 .rc:hover .more svg{transform:translateX(4px)}
+
+/* highlight line under an answer block */
+.answer p.hl{margin-top:18px;font:600 clamp(15px,1.3vw,21px)/1.4 var(--man);color:var(--deep)}

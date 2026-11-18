@@ -26,6 +26,7 @@
   }
   window.addEventListener('scroll',onScroll,{passive:true});onScroll();
   burger.addEventListener('click',function(){var o=mnav.classList.toggle('show');burger.setAttribute('aria-expanded',o);nav.classList.toggle('menu-open',o);nav.classList.remove('hide')});
+  $$('.mi-b',mnav).forEach(function(b){b.addEventListener('click',function(){var m=b.parentNode,o=!m.classList.contains('open');$$('.mi',mnav).forEach(function(x){x.classList.remove('open');$('.mi-b',x).setAttribute('aria-expanded','false')});if(o){m.classList.add('open');b.setAttribute('aria-expanded','true')}})});
   $$('a',mnav).forEach(function(a){a.addEventListener('click',function(){mnav.classList.remove('show');nav.classList.remove('menu-open');burger.setAttribute('aria-expanded','false')})});
 
 
@@ -216,13 +217,23 @@
   }
   function play(){clearInterval(timer);if(reduce)return;timer=setInterval(function(){setCat(cur+1)},DUR)}
   cards.style.setProperty('--dur',DUR+'ms');
-  cats.forEach(function(c,i){c.addEventListener('click',function(e){if(i!==cur){e.preventDefault();setCat(i);play()}})});
+  cats.forEach(function(c,i){c.addEventListener('click',function(e){if(i!==cur){e.preventDefault();setCat(i);if(!hold)play()}})});
   var hold=false;
   function pause(){hold=true;cards.classList.add('paused');clearInterval(timer)}
   function resume(){hold=false;cards.classList.remove('paused');setCat(cur);play()}
   var hoverQ=window.matchMedia('(hover:hover)');
-  cards.addEventListener('mouseenter',function(){if(hoverQ.matches&&!mobQ.matches)pause()});
-  cards.addEventListener('mouseleave',function(){if(hold)resume()});
+  /* reading any part of What we design (the cards or the showcase under them) holds the autoplay */
+  var zones=[cards,kitSec],leaveT=0,idleT=0;
+  function inZone(){return zones.some(function(z){return z.matches(':hover')||(z.contains(document.activeElement)&&document.activeElement.matches(':focus-visible'))})}
+  function holdOn(){clearTimeout(leaveT);if(!hold)pause()}
+  function holdOff(wait,force){clearTimeout(leaveT);leaveT=setTimeout(function(){if(hold&&(force||!inZone()))resume()},wait)}
+  zones.forEach(function(z){
+    z.addEventListener('mouseenter',function(){if(hoverQ.matches)holdOn()});
+    z.addEventListener('mouseleave',function(){if(hoverQ.matches)holdOff(160)});
+    z.addEventListener('focusin',holdOn);
+    z.addEventListener('focusout',function(){holdOff(160)});
+    z.addEventListener('pointerdown',function(e){if(e.pointerType==='touch'){holdOn();clearTimeout(idleT);idleT=setTimeout(function(){holdOff(0,true)},15000)}},{passive:true});
+  });
   if('IntersectionObserver' in window){
     var cio=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){if(!hold){setCat(cur);play()}}else clearInterval(timer)})},{threshold:.12});
     cio.observe(cards);

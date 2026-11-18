@@ -81,9 +81,17 @@ def nav_html(active='', home=False):
         out.append('<div class="ni"><a class="ni-a" %s>%s</a></div>' % (lk(t[1], cur(t[1])), t[0]))
     nav = '<nav class="nav-links" aria-label="Primary">\n    ' + '\n    '.join(out) + '\n  </nav>'
     cta = '#contact' if home else 'contact.html'
-    mob = '<nav class="mnav" id="mnav" aria-label="Mobile">\n' + ''.join('  <a %s>%s</a>\n' % (lk(h), l) for l, h in
-          [('Interiors', 'interiors.html'), ('Projects', 'projects.html'), ('Location', 'locations.html'), ('About us', 'about-us.html')] + ([('Blogs', 'blog.html')] if SHOW_SOON else []) + [('Contact', 'contact.html')]) + \
-          '  <a class="go" href="%s">Book a FREE Consultation</a>\n</nav>' % cta
+    chev = '<svg viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>'
+    groups = ''
+    for label, href, cols, feat in NAV:
+        links = [l for _, ls in cols for l in ls if not (len(l) > 3 and l[3] == 'soon' and not SHOW_SOON)]
+        panel = '' if any(l[2] == href for l in links) else '<a class="mi-all" %s><b>All %s</b></a>' % (lk(href), e(label))
+        panel += ''.join('<a %s><b>%s</b><small>%s</small></a>' % (lk(l[2]), e(l[0]), e(l[1])) for l in links)
+        fl, ft = (feat[2], feat[3]) if feat[0] == '@logo' else (feat[3], feat[4])
+        panel += '<a class="mi-f" %s>%s <i>→</i></a>' % (lk(fl), e(ft))
+        groups += '  <div class="mi"><button type="button" class="mi-b" aria-expanded="false">%s%s</button><div class="mi-p">%s</div></div>\n' % (label, chev, panel)
+    tops = ''.join('  <a %s>%s</a>\n' % (lk(t[1]), t[0]) for t in TOP if not (len(t) > 2 and t[2] == 'soon' and not SHOW_SOON))
+    mob = '<nav class="mnav" id="mnav" aria-label="Mobile">\n' + groups + tops + '  <a class="go" href="%s">Book a FREE Consultation</a>\n</nav>' % cta
     return nav, mob, cta
 
 
@@ -236,8 +244,8 @@ def full(inner, cls='', title=None, summ=''):
     return '<section class="sec %s"%s>%s</section>' % (cls, ' id="%s" data-title="%s"' % (sid, e(title)) if title else '', inner)
 
 
-def answer(title, p1, p2=''):
-    return '<div class="wrap ans"><div class="answer rv"><h2>%s</h2><div><p>%s</p>%s</div></div></div>' % (e(title), e(p1), '<p>%s</p>' % e(p2) if p2 else '')
+def answer(title, p1, p2='', hl=''):
+    return '<div class="wrap ans"><div class="answer rv"><h2>%s</h2><div><p>%s</p>%s%s</div></div></div>' % (e(title), e(p1), '<p>%s</p>' % e(p2) if p2 else '', '<p class="hl">%s</p>' % e(hl) if hl else '')
 
 
 def card(href, src, alt, tag, title, body, more='Explore'):
@@ -483,31 +491,43 @@ body += recap() + cta('Let’s make your dream home <em>a reality.</em>', 'Tell 
 add('full-home-interiors', 'Full Home Interior Design & Installation | Homworks', 'Full home interiors by Homworks: one team from design to handover, made in our own factory, 30 working days from sign-off*, 10-year warranty.',
     body, 'interiors.html', FH_FAQ, crumbs=[HOME, ('Interiors', 'interiors.html'), ('Full Home Interiors', 'full-home-interiors.html')], og=ST('living-2'), typ='Service')
 
-# ------------------------------------------------------------------ MODULAR KITCHENS
+# ------------------------------------------------------------------ MODULAR KITCHENS  (copy: Homworks_Modular Kitchen_copy.docx)
 STYLES = ['Indian Classic', 'Contemporary', 'Indian Traditional', 'Minimalistic', 'Modern', 'English Classic']
-body = hero_collage([HOME, ('Interiors', 'interiors.html'), ('Modular Kitchens', None)], 'Modular kitchens', 'The kitchen <em>of your dreams</em>',
-                    'Beyond just a place to cook, a space where families gather. Pick from 6 layouts in 6 styles, shaped around people who use it.',
-                    [('Call for a FREE design', 'contact.html', 'solid'), ('Explore the 6 layouts', '#layouts', 'line')],
-                    [('6', 'layouts'), ('6', 'styles'), ('10 years', 'warranty')],
+KITCHEN_COPY = {
+    'l-shaped': ('2–3 BHK Homes', 'L-Shaped Kitchen', 'Two adjoining counters make good use of corner spaces, leaving more room to move around. A popular choice for Indian homes.'),
+    'u-shaped': ('Larger Kitchens', 'U-Shaped Kitchen', 'Three connected counters give you more storage and workspace, making cooking easier for the whole family.'),
+    'galley': ('Compact Apartments', 'Galley Kitchen', 'Two rows of counters face each other, keeping everything within easy reach. Perfect for narrow kitchens.'),
+    'one-wall': ('Studios & 1BHK Homes', 'One-Wall Kitchen', 'Everything is arranged along one wall, making it a simple and space-saving choice for compact homes.'),
+    'peninsular': ('Open-Plan 3BHK Homes', 'Peninsular Kitchen', 'An extended counter gives you extra workspace and a place to sit, without needing a separate kitchen island.'),
+    'island': ('Villas & 4BHK+ Homes', 'Island Kitchen', 'A separate counter in the middle gives you extra workspace and storage, while creating a space for family and friends to gather.')}
+MK_FAQ = [('Are Homworks kitchens made to handle heat and moisture?', 'Yes! We use tested BWP-grade plywood, strong PUR edge bonding and an 18mm gap from the wall to help protect the cabinets from heat and moisture.'),
+          ('What materials are used for kitchen cabinets?', 'We use ISI-certified BWP / HDHMR low-emission, double-sided post-laminated boards for our kitchen cabinets.'),
+          ('How long does it take to complete a Homworks kitchen?', 'We aim to complete your interiors within 30 working days from design sign-off, as per our 30-day promise. Certain conditions and exclusions apply.'),
+          ('How much does a Homworks modular kitchen cost?', 'The cost depends on your kitchen size, layout and finish choices. Book a free consultation to get a design and a clear quotation.')]
+body = hero_collage([HOME, ('Interiors', 'interiors.html'), ('Modular Kitchens', None)], 'Modular kitchens', 'The kitchen <em>of your dreams.</em>',
+                    'A kitchen made around your space, style and everyday needs. Choose from 6 layouts and 6 styles to create the kitchen you love.',
+                    [('Call for a FREE Design', 'contact.html', 'solid'), ('Explore the 6 Layouts', '#layouts', 'line')],
+                    [('6', 'kitchen layouts'), ('6', 'design styles'), ('10 years', 'warranty')],
                     [(ST('kit-island'), 'An island modular kitchen'), (ST('kit-l'), 'An L-shaped modular kitchen'), (ST('cook-2'), 'A woman making flatbread in a modern kitchen')], pill='6 layouts · 6 styles')
-body += answer('Modular kitchens at Homworks', 'Homworks makes modular kitchens in six layouts – L-shaped, U-shaped, galley, one-wall, peninsular and island – and six styles, designed around your floor plan and made in its own factory.',
-               'Kitchen carcasses use ISI-certified BWP / HDHMR E0 boards, and every project carries a 10-year warranty.')
-body += full('<div class="wrap">%s</div>%s' % (sh('Choose a layout', 'Six layouts. <em>One right answer</em> for your home.', 'Each layout suits a different home size and way of cooking.'),
-             rail([('kitchen-%s.html' % l['slug'], ST(KSTOCK[l['slug']]), '%s modular kitchen' % l['name'], 'Best for ' + l['bestFor'], l['name'] + ' kitchen', l['blurb']) for l in KL], 'Images are illustrative stock photography.')),
+body += answer('Modular kitchens at Homworks', 'Every home has a different kitchen. At Homworks, we design kitchens around your space, cooking habits and storage needs.',
+               'Choose from 6 layouts and 6 styles, made using quality materials and designed for everyday use.',
+               'Designed around your kitchen. Made for everyday cooking.')
+body += full('<div class="wrap">%s</div>%s' % (sh('Six kitchen layouts', '6 layouts. <em>Find the one that fits your home.</em>', 'Whether you have a compact kitchen or a spacious one, we have a layout that works for your space.'),
+             rail([('kitchen-%s.html' % l['slug'], ST(KSTOCK[l['slug']]), '%s modular kitchen' % l['name'], 'Best for ' + KITCHEN_COPY[l['slug']][0], KITCHEN_COPY[l['slug']][1], KITCHEN_COPY[l['slug']][2]) for l in KL], 'Images are illustrative stock photography.')),
              '', 'Layouts', 'L-shaped, U-shaped, galley, one-wall, peninsular and island.')
-body = body.replace('<section class="sec " id="layouts"', '<section class="sec " id="layouts"')
 body += marquee(STYLES, 'big')
-body += section(sh('Styles', 'Six styles, <em>shaped around you.</em>') + '<ul class="chips rv">' + ''.join('<li>%s</li>' % s for s in STYLES) + '</ul>', 'tight', 'Styles', 'Indian Classic to English Classic.')
-body += section(sh('Built for a working kitchen', 'Heat, steam and <em>years of daily use.</em>', 'Kitchens are damp, hot and wet places. Homworks tests, bonds and spaces every kitchen with that in mind.') + sticky([
-    (ST('cnc-1'), 'A CNC machine cutting boards', '72-hour boiling test', 'Every BWP-grade plywood is tested in boiling water for 72 hours, with results recorded before it is used in projects.', None),
-    (ST('samples'), 'Edge-band and finish samples', 'PUR hot-melt edge-banding', 'Ideal for high-temperature environments like kitchens, withstanding up to 80° C. Edge strength is above 7 Newtons.', None),
-    (ST('inst-2'), 'A cabinet door being fitted', '18mm gap from the wall', 'The 18mm gap keeps the core materials away from wall dampness, so the product lasts longer.', None),
-    (ST('kit-warm'), 'A warm kitchen with a wooden island', 'Double carcass', 'A single unit can be replaced easily without disturbing the other cabinets.', None)]),
+body += section(sh('Six kitchen styles', '6 styles. <em>Pick the look you love.</em>', 'From traditional designs to modern finishes, choose a style that matches your home and personal taste.') + '<ul class="chips rv">' + ''.join('<li>%s</li>' % s for s in STYLES) + '</ul>', 'tight', 'Styles', 'Indian Classic to English Classic.')
+body += section(sh('Built for everyday cooking', 'Made to handle heat, water <em>and everyday use.</em>', 'Your kitchen goes through a lot every day. That’s why we pay attention to the materials, finishes and small details that help it last longer.') + sticky([
+    (ST('cnc-1'), 'A CNC machine cutting boards', '72-Hour Boiling Test', 'Our BWP-grade plywood is tested in boiling water for 72 hours before being used in your kitchen.', None),
+    (ST('samples'), 'Edge-band and finish samples', 'PUR Hot-Melt Edge Banding', 'Strong edge bonding that can withstand temperatures up to 80°C, with edge strength above 7 Newtons.', None),
+    (ST('inst-2'), 'A cabinet door being fitted', '18mm Gap from the Wall', 'A small gap between the wall and cabinet helps protect the core material from wall dampness.', None),
+    (ST('kit-warm'), 'A warm kitchen with a wooden island', 'Double Carcass', 'Each cabinet unit is designed for easier replacement, without disturbing the other cabinets.', None)]),
     'alt', 'Built for the kitchen', 'Boiling test, PUR edges, an 18mm gap and a double carcass.')
-body += section(faq_block('Modular kitchen <em>questions</em>', 'Questions', F('wet', 'board', 'time', 'cost')), '', 'Questions', 'Heat, boards, timeline and cost.')
-body += recap() + cta('Let’s plan your <em>perfect kitchen.</em>', 'Call for a free design and meet a kitchen designer within 24 hours.')
+body += section(faq_block('Got questions? <em>We have answers.</em>', 'Questions', MK_FAQ), '', 'Questions', 'Heat, materials, timeline and cost.')
+body += recap() + cta('Let’s plan your <em>perfect kitchen.</em>', 'Tell us what you’re looking for. Our designer will help you find the right layout, style and design for your home. Get a call from our team and meet a kitchen designer within 24 hours.',
+                      primary=('Book a FREE Consultation', 'contact.html'))
 add('modular-kitchens', 'Modular Kitchen Designs in 6 Layouts & 6 Styles | Homworks', 'Modular kitchens by Homworks: L-shaped, U-shaped, galley, one-wall, peninsular and island layouts, made in our factory with a 10-year warranty.',
-    body, 'interiors.html', F('wet', 'board', 'time', 'cost'), crumbs=[HOME, ('Interiors', 'interiors.html'), ('Modular Kitchens', 'modular-kitchens.html')], og=ST('kit-island'), typ='Service')
+    body, 'interiors.html', MK_FAQ, crumbs=[HOME, ('Interiors', 'interiors.html'), ('Modular Kitchens', 'modular-kitchens.html')], og=ST('kit-island'), typ='Service')
 
 # ------------------------------------------------------------------ KITCHEN LAYOUTS (x6)
 for l in KL:
@@ -910,7 +930,7 @@ def page_html(slug_, p):
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&family=Newsreader:ital,opsz,wght@0,6..72,300..500;1,6..72,300..500&family=Manrope:wght@200..800&family=Public+Sans:wght@600&display=swap" rel="stylesheet">
   <script>(function(d){var e=d.documentElement;e.className+=' js';setTimeout(function(){if(!window.__hw5)e.classList.add('motion-off')},2600)})(document)</script>
   <link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" href="assets/favicon-64.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="assets/home5.css?v=r25"><link rel="stylesheet" href="assets/inner.css?v=r3"><link rel="stylesheet" href="assets/inner-fx.css?v=r9">%s
+  <link rel="stylesheet" href="assets/home5.css?v=r27"><link rel="stylesheet" href="assets/inner.css?v=r3"><link rel="stylesheet" href="assets/inner-fx.css?v=r10">%s
   %s
 </head>
 <body class="inner">
@@ -920,7 +940,7 @@ def page_html(slug_, p):
 %s
 </main>
 %s
-<script src="assets/inner.js?v=r5"></script>%s
+<script src="assets/inner.js?v=r6"></script>%s
 </body>
 </html>
 ''' % (e(p['title']), e(p['desc']), url, e(p['title']), e(p['desc']), url, SITE, p['og'], '<link rel="stylesheet" href="assets/%s.css?v=u1">' % p['ext'] if p['ext'] else '', '\n  '.join(ld(x) for x in lds), header_html(p['active'] if p['active'] in ('interiors.html', 'projects.html', 'locations.html', 'about-us.html', 'contact.html') else ''), p['body'], footer_html(), '<script src="assets/%s.js?v=u1"></script>' % p['ext'] if p['ext'] else '')

@@ -47,9 +47,7 @@ NAV = [
     ('Projects', 'projects.html', [
         ('Explore homes', [('Project Gallery', 'Real homes, made in our own factory', 'projects.html'),
                            ('Case Studies', 'The full story behind three homes', 'customer-stories.html', 'soon'),
-                           ('Customer Stories', 'Reviews, in homeowners’ own words', 'customer-stories.html', 'soon')]),
-        ('Browse by', [('City', 'See projects near you', 'locations.html'), ('Room Type', 'Kitchens, bedrooms and more', 'interiors.html'),
-                       ('Full Home', 'Whole-home transformations', 'full-home-interiors.html')])],
+                           ('Customer Stories', 'Reviews, in homeowners’ own words', 'customer-stories.html', 'soon')])],
      ('See it built', 'Find a home like yours.', 'Browse the homes we have crafted from the ground up.', 'projects.html', 'Open the gallery')),
 ]
 TOP = [('Location', 'locations.html'), ('About us', 'about-us.html'), ('Blogs', 'blog.html', 'soon'), ('Contact', 'contact.html')]

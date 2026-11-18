@@ -36,30 +36,27 @@ CITY_IMG = ['kit-white', 'kit-l', 'kit-island', 'bed-1', 'living-2', 'kit-modern
 BUILT = set()
 
 # ------------------------------------------------------------------ chrome
+SHOW_SOON = False   # flip to True once the Case Studies, Customer Stories and Blog pages have content
 NAV = [
     ('Interiors', 'interiors.html', [
         ('Rooms', [('Full Home Interiors', 'Design-to-installation for every room', 'full-home-interiors.html'),
                    ('Modular Kitchens', 'Six engineered layouts to pick from', 'modular-kitchens.html'),
                    ('Living Rooms', 'Storage and TV units built for family life', 'living-rooms.html'),
-                   ('Bedrooms', 'Restful layouts, master to kids rooms', 'bedrooms.html')]),
-        ('Units & Styles', [('TV Units', 'Media walls built around your screen', 'tv-units.html'),
-                            ('Wardrobes', 'Storage that fits two lives, not one', 'wardrobes.html'),
-                            ('Shoe & Crockery Units', 'Dedicated storage, done right', 'shoe-crockery-units.html'),
-                            ('Foyer & Pooja Units', 'Vastu-aware, beautifully made', 'foyer-pooja-units.html')])],
-     ('Moving soon?', 'Plan your 30-day delivery.', 'Choose rooms and city, then see a realistic route to move-in.', 'delivery-planner.html', 'Build my plan')),
+                   ('Bedrooms', 'Restful layouts, wardrobes and kids rooms', 'bedrooms.html')])],
+     ('@logo', 'Production and installation in 30 working days from design sign-off.', '30-day-delivery.html', 'See the 30-day promise')),
     ('Projects', 'projects.html', [
-        ('Explore homes', [('Project Gallery', 'Filter real homes by city and room', 'projects.html'),
-                           ('Case Studies', 'The full story behind three homes', 'customer-stories.html'),
-                           ('Customer Stories', 'Reviews, in homeowners’ own words', 'customer-stories.html')]),
+        ('Explore homes', [('Project Gallery', 'Real homes, made in our own factory', 'projects.html'),
+                           ('Case Studies', 'The full story behind three homes', 'customer-stories.html', 'soon'),
+                           ('Customer Stories', 'Reviews, in homeowners’ own words', 'customer-stories.html', 'soon')]),
         ('Browse by', [('City', 'See projects near you', 'locations.html'), ('Room Type', 'Kitchens, bedrooms and more', 'interiors.html'),
                        ('Full Home', 'Whole-home transformations', 'full-home-interiors.html')])],
-     ('See it built', 'Find a home like yours.', 'Real stories from real Homworks homes.', 'customer-stories.html', 'Browse stories')),
+     ('See it built', 'Find a home like yours.', 'Browse the homes we have crafted from the ground up.', 'projects.html', 'Open the gallery')),
     ('Location', 'locations.html', [
-        ('Our centres', [(c['name'], c['tag'].replace('Office', 'office').replace('Centre', 'centre'), 'location-%s.html' % c['slug']) for c in CITIES[:3]]),
-        ('More centres', [(c['name'], c['tag'].replace('Office', 'office').replace('Centre', 'centre'), 'location-%s.html' % c['slug']) for c in CITIES[3:]])],
-     ('See. touch. experience.', 'Visit a Homworks centre.', 'Find your nearest show home and meet a designer.', 'show-home-visit.html', 'Book a visit')),
+        ('Our centres', [(c['name'], c['tag'].replace('Office', 'office').replace('Centre', 'centre'), 'locations.html#%s' % c['slug']) for c in CITIES[:3]]),
+        ('More centres', [(c['name'], c['tag'].replace('Office', 'office').replace('Centre', 'centre'), 'locations.html#%s' % c['slug']) for c in CITIES[3:]])],
+     ('See. touch. experience.', 'Visit a Homworks centre.', 'Find your nearest show home and meet a designer.', 'contact.html', 'Book a visit')),
 ]
-TOP = [('About us', 'about-us.html'), ('Blogs', 'blog.html'), ('Contact', 'contact.html')]
+TOP = [('About us', 'about-us.html'), ('Blogs', 'blog.html', 'soon'), ('Contact', 'contact.html')]
 
 
 def lk(u, extra=''):
@@ -71,20 +68,27 @@ def nav_html(active='', home=False):
     out = []
     cur = lambda u: ' aria-current="page"' if active == u else ''
     for label, href, cols, feat in NAV:
-        h = '<div class="ni"><a class="ni-a" %s aria-haspopup="true">%s</a><div class="mega" role="group" aria-label="%s">' % (lk(href, cur(href)), label, label)
+        h = '<div class="ni"><a class="ni-a" %s aria-haspopup="true">%s</a><div class="mega%s" role="group" aria-label="%s">' % (lk(href, cur(href)), label, ' m1' if len(cols) == 1 else '', label)
         for ch, links in cols:
             h += '<div class="mg-col"><h4>%s</h4>' % e(ch)
-            for t, d, u in links:
-                h += '<a class="mg-link" %s><b>%s</b><small>%s</small></a>' % (lk(u), e(t), e(d))
+            for l in links:
+                if len(l) > 3 and l[3] == 'soon' and not SHOW_SOON:
+                    continue
+                h += '<a class="mg-link" %s><b>%s</b><small>%s</small></a>' % (lk(l[2]), e(l[0]), e(l[1]))
             h += '</div>'
-        h += '<div class="mg-feat"><span>%s</span><b>%s</b><p>%s</p><a %s>%s <i>→</i></a></div></div></div>' % (e(feat[0]), e(feat[1]), e(feat[2]), lk(feat[3]), e(feat[4]))
+        if feat[0] == '@logo':
+            h += '<div class="mg-feat mg-logo"><img src="assets/home5/30days.webp" alt="30 days or it’s free*" width="373" height="276"><p>%s</p><a %s>%s <i>→</i></a></div></div></div>' % (e(feat[1]), lk(feat[2]), e(feat[3]))
+        else:
+            h += '<div class="mg-feat"><span>%s</span><b>%s</b><p>%s</p><a %s>%s <i>→</i></a></div></div></div>' % (e(feat[0]), e(feat[1]), e(feat[2]), lk(feat[3]), e(feat[4]))
         out.append(h)
-    for label, href in TOP:
-        out.append('<div class="ni"><a class="ni-a" %s>%s</a></div>' % (lk(href, cur(href)), label))
+    for t in TOP:
+        if len(t) > 2 and t[2] == 'soon' and not SHOW_SOON:
+            continue
+        out.append('<div class="ni"><a class="ni-a" %s>%s</a></div>' % (lk(t[1], cur(t[1])), t[0]))
     nav = '<nav class="nav-links" aria-label="Primary">\n    ' + '\n    '.join(out) + '\n  </nav>'
     cta = '#contact' if home else 'contact.html'
     mob = '<nav class="mnav" id="mnav" aria-label="Mobile">\n' + ''.join('  <a %s>%s</a>\n' % (lk(h), l) for l, h in
-          [('Interiors', 'interiors.html'), ('Projects', 'projects.html'), ('Location', 'locations.html'), ('About us', 'about-us.html'), ('Blogs', 'blog.html'), ('Contact', 'contact.html')]) + \
+          [('Interiors', 'interiors.html'), ('Projects', 'projects.html'), ('Location', 'locations.html'), ('About us', 'about-us.html')] + ([('Blogs', 'blog.html')] if SHOW_SOON else []) + [('Contact', 'contact.html')]) + \
           '  <a class="go" href="%s">Book a FREE Consultation</a>\n</nav>' % cta
     return nav, mob, cta
 
@@ -153,20 +157,9 @@ CUR = []   # sections of the page being built, for the recap
 def slug(t): return re.sub(r'[^a-z0-9]+', '-', re.sub(r'<[^>]+>', '', t).lower()).strip('-')
 
 
-D30 = ('<img class="d30 n" src="assets/home5/30days.webp" alt="30 days or it’s free*" width="373" height="276">'
-       '<img class="d30 l" src="assets/home5/30days-light.webp" alt="" aria-hidden="true" width="373" height="276">')
-
-
-def lab(a, b):
-    """The 30-days logo already says DAYS, so the label drops its leading 'days'."""
-    return b[5:] if a.strip() == '30' and b.startswith('days ') else b
-
-
 def cnum(s):
     """Wrap the first number in a fact so it counts up from 0 on scroll."""
     s = s.strip()
-    if s == '30':
-        return D30
     m = re.match(r'^(\D*?)(\d[\d,]*)(.*)$', s)
     if not m or s.startswith(('Day', 'E0', '1800')) or re.match(r'^\D*\d+ \(', s):
         return e(s)
@@ -188,7 +181,7 @@ def btns(ctas, extra=''):
 
 
 def facts_ul(facts, cls='facts'):
-    return '<ul class="%s">' % cls + ''.join('<li><b>%s</b><span>%s</span></li>' % (cnum(x), e(lab(x, y))) for x, y in facts) + '</ul>' if facts else ''
+    return '<ul class="%s">' % cls + ''.join('<li><b>%s</b><span>%s</span></li>' % (cnum(x), e(y)) for x, y in facts) + '</ul>' if facts else ''
 
 
 # ------------------------------------------------------------------ heroes (four different openings)
@@ -306,7 +299,7 @@ def bento(tiles):
         if k == 'img':
             out += '<figure class="bt bt-i %s rv-clip">%s<figcaption><b>%s</b><span>%s</span></figcaption></figure>' % (t[5], img(t[1], t[2]), e(t[3]), e(t[4]))
         elif k == 'stat':
-            out += '<div class="bt bt-s %s rv"><b>%s</b><span>%s</span></div>' % (t[3], cnum(t[1]), e(lab(t[1], t[2])))
+            out += '<div class="bt bt-s %s rv"><b>%s</b><span>%s</span></div>' % (t[3], cnum(t[1]), e(t[2]))
         else:
             out += '<div class="bt bt-t %s rv"><span class="no">%s</span><h3>%s</h3><p>%s</p></div>' % (t[4], e(t[1]), e(t[2]), e(t[3]))
     return '<div class="bento">%s</div>' % out
@@ -326,7 +319,7 @@ def tlv(items):
 
 
 def statband(items, cls=''):
-    return '<section class="band %s"><div class="wrap"><ul>%s</ul></div></section>' % (cls, ''.join('<li class="rv"><b>%s</b><span>%s</span></li>' % (cnum(a), e(lab(a, b))) for a, b in items))
+    return '<section class="band %s"><div class="wrap"><ul>%s</ul></div></section>' % (cls, ''.join('<li class="rv"><b>%s</b><span>%s</span></li>' % (cnum(a), e(b)) for a, b in items))
 
 
 def pxb(src, alt, h, sub=''):
@@ -340,7 +333,7 @@ def compare(items):
 
 def citytiles(cities):
     return '<div class="cts stagger">%s</div>' % ''.join(
-        '<a class="ct c%d rv" href="location-%s.html">%s<span class="ct-t">%s</span><span class="ct-n">%s</span><span class="ct-a">%s</span><i>%s</i></a>' % (i % 4, c['slug'], img(ST(LM[c['slug']][0]), LM[c['slug']][1], cls='ct-bg'), e(c['tag']), e(c['name']), e(c['addrShort']), ARROW) for i, c in enumerate(cities))
+        '<a class="ct c%d rv" href="#%s">%s<span class="ct-t">%s</span><span class="ct-n">%s</span><span class="ct-a">%s</span><i>%s</i></a>' % (i % 4, c['slug'], img(ST(LM[c['slug']][0]), LM[c['slug']][1], cls='ct-bg'), e(c['tag']), e(c['name']), e(c['addrShort']), ARROW) for i, c in enumerate(cities))
 
 
 def steps3():
@@ -558,6 +551,10 @@ body += full('<div class="wrap">%s</div>%s' % (sh('The bedroom range', 'Rest, <e
     ('wardrobes.html', ST('ward-3'), 'An L-shaped wardrobe', 'Wardrobe', BED[3][2], BED[3][3]),
     ('wardrobes.html', ST('ward-2'), 'A walk-in wardrobe', 'Wardrobe', BED[4][2], BED[4][3]),
     (None, ST('kids-2'), 'A kids’ bunk bed', 'Kids’ room', BED[5][2], BED[5][3])], 'Images are illustrative stock photography.')), '', 'The range', 'Hydraulic and storage cots, a fabric headboard, wardrobes and a bunk bed.')
+body += section(split(ST('ward-1'), 'A walk-in wardrobe with wooden shelves', 'Wardrobes', 'Storage that <em>fits two lives.</em>',
+                      ['From the L-shaped corner wardrobe to the walk-in, built to use every inch and made to the millimetre in our own factory.'],
+                      ['L-shaped corner wardrobes', 'Walk-in wardrobes', 'E0-grade boards and a 10-year warranty'], links=[('Explore wardrobes', 'wardrobes.html', 'solid')], rev=True),
+                '', 'Wardrobes', 'L-shaped and walk-in wardrobes.')
 body += section(split(ST('kids-3'), 'A kids’ bedroom with soft furnishings', 'Kids’ rooms', 'A bunk bed with <em>steps built in.</em>',
                       [BED[5][3], 'Kids’ rooms are designed around the same factory standard and 10-year warranty as the rest of your home.'],
                       ['Made from quality materials', 'Styled to suit your interior', 'Covered by a 10-year warranty']), 'alt', 'Kids’ rooms', 'A bunk bed with a built-in staircase.')
@@ -677,7 +674,6 @@ body = hero_full([HOME, ('Why Homworks', 'why-homworks.html'), ('30-Day Delivery
                  [('30', 'working days'), ('Day 0', 'is your design sign-off'), ('+10', 'days for NE India and out-of-inventory finishes'), ('10 years', 'warranty from handover')], ST('fam-1'), 'An Indian family laughing together on a sofa at home')
 body += answer('How long does Homworks take?', 'Homworks finishes your interiors in just 30 working days from design sign-off, or it’s free*.',
                'Day 0 is the day you approve your 3D design and fixed quote. ' + FOOT30[2:])
-body += '<section class="sec d30full"><div class="wrap"><figure class="rv"><img src="assets/home5/30days-full.webp" alt="30 days or it’s free*. Production and installation in 30 working days from design sign-off. If not, you don’t pay." width="745" height="900" loading="lazy"></figure></div></section>'
 body += section(sh('The clock', 'Thirty days, <em>on the record.</em>') + tlv([
     ('Day 0', 'You approve your 3D design and fixed quote', 'That is Day 0 of your 30 days.* Your modules move into our own factory.'),
     ('Days 1–29', 'Factory production, dispatch and installation', 'Modules are made in our factory, delivered, and fitted by our own team.'),
@@ -751,50 +747,37 @@ body += recap() + cta('Let’s build <em>yours next.</em>', 'Call for a free des
 add('projects', 'Completed Homes & Featured Works | Homworks', 'Featured Homworks homes in Bengaluru, Chennai and Hyderabad – bespoke interiors designed, made in our factory and installed by our own team.',
     body, 'projects.html', None, crumbs=[HOME, ('Projects', 'projects.html')], og='assets/home5/work-1.webp', typ='CollectionPage')
 
-# ------------------------------------------------------------------ LOCATIONS HUB
+# ------------------------------------------------------------------ LOCATIONS (one page: every centre)
 body = hero_type([HOME, ('Location', None)], 'Locations', 'A Homworks centre <em>near you.</em>', 'Meet a designer and see Homworks interiors at one of our six centres.',
                  [('Call %s' % PHONE, 'tel:' + PHONE_TEL, 'solid'), ('Book a FREE consultation', 'contact.html', 'line')],
                  strip=[ST(x) for x in ('kit-white', 'living-2', 'bed-1', 'kit-island', 'ward-2', 'kit-modern')])
 body += answer('Where is Homworks?', 'Homworks has centres in Coimbatore, Chennai, Bangalore, Erode, Hyderabad and Guwahati.',
                'The Homworks factory and corporate office are in Peelamedu, Coimbatore. Call 1800 833 4500 to reach any centre.')
-body += section(sh('Our centres', 'Six cities, <em>one standard.</em>') + citytiles(CITIES), '', 'Our centres', 'Coimbatore, Chennai, Bangalore, Erode, Hyderabad and Guwahati.')
-body += statband([('6', 'cities'), ('1', 'factory, in Coimbatore'), ('30', 'days from sign-off*'), ('10 years', 'warranty everywhere')], 'dark')
-body += section(faq_block('Location <em>questions</em>', 'Questions', F('cities', 'start', 'factory', 'time')), '', 'Questions', 'Cities, how to start, the factory and timeline.')
-body += recap() + cta('Find your nearest <em>Homworks team.</em>', 'Call for a free design and we will connect you to your city centre.')
-ORG_LOCS = {'@context': 'https://schema.org', '@type': 'ItemList', 'name': 'Homworks centres', 'itemListElement': [
-    {'@type': 'ListItem', 'position': i + 1, 'name': 'Homworks ' + c['name'], 'url': '%s/location-%s.html' % (SITE, c['slug'])} for i, c in enumerate(CITIES)]}
-add('locations', 'Homworks Centres: Coimbatore, Chennai, Bangalore, Erode, Hyderabad, Guwahati', 'Find a Homworks interior design centre in Coimbatore, Chennai, Bangalore, Erode, Hyderabad or Guwahati. Addresses and toll-free number.',
-    body, 'locations.html', F('cities', 'start', 'factory', 'time'), extra_ld=[ORG_LOCS], crumbs=[HOME, ('Location', 'locations.html')], og=ST('kit-white'), typ='CollectionPage')
-
-# ------------------------------------------------------------------ CITY PAGES
+body += section(sh('Our centres', 'Six cities, <em>one standard.</em>', 'Tap a city to jump to its address, phone number and directions.') + citytiles(CITIES), '', 'Our centres', 'Coimbatore, Chennai, Bangalore, Erode, Hyderabad and Guwahati.')
+city_qas, city_ld = [], []
 for i, c in enumerate(CITIES):
     st, loc, reg, pin = STREET[c['slug']]
     maps = 'https://www.google.com/maps/search/?api=1&query=' + urllib.parse.quote(c['address'])
-    qas = [('Where is the Homworks %s centre?' % c['name'], 'The Homworks %s centre (%s) is at %s.' % (c['name'], c['tag'].replace('·', '–'), c['address'])),
-           ('Does Homworks do interiors in %s?' % c['name'], 'Yes. Homworks designs, manufactures and installs home interiors in %s, with a 30-day delivery promise* from design sign-off and a 10-year warranty.' % c['name']),
-           FAQ['start'], FAQ['time']]
-    body = hero_full([HOME, ('Location', 'locations.html'), (c['name'], None)], 'Homworks ' + c['name'], 'Interiors in <em>%s.</em>' % c['name'], CITY_BLURB[c['slug']],
-                     [('Call %s' % PHONE, 'tel:' + PHONE_TEL, 'pink'), ('Get directions', maps, 'line')],
-                     [('30', 'days from sign-off*'), ('10 years', 'warranty'), ('1', 'accountable team')], ST(CITY_IMG[i]), 'A Homworks interior for homes in %s' % c['name'])
-    body += answer('Homworks in %s' % c['name'], 'Homworks designs, manufactures and installs home interiors in %s, from its %s.' % (c['name'], c['tag'].replace('·', '–')),
-                   'Address: %s. Call %s to book a free consultation.' % (c['address'], PHONE))
-    body += section(sh('What you can expect', 'The full Homworks process, <em>in %s.</em>' % c['name']) + tlv([
-        ('01', 'Meet a designer', 'Consult by video call or visit an experience centre; a designer calls you within 24 hours.'),
-        ('02', 'See it in 3D', 'Approve a 3D design and fixed quote. That is Day 0 of your 30 days.*'),
-        ('03', 'Made and fitted by us', 'Factory production in Coimbatore, then installation by our own team and a 10-year warranty.')]), '', 'What to expect', 'Meet a designer, see it in 3D, made and fitted by us.')
-    body += section('<div class="visit"><figure class="visit-img rv-clip">%s<figcaption>%s</figcaption></figure><div class="rv d1"><p class="eyebrow">Visit us</p><h2 class="h2">%s <em>centre</em></h2><ul class="cl" style="margin-top:24px">'
-                    '<li><b>Address</b><span>%s</span></li><li><b>Phone</b><span><a href="tel:%s">%s</a></span></li><li><b>Email</b><span><a href="mailto:%s">%s</a></span></li></ul>'
-                    '<div class="btns"><a class="btn solid" href="%s" target="_blank" rel="noopener">Open in Maps%s</a></div></div></div>' % (img(ST(LM[c['slug']][0]), LM[c['slug']][1]), e(LM[c['slug']][1]), e(c['name']), e(c['address']), PHONE_TEL, PHONE, EMAIL, EMAIL, maps, ARROW),
-                    'alt', 'Visit the centre', 'Address, phone, email and directions.')
-    body += section(faq_block('%s <em>questions</em>' % c['name'], 'Questions', qas), '', 'Questions', 'Where the centre is, what Homworks does here and how to start.')
-    body += recap() + cta('Plan your home <em>in %s.</em>' % c['name'], 'Call for a free design and meet a Homworks designer within 24 hours.')
-    lb = dict(ORG); lb.update({'@id': '%s/location-%s.html#centre' % (SITE, c['slug']), 'name': 'Homworks ' + c['name'], 'url': '%s/location-%s.html' % (SITE, c['slug']),
+    city_qas.append(('Where is the Homworks %s centre?' % c['name'], 'The Homworks %s centre (%s) is at %s.' % (c['name'], c['tag'].replace('·', '–'), c['address'])))
+    body += ('<section class="sec city%s" id="%s"><div class="wrap"><div class="visit%s"><figure class="visit-img rv-clip">%s<figcaption>%s</figcaption></figure>'
+             '<div class="rv d1"><p class="eyebrow">%s</p><h2 class="h2">%s <em>centre</em></h2><p class="prose" style="margin-top:16px">%s</p><ul class="cl" style="margin-top:22px">'
+             '<li><b>Address</b><span>%s</span></li><li><b>Phone</b><span><a href="tel:%s">%s</a></span></li><li><b>Email</b><span><a href="mailto:%s">%s</a></span></li></ul>'
+             '<div class="btns"><a class="btn solid" href="%s" target="_blank" rel="noopener">Open in Maps%s</a><a class="btn line" href="contact.html">Book a FREE consultation</a></div></div></div></div></section>') % (
+        ' alt' if i % 2 == 0 else '', c['slug'], ' rev' if i % 2 else '', img(ST(LM[c['slug']][0]), LM[c['slug']][1]), e(LM[c['slug']][1]), e(c['tag']), e(c['name']), e(CITY_BLURB[c['slug']]),
+        e(c['address']), PHONE_TEL, PHONE, EMAIL, EMAIL, maps, ARROW)
+    lb = dict(ORG); lb.update({'@id': '%s/locations.html#%s' % (SITE, c['slug']), 'name': 'Homworks ' + c['name'], 'url': '%s/locations.html#%s' % (SITE, c['slug']),
                                'address': {'@type': 'PostalAddress', 'streetAddress': st, 'addressLocality': loc, 'addressRegion': reg, 'postalCode': pin, 'addressCountry': 'IN'},
                                'areaServed': c['name'], 'parentOrganization': {'@id': SITE + '/#org'}})
     lb.pop('@context')
-    add('location-' + c['slug'], 'Interior Designers in %s | Homworks %s' % (c['name'], c['tag'].split('·')[0].strip() if '·' in c['tag'] else c['tag']),
-        'Homworks %s centre: home interiors designed, made and installed with a 30-day promise* and 10-year warranty. Address, phone and directions.' % c['name'],
-        body, 'locations.html', qas, extra_ld=[dict({'@context': 'https://schema.org'}, **lb)], crumbs=[HOME, ('Location', 'locations.html'), (c['name'], 'location-%s.html' % c['slug'])], og=ST(CITY_IMG[i]))
+    city_ld.append(dict({'@context': 'https://schema.org'}, **lb))
+body += statband([('6', 'cities'), ('1', 'factory, in Coimbatore'), ('30', 'days from sign-off*'), ('10 years', 'warranty everywhere')], 'dark')
+LQ = F('cities', 'start', 'factory', 'time') + city_qas
+body += section(faq_block('Location <em>questions</em>', 'Questions', LQ), '', 'Questions', 'Cities, how to start, the factory, timeline and each centre.')
+body += recap() + cta('Find your nearest <em>Homworks team.</em>', 'Call for a free design and we will connect you to your city centre.')
+ORG_LOCS = {'@context': 'https://schema.org', '@type': 'ItemList', 'name': 'Homworks centres', 'itemListElement': [
+    {'@type': 'ListItem', 'position': i + 1, 'name': 'Homworks ' + c['name'], 'url': '%s/locations.html#%s' % (SITE, c['slug'])} for i, c in enumerate(CITIES)]}
+add('locations', 'Homworks Centres: Coimbatore, Chennai, Bangalore, Erode, Hyderabad, Guwahati', 'Find a Homworks interior design centre in Coimbatore, Chennai, Bangalore, Erode, Hyderabad or Guwahati. Addresses, phone number and directions on one page.',
+    body, 'locations.html', LQ, extra_ld=[ORG_LOCS] + city_ld, crumbs=[HOME, ('Location', 'locations.html')], og=ST('kit-white'), typ='CollectionPage')
 
 # ------------------------------------------------------------------ FAQS
 faq_groups = [('The basics', [FAQ['cost'], FAQ['time'], FAQ['start'], FAQ['cities']]),
@@ -826,7 +809,7 @@ body += section('<div class="contact"><form class="formcard rv" id="leadForm" no
                 '<div class="ok" id="ok" role="status">Your consultation request is in. We will be in touch very soon.</div></form>'
                 '<ul class="cl rv d1"><li><b>Call us</b><span><a href="tel:%s">%s</a> (toll-free)</span></li><li><b>Email</b><span><a href="mailto:%s">%s</a></span></li><li><b>Coimbatore office</b><span>%s</span></li>'
                 '<li><b>Other centres</b><span>%s</span></li></ul></div>' % (opts, needs, PHONE_TEL, PHONE, EMAIL, EMAIL, CITIES[0]['address'],
-                ' · '.join('<a href="location-%s.html">%s</a>' % (c['slug'], c['name']) for c in CITIES[1:])), '', 'Get in touch', 'Form, phone, email and our Coimbatore office.')
+                ' · '.join('<a href="locations.html#%s">%s</a>' % (c['slug'], c['name']) for c in CITIES[1:])), '', 'Get in touch', 'Form, phone, email and our Coimbatore office.')
 body += section(sh('Where your home is made', 'From this call to <em>our factory floor.</em>', 'Your interiors are engineered in our own Coimbatore factory, then fitted at your home by our installation team.') + bento([
     ('img', ST('fac-1'), 'Workers on a modern woodworking factory floor', 'Own factory, Coimbatore', 'CNC and flat-lamination machinery imported from Italy and Germany.', 'w2 h2'),
     ('img', ST('cnc-1'), 'An automated drilling and machining line', 'Made to the millimetre', 'Furniture parts are cut and fabricated off-site, so your home is not turned into a workshop.', ''),
@@ -862,7 +845,7 @@ def page_html(slug_, p):
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&family=Newsreader:ital,opsz,wght@0,6..72,300..500;1,6..72,300..500&family=Manrope:wght@200..800&family=Public+Sans:wght@600&display=swap" rel="stylesheet">
   <script>(function(d){var e=d.documentElement;e.className+=' js';setTimeout(function(){if(!window.__hw5)e.classList.add('motion-off')},2600)})(document)</script>
   <link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" href="assets/favicon-64.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="assets/home5.css?v=r20"><link rel="stylesheet" href="assets/inner.css?v=r3"><link rel="stylesheet" href="assets/inner-fx.css?v=r5">
+  <link rel="stylesheet" href="assets/home5.css?v=r21"><link rel="stylesheet" href="assets/inner.css?v=r3"><link rel="stylesheet" href="assets/inner-fx.css?v=r5">
   %s
 </head>
 <body class="inner">

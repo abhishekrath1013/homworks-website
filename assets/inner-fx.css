@@ -308,11 +308,10 @@
 .ht-in{padding-bottom:clamp(30px,3.6vw,60px)}
 .ht h1{font-size:clamp(30px,3.5vw,54px);max-width:22em;letter-spacing:-.045em;line-height:1.08}
 
-/* the 30-days logo */
-.d30{display:inline-block;height:clamp(70px,6.4vw,112px);width:auto;vertical-align:middle}
-.d30.l{display:none}
-.hf .d30.n,.band.dark .d30.n,.bt-s.dark .d30.n,.ht.dark .d30.n{display:none}
-.hf .d30.l,.band.dark .d30.l,.bt-s.dark .d30.l,.ht.dark .d30.l{display:inline-block}
-.hf-facts li b,.band li b,.bt-s b,.facts li b{line-height:1}
-.d30full{padding:clamp(10px,2vw,30px) 0}.d30full figure{margin:0;display:flex;justify-content:center}
-.d30full img{width:min(420px,78vw);height:auto}
+/* r5: one-column mega menu with the 30-days logo, in-page city sections */
+.mega.m1{grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);width:min(640px,calc(100vw - 40px))}
+.mg-logo{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;background:#fff;border:1px solid #e1ebea}
+.mg-logo img{width:min(190px,60%);height:auto;margin:0 0 10px}
+.mg-logo p{margin:0 0 12px}
+.city{scroll-margin-top:84px}
+.visit.rev{direction:rtl}.visit.rev>*{direction:ltr}

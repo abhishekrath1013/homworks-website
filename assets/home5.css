@@ -672,7 +672,9 @@ em.ser{font-family:var(--serif);font-style:italic;font-weight:300;font-variation
 .faq-more svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 .faq-more:hover{background:var(--rose);color:#fff;gap:14px}
 
-/* 30-days logo in the trust stats */
-.stats b .d30{height:clamp(54px,4.6vw,80px);width:auto;display:block}
-.stats b .d30.l{display:none}
-@media(max-width:700px){.stats b .d30{height:clamp(48px,14vw,64px)}}
+/* FAQ image: the reveal transform must not change the image's containing block (it jumped left once revealed) */
+.faq-l.rv{transform:none!important}
+.mega.m1{grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);width:min(640px,calc(100vw - 40px))}
+.mg-logo{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;background:#fff;border:1px solid #e1ebea}
+.mg-logo img{width:min(190px,60%);height:auto;margin:0 0 10px}
+.mg-logo p{margin:0 0 12px}

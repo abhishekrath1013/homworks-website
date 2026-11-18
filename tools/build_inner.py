@@ -51,12 +51,8 @@ NAV = [
         ('Browse by', [('City', 'See projects near you', 'locations.html'), ('Room Type', 'Kitchens, bedrooms and more', 'interiors.html'),
                        ('Full Home', 'Whole-home transformations', 'full-home-interiors.html')])],
      ('See it built', 'Find a home like yours.', 'Browse the homes we have crafted from the ground up.', 'projects.html', 'Open the gallery')),
-    ('Location', 'locations.html', [
-        ('Our centres', [(c['name'], c['tag'].replace('Office', 'office').replace('Centre', 'centre'), 'locations.html#%s' % c['slug']) for c in CITIES[:3]]),
-        ('More centres', [(c['name'], c['tag'].replace('Office', 'office').replace('Centre', 'centre'), 'locations.html#%s' % c['slug']) for c in CITIES[3:]])],
-     ('See. touch. experience.', 'Visit a Homworks centre.', 'Find your nearest show home and meet a designer.', 'contact.html', 'Book a visit')),
 ]
-TOP = [('About us', 'about-us.html'), ('Blogs', 'blog.html', 'soon'), ('Contact', 'contact.html')]
+TOP = [('Location', 'locations.html'), ('About us', 'about-us.html'), ('Blogs', 'blog.html', 'soon'), ('Contact', 'contact.html')]
 
 
 def lk(u, extra=''):
@@ -845,7 +841,7 @@ def page_html(slug_, p):
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&family=Newsreader:ital,opsz,wght@0,6..72,300..500;1,6..72,300..500&family=Manrope:wght@200..800&family=Public+Sans:wght@600&display=swap" rel="stylesheet">
   <script>(function(d){var e=d.documentElement;e.className+=' js';setTimeout(function(){if(!window.__hw5)e.classList.add('motion-off')},2600)})(document)</script>
   <link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" href="assets/favicon-64.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="assets/home5.css?v=r21"><link rel="stylesheet" href="assets/inner.css?v=r3"><link rel="stylesheet" href="assets/inner-fx.css?v=r5">
+  <link rel="stylesheet" href="assets/home5.css?v=r22"><link rel="stylesheet" href="assets/inner.css?v=r3"><link rel="stylesheet" href="assets/inner-fx.css?v=r5">
   %s
 </head>
 <body class="inner">

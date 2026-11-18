@@ -456,7 +456,7 @@ body += section(split(ST('living-tv'), 'A living room with a partition and TV wa
                       ['One home.', 'One team.', 'One complete interior solution.']),
                 '', 'Under one roof', 'One home, one team, one complete interior solution.')
 body += section(sh('Our process · Get. Set. Go.', 'From your ideas <em>to your dream home.</em>', 'We’ve made the entire interior process simple with 15 clear steps, from your first meeting to the final handover.') + sticky([
-    (ST('plan-1'), 'A couple reviewing a floor plan together', 'GET', 'We understand your needs, discuss your ideas and get started with the right designs and quotation.', ['Meet Your Designer', 'Understand Your Requirements', 'Initial Design', 'Booking Advance', 'Site Measurement']),
+    (ST('plan-1'), 'A couple reviewing a floor plan together', 'GET', 'We understand your needs, discuss your ideas and get started with the right designs and quotation.', ['Meet Your Designer', 'Understand Customer Expectation', 'Initial Design', 'Booking Advance', 'Site Measurement']),
     (ST('samples'), 'Finish samples laid out on a table', 'SET', 'Review your 3D designs, choose your finishes and finalise every detail before production begins.', ['3D Design & Quality Check', 'Finalise Your Design', 'Material List & Production Drawings', 'Site Check', 'Final Design Approval']),
     (ST('inst-1'), 'A fitted kitchen being finished on site', 'GO', 'We make your furniture, deliver it to your home and take care of the installation and final quality check.', ['Project Execution Begins', 'Factory Production', 'Site Readiness', 'Delivery & Installation', 'Quality Check & Handover'])]),
     'alt', 'Our process', 'Get, Set and Go: 15 clear steps from first meeting to handover.')

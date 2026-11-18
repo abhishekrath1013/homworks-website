@@ -556,24 +556,35 @@ for l in KL:
     add('kitchen-' + s, '%s Modular Kitchen Design | Homworks' % l['name'], '%s modular kitchen by Homworks: best for %s, %s footprint, made in our own factory with a 10-year warranty.' % (l['name'], l['bestFor'], l['footprint']),
         body, 'interiors.html', qas, crumbs=[HOME, ('Interiors', 'interiors.html'), ('Modular Kitchens', 'modular-kitchens.html'), (l['name'], 'kitchen-%s.html' % s)], og=ST(KSTOCK[s]), typ='Service')
 
-# ------------------------------------------------------------------ LIVING ROOMS
-body = hero_full([HOME, ('Interiors', 'interiors.html'), ('Living Rooms', None)], 'Living rooms', 'Enhancing your <em>entertainment space.</em>',
-                 'Console units, partitions, wall panels and TV units - let custom cabinets become style statements.',
-                 [('Call for a FREE design', 'contact.html', 'pink'), ('See all rooms', 'interiors.html', 'line')],
-                 [('5', 'living unit styles'), ('30', 'days from sign-off*'), ('10 years', 'warranty')], ST('living-tv'), 'A living room with a partition and TV wall')
-body += answer('Living room interiors at Homworks', 'Homworks makes console units, living partitions, wall panels and TV units – floor-standing or wall-hung – as custom cabinets designed around your room.',
-               'Cabinets are the most underrated, trend-making part of a living room.')
-body += section(sh('The living room range', 'Hover a unit. <em>See the style.</em>') + rows([(u[0], u[1], ST(u[2]), u[3], None) for u in UNITS]) + '<p class="note">Images are illustrative stock photography.</p>',
-                '', 'The range', 'Console, partition, wall panel and two kinds of TV unit.')
+# ------------------------------------------------------------------ LIVING ROOMS  (copy: Homworks_livingroom_copy.docx)
+LR_UNITS = [('Console unit', 'Keep your everyday essentials, décor and other items organised with a console unit that adds to your living room’s look.', 'entry-1', 'A console unit by Homworks'),
+            ('Living partition', 'Create a neat separation between your living and dining areas without making the space feel closed.', 'living-tv', 'A living room partition with a TV wall'),
+            ('Wall panel', 'Add character to your walls with panels that bring the entire living room together and give your TV area a neat finish.', 'living-2', 'A wall panel behind a TV'),
+            ('TV unit · floor-standing', 'A low TV unit with cabinets and shelves that gives you space for your TV essentials while keeping everything organised.', 'living-3', 'A floor-standing TV unit'),
+            ('TV unit · wall-hung', 'Wall-mounted cabinets keep your floor clear while giving your TV area a clean and modern look.', 'living-2', 'A wall-hung TV unit')]
+LR_FAQ = [('What finishes are available at Homworks?', 'Choose from lamination, membrane, acrylic and PU paint finishes in different colours and designs.'),
+          ('How are Homworks living room units made?', 'Your furniture is made at our Coimbatore facility using advanced CNC and flat-lamination machinery, then delivered and fitted at your home. Final adjustments and finishing are done at the site wherever needed.'),
+          ('How long does it take to complete a Homworks project?', 'We aim to complete your interiors within 30 working days from design sign-off, as per our 30-day promise. Certain conditions and exclusions apply.'),
+          ('How much do Homworks living room interiors cost?', 'The cost depends on the design, size, materials and finishes you choose. Book a free consultation to get a design and a clear quotation.')]
+body = hero_full([HOME, ('Interiors', 'interiors.html'), ('Living Rooms', None)], 'Living rooms', 'Make your living room <em>feel complete.</em>',
+                 'From TV units and wall panels to partitions and console units, create a living room that looks good and works for your everyday needs.',
+                 [('Call for a FREE Design', 'contact.html', 'pink'), ('See All Rooms', 'interiors.html', 'line')],
+                 [('5', 'living room solutions'), ('30', 'working days from design sign-off*'), ('10 years', 'warranty')], ST('living-tv'), 'A living room with a partition and TV wall')
+body += section(split(ST('living-2'), 'A modern living room with a wall-hung TV', 'Living rooms', 'A living room <em>that feels like home.</em>',
+                      ['Your living room is where you relax, spend time with family and welcome guests. We design TV units, partitions, wall panels and console units to make the most of your space.',
+                       'Choose designs that match your style, storage needs and the way you use your living room.']))
+body += section(sh('The living room range', 'Find the right fit <em>for your living room.</em>', 'Explore our range of living room furniture and choose what works best for your space.') + rows([(u[0], u[1], ST(u[2]), u[3], None) for u in LR_UNITS]) + '<p class="note">Images are illustrative stock photography.</p>',
+                '', 'The range', 'Console units, living partitions, wall panels and two types of TV units.')
 body += marquee(['Console', 'Partition', 'Wall panel', 'TV unit'], 'big')
-body += pxb(ST('living-2'), 'A modern living room with a wall-hung TV', 'Let custom cabinets <em>become style statements.</em>')
-body += section(split(ST('living-3'), 'A floor-standing TV unit with shelves', 'TV units', 'Floor-standing <em>or wall-hung.</em>',
-                      [UNITS[3][1], UNITS[4][1]], ['<b>Floor-standing</b> – low cabinets on a baseboard, for a contemporary look.', '<b>Wall-hung</b> – floating cabinets that leave the floor clear; a plinth can be added.']),
-                'alt', 'TV units', 'Floor-standing on a baseboard, or wall-hung with a plinth.')
-body += section(faq_block('Living room <em>questions</em>', 'Questions', F('finish', 'factory', 'time', 'cost')), '', 'Questions', 'Finishes, the factory, timeline and cost.')
-body += recap() + cta('Give your living room <em>its statement.</em>', 'Call for a free design and meet a designer within 24 hours.')
+body += section(split(ST('living-3'), 'A floor-standing TV unit with shelves', 'TV units', 'Choose the TV unit <em>that fits your style.</em>',
+                      ['Whether you prefer a unit that sits on the floor or one that floats on the wall, we have designs to suit your living room.'],
+                      ['<b>Floor-standing TV unit</b> – a low cabinet that sits on the floor, giving you plenty of storage and a complete look around your TV.',
+                       '<b>Wall-hung TV unit</b> – a floating TV unit that keeps the floor clear and gives your living room a neat, spacious look. A bottom support can also be added if needed.']),
+                'alt', 'TV units', 'Choose between floor-standing and wall-hung designs.')
+body += section(faq_block('Got questions? <em>We have answers.</em>', 'Questions', LR_FAQ), '', 'Questions', 'Know more about finishes, manufacturing, timelines and pricing.')
+body += recap('Everything you need <em>for your living room.</em>') + cta('Give your living room <em>its statement.</em>', 'Call for a free design and meet a designer within 24 hours.')
 add('living-rooms', 'Living Room & TV Unit Designs | Homworks', 'Console units, living partitions, wall panels and TV units by Homworks – custom cabinets made in our factory, with a 10-year warranty.',
-    body, 'interiors.html', F('finish', 'factory', 'time', 'cost'), crumbs=[HOME, ('Interiors', 'interiors.html'), ('Living Rooms', 'living-rooms.html')], og=ST('living-tv'), typ='Service')
+    body, 'interiors.html', LR_FAQ, crumbs=[HOME, ('Interiors', 'interiors.html'), ('Living Rooms', 'living-rooms.html')], og=ST('living-tv'), typ='Service')
 
 # ------------------------------------------------------------------ BEDROOMS
 BED = P[3]['cards']

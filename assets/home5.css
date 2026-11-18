@@ -36,7 +36,7 @@ em.ser{font-family:var(--serif);font-style:italic;font-weight:300;font-variation
 .ni-a{display:block;padding:10px 18px;border-radius:999px;opacity:.78;white-space:nowrap;transition:opacity .2s,background .2s,color .2s}
 .ni:hover>.ni-a,.ni:focus-within>.ni-a{opacity:1;background:rgba(255,255,255,.9);color:var(--deep)}
 .mega{position:absolute;left:50%;top:calc(100% - 8px);transform:translate(-50%,8px);width:min(900px,calc(100vw - 40px));background:#fff;border:1px solid var(--line);border-radius:20px;padding:26px 28px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(0,1.05fr);gap:8px 28px;box-shadow:0 30px 60px -12px rgba(8,49,50,.22);visibility:hidden;opacity:0;pointer-events:none;transition:opacity .25s,transform .25s,visibility .25s;text-transform:none;letter-spacing:0;font-family:var(--jak);color:var(--ink);white-space:normal}
-.mega:before{content:"";position:absolute;left:0;right:0;top:-34px;height:34px}
+.mega:before{content:"";position:absolute;left:0;right:0;top:-6px;height:6px}
 .ni:hover>.mega,.ni:focus-within>.mega{visibility:visible;opacity:1;pointer-events:auto;transform:translate(-50%,0)}
 .mg-col h4{font:600 10.5px var(--jak);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:2px 0 12px}
 .mg-link{display:block;padding:9px 12px;margin:0 -12px 2px;border-radius:12px;transition:background .2s}

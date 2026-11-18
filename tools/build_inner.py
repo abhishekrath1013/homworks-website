@@ -891,7 +891,7 @@ def page_html(slug_, p):
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&family=Newsreader:ital,opsz,wght@0,6..72,300..500;1,6..72,300..500&family=Manrope:wght@200..800&family=Public+Sans:wght@600&display=swap" rel="stylesheet">
   <script>(function(d){var e=d.documentElement;e.className+=' js';setTimeout(function(){if(!window.__hw5)e.classList.add('motion-off')},2600)})(document)</script>
   <link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" href="assets/favicon-64.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="assets/home5.css?v=r24"><link rel="stylesheet" href="assets/inner.css?v=r3"><link rel="stylesheet" href="assets/inner-fx.css?v=r7">%s
+  <link rel="stylesheet" href="assets/home5.css?v=r25"><link rel="stylesheet" href="assets/inner.css?v=r3"><link rel="stylesheet" href="assets/inner-fx.css?v=r7">%s
   %s
 </head>
 <body class="inner">

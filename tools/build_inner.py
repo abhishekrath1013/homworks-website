@@ -328,8 +328,13 @@ def compare(items):
 
 
 def citytiles(cities):
-    return '<div class="cts stagger">%s</div>' % ''.join(
-        '<a class="ct c%d rv" href="#%s">%s<span class="ct-t">%s</span><span class="ct-n">%s</span><span class="ct-a">%s</span><i>%s</i></a>' % (i % 4, c['slug'], img(ST(LM[c['slug']][0]), LM[c['slug']][1], cls='ct-bg'), e(c['tag']), e(c['name']), e(c['addrShort']), ARROW) for i, c in enumerate(cities))
+    out = []
+    for i, c in enumerate(cities):
+        maps = 'https://www.google.com/maps/search/?api=1&query=' + urllib.parse.quote(c['address'])
+        out.append('<a class="ct c%d rv" id="%s" href="%s" target="_blank" rel="noopener" aria-label="Open the Homworks %s centre in Google Maps">%s<span class="ct-t">%s</span><span class="ct-n">%s</span>'
+                   '<span class="ct-a">%s</span><span class="ct-d"><span><b>Address</b>%s</span><span><b>Phone</b>%s</span><span><b>Email</b>%s</span><span class="ct-go">Open in Google Maps →</span></span><i>%s</i></a>' % (
+            i % 4, c['slug'], maps, e(c['name']), img(ST(LM[c['slug']][0]), LM[c['slug']][1], cls='ct-bg'), e(c['tag']), e(c['name']), e(c['addrShort']), e(c['address']), PHONE, EMAIL, ARROW))
+    return '<div class="cts stagger">%s</div>' % ''.join(out)
 
 
 def steps3():
@@ -749,19 +754,13 @@ body = hero_type([HOME, ('Location', None)], 'Locations', 'A Homworks centre <em
                  strip=[ST(x) for x in ('kit-white', 'living-2', 'bed-1', 'kit-island', 'ward-2', 'kit-modern')])
 body += answer('Where is Homworks?', 'Homworks has centres in Coimbatore, Chennai, Bangalore, Erode, Hyderabad and Guwahati.',
                'The Homworks factory and corporate office are in Peelamedu, Coimbatore. Call 1800 833 4500 to reach any centre.')
-body += section(sh('Our centres', 'Six cities, <em>one standard.</em>', 'Tap a city to jump to its address, phone number and directions.') + citytiles(CITIES), '', 'Our centres', 'Coimbatore, Chennai, Bangalore, Erode, Hyderabad and Guwahati.')
+body += section(sh('Our centres', 'Six cities, <em>one standard.</em>', 'Hover a city to see its address, phone and email. Click it to open the centre in Google Maps.') + citytiles(CITIES), '', 'Our centres', 'Coimbatore, Chennai, Bangalore, Erode, Hyderabad and Guwahati.')
 city_qas, city_ld = [], []
 for i, c in enumerate(CITIES):
     st, loc, reg, pin = STREET[c['slug']]
     maps = 'https://www.google.com/maps/search/?api=1&query=' + urllib.parse.quote(c['address'])
     city_qas.append(('Where is the Homworks %s centre?' % c['name'], 'The Homworks %s centre (%s) is at %s.' % (c['name'], c['tag'].replace('·', '–'), c['address'])))
-    body += ('<section class="sec city%s" id="%s"><div class="wrap"><div class="visit%s"><figure class="visit-img rv-clip">%s<figcaption>%s</figcaption></figure>'
-             '<div class="rv d1"><p class="eyebrow">%s</p><h2 class="h2">%s <em>centre</em></h2><p class="prose" style="margin-top:16px">%s</p><ul class="cl" style="margin-top:22px">'
-             '<li><b>Address</b><span>%s</span></li><li><b>Phone</b><span><a href="tel:%s">%s</a></span></li><li><b>Email</b><span><a href="mailto:%s">%s</a></span></li></ul>'
-             '<div class="btns"><a class="btn solid" href="%s" target="_blank" rel="noopener">Open in Maps%s</a><a class="btn line" href="contact.html">Book a FREE consultation</a></div></div></div></div></section>') % (
-        ' alt' if i % 2 == 0 else '', c['slug'], ' rev' if i % 2 else '', img(ST(LM[c['slug']][0]), LM[c['slug']][1]), e(LM[c['slug']][1]), e(c['tag']), e(c['name']), e(CITY_BLURB[c['slug']]),
-        e(c['address']), PHONE_TEL, PHONE, EMAIL, EMAIL, maps, ARROW)
-    lb = dict(ORG); lb.update({'@id': '%s/locations.html#%s' % (SITE, c['slug']), 'name': 'Homworks ' + c['name'], 'url': '%s/locations.html#%s' % (SITE, c['slug']),
+    lb = dict(ORG); lb.update({'@id': '%s/locations.html#%s' % (SITE, c['slug']), 'name': 'Homworks ' + c['name'], 'url': '%s/locations.html' % SITE, 'hasMap': 'https://www.google.com/maps/search/?api=1&query=' + urllib.parse.quote(c['address']),
                                'address': {'@type': 'PostalAddress', 'streetAddress': st, 'addressLocality': loc, 'addressRegion': reg, 'postalCode': pin, 'addressCountry': 'IN'},
                                'areaServed': c['name'], 'parentOrganization': {'@id': SITE + '/#org'}})
     lb.pop('@context')
@@ -841,7 +840,7 @@ def page_html(slug_, p):
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&family=Newsreader:ital,opsz,wght@0,6..72,300..500;1,6..72,300..500&family=Manrope:wght@200..800&family=Public+Sans:wght@600&display=swap" rel="stylesheet">
   <script>(function(d){var e=d.documentElement;e.className+=' js';setTimeout(function(){if(!window.__hw5)e.classList.add('motion-off')},2600)})(document)</script>
   <link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" href="assets/favicon-64.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="assets/home5.css?v=r22"><link rel="stylesheet" href="assets/inner.css?v=r3"><link rel="stylesheet" href="assets/inner-fx.css?v=r5">
+  <link rel="stylesheet" href="assets/home5.css?v=r24"><link rel="stylesheet" href="assets/inner.css?v=r3"><link rel="stylesheet" href="assets/inner-fx.css?v=r6">
   %s
 </head>
 <body class="inner">

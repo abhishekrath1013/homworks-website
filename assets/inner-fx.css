@@ -315,3 +315,15 @@
 .mg-logo p{margin:0 0 12px}
 .city{scroll-margin-top:84px}
 .visit.rev{direction:rtl}.visit.rev>*{direction:ltr}
+
+/* r6: city tiles reveal their details on hover and open Google Maps on click */
+.ct{cursor:pointer}
+.ct:before{display:block!important;content:"";position:absolute;inset:0;right:0;top:0;width:auto;aspect-ratio:auto;border-radius:0;background:rgba(4,36,38,.6);opacity:0;transition:opacity .45s;z-index:1}
+.ct:hover:before,.ct:focus-visible:before{opacity:1;transform:none}
+.ct-a{max-height:60px;overflow:hidden;transition:max-height .45s,opacity .35s,margin .45s}
+.ct-d{position:relative;z-index:2;display:flex;flex-direction:column;gap:7px;max-height:0;opacity:0;overflow:hidden;margin-top:0;font:400 12.5px/1.5 var(--jak);color:#fff;transition:max-height .55s cubic-bezier(.2,.7,.2,1),opacity .4s .05s,margin .45s}
+.ct-d b{display:block;font:600 10px/1.3 var(--jak);letter-spacing:.12em;text-transform:uppercase;opacity:.65;margin-bottom:1px}
+.ct-go{font:600 12px var(--jak);letter-spacing:.04em;margin-top:2px}
+.ct:hover .ct-a,.ct:focus-visible .ct-a{max-height:0;opacity:0;margin-top:0}
+.ct:hover .ct-d,.ct:focus-visible .ct-d{max-height:190px;opacity:1;margin-top:14px}
+@media(hover:none){.ct:before{opacity:.55}.ct-a{display:none}.ct-d{max-height:none;opacity:1;margin-top:12px}}

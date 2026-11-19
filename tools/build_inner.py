@@ -683,24 +683,23 @@ body = hero_collage([HOME, ('Why Homworks', 'why-homworks.html'), ('About Us', N
                     [('Call for a FREE design', 'contact.html', 'solid'), ('Find a centre', 'locations.html', 'line')],
                     [('6', 'cities'), ('1', 'own factory'), ('10 years', 'warranty')],
                     [(ST('fac-1'), 'Workers on a modern woodworking factory floor'), (ST('cnc-1'), 'An automated drilling and machining line'), (ST('fac-2'), 'An operator working at a CNC machine')], pill='Made in Coimbatore')
-body += section(split(ST('plan-1'), 'A couple reviewing a floor plan together', 'Who we are', 'More than interiors. <em>A reflection of you.</em>',
+body += section(split(ST('plan-1'), 'A couple reviewing a floor plan together', 'Who we are', 'Who <em>we are.</em>',
                       ['At Homworks, we believe your home should reflect who you are and how you live. Every space has its own purpose, and every individual has a different vision for the place they call home.',
                        'Our approach begins with understanding your ideas, lifestyle and requirements. We bring them together through carefully planned designs, selected materials and professional execution.',
                        'From kitchens and bedrooms to living spaces and customised furniture, we work towards creating interiors that feel personal, comfortable and functional.']),
-                '', 'Who we are', 'More than interiors: a reflection of you.')
+                '', 'Who we are', 'How we think about your home and how you live in it.')
 body += section(sh('Our approach', 'Thoughtful design. <em>Careful execution.</em>') + bento([
     ('text', '01', 'Personalised Design', 'We take the time to understand your preferences, space requirements and lifestyle before developing an interior design that feels right for you.', 'w2'),
-    ('text', '02', 'Quality Materials', 'We offer carefully selected materials and finishes, supported by quality checks at different stages of the process.', ''),
-    ('text', '03', 'Design & Infrastructure', 'Our Coimbatore-based facilities, design capabilities and skilled workmanship support the development and execution of interior solutions.', ''),
-    ('text', '04', 'Professional Installation', 'Our team coordinates the installation process with attention to detail, ensuring the planned design is carried through to the finished space.', 'w2'),
-    ('text', '05', 'Continued Support', 'Our relationship with customers does not end with installation. We remain available to assist with post-installation requirements and service support.', 'w2')]),
-    'alt', 'Our approach', 'Personalised design, quality materials, infrastructure, installation and support.')
+    ('text', '02', 'Quality Materials', 'We offer carefully selected materials and finishes, supported by quality checks at different stages of the process.', 'w2'),
+    ('text', '03', 'Design & Infrastructure', 'Our Coimbatore-based facilities, design capabilities and skilled workmanship support the development and execution of interior solutions.', 'w2'),
+    ('text', '04', 'Continued Support', 'Our relationship with customers does not end with installation. We remain available to assist with post-installation requirements and service support.', 'w2')]),
+    'alt', 'Our approach', 'Personalised design, quality materials, infrastructure and continued support.')
 body += section(split(ST('samples'), 'Finish samples laid out on a table', 'Our design philosophy', 'A good design should look right <em>and work right.</em>',
                       ['We believe beautiful interiors should also make everyday living easier. The right layout, materials, finishes and storage solutions can make a meaningful difference to how a space is experienced.',
                        'That is why we bring together aesthetics and functionality in every design, creating spaces that suit individual preferences while making practical use of every corner.'], rev=True),
                 '', 'Our design philosophy', 'Aesthetics and functionality in every design.')
 body += section(sh('How we work', 'From your ideas <em>to your finished space.</em>') + tlv([
-    ('01', 'Understand', 'We begin by understanding your vision, lifestyle, preferences and project requirements.'),
+    ('01', 'Understand', 'We begin by understanding your vision, preferences and project requirements.'),
     ('02', 'Design', 'Our team develops design ideas and plans that bring your requirements together.'),
     ('03', 'Select', 'Explore materials, colours, finishes and design details suited to your space.'),
     ('04', 'Execute', 'The project moves into production coordination and professional installation.'),

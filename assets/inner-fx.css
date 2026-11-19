@@ -106,7 +106,7 @@
 .rc-b{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:24px 24px 26px}
 .rc .tag{color:#f7aab7}
 .rc h3{margin:7px 0 8px;font:600 clamp(18px,1.5vw,24px)/1.2 var(--man);color:#fff}
-.rc p{margin:0;font:400 12.8px/1.6 var(--jak);color:rgba(255,255,255,.84);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.rc p{margin:0;font:400 12.8px/1.6 var(--jak);color:rgba(255,255,255,.84);display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
 
 /* ---------- rows: hover a line, see the photo ---------- */
 .rows{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(28px,5vw,90px);align-items:start}

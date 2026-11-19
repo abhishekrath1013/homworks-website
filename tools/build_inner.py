@@ -566,13 +566,13 @@ LR_FAQ = [('What finishes are available at Homworks?', 'Choose from lamination, 
           ('How are Homworks living room units made?', 'Your furniture is made at our Coimbatore facility using advanced CNC and flat-lamination machinery, then delivered and fitted at your home. Final adjustments and finishing are done at the site wherever needed.'),
           ('How long does it take to complete a Homworks project?', 'We aim to complete your interiors within 30 working days from design sign-off, as per our 30-day promise. Certain conditions and exclusions apply.'),
           ('How much do Homworks living room interiors cost?', 'The cost depends on the design, size, materials and finishes you choose. Book a free consultation to get a design and a clear quotation.')]
-body = hero_full([HOME, ('Interiors', 'interiors.html'), ('Living Rooms', None)], 'Living rooms', 'Make your living room <em>feel complete.</em>',
+body = hero_full([HOME, ('Interiors', 'interiors.html'), ('Living Rooms', None)], 'Living rooms', 'A space that brings <em>everyone together.</em>',
                  'From TV units and wall panels to partitions and console units, create a living room that looks good and works for your everyday needs.',
                  [('Call for a FREE Design', 'contact.html', 'pink'), ('See All Rooms', 'interiors.html', 'line')],
                  [('5', 'living room solutions'), ('30', 'working days from design sign-off*'), ('10 years', 'warranty')], ST('living-tv'), 'A living room with a partition and TV wall')
 body += section(split(ST('living-2'), 'A modern living room with a wall-hung TV', 'Living rooms', 'A living room <em>that feels like home.</em>',
-                      ['Your living room is where you relax, spend time with family and welcome guests. We design TV units, partitions, wall panels and console units to make the most of your space.',
-                       'Choose designs that match your style, storage needs and the way you use your living room.']))
+                      ['Your living room is where conversations happen, families come together and everyday moments become memories.',
+                       'At Homworks, we create living spaces that balance comfort, functionality and design. From customised TV units and elegant wall panels to console tables and living partitions, every element is planned to complement your space and lifestyle.']))
 body += section(sh('The living room range', 'Find the right fit <em>for your living room.</em>', 'Explore our range of living room furniture and choose what works best for your space.') + rows([(u[0], u[1], ST(u[2]), u[3], None) for u in LR_UNITS]) + '<p class="note">Images are illustrative stock photography.</p>',
                 '', 'The range', 'Console units, living partitions, wall panels and two types of TV units.')
 body += marquee(['Console', 'Partition', 'Wall panel', 'TV unit'], 'big')
@@ -586,33 +586,43 @@ body += recap('Everything you need <em>for your living room.</em>') + cta('Give 
 add('living-rooms', 'Living Room & TV Unit Designs | Homworks', 'Console units, living partitions, wall panels and TV units by Homworks – custom cabinets made in our factory, with a 10-year warranty.',
     body, 'interiors.html', LR_FAQ, crumbs=[HOME, ('Interiors', 'interiors.html'), ('Living Rooms', 'living-rooms.html')], og=ST('living-tv'), typ='Service')
 
-# ------------------------------------------------------------------ BEDROOMS
+# ------------------------------------------------------------------ BEDROOMS  (copy: pasted Bedroom Interiors content)
 BED = P[3]['cards']
-body = hero_collage([HOME, ('Interiors', 'interiors.html'), ('Bedrooms', None)], 'Bedrooms', 'Cots crafted <em>for comfort</em>',
-                    'Made from quality materials, our cots are the foundation for your dreams – styled to suit your interior.',
-                    [('Call for a FREE design', 'contact.html', 'solid'), ('Wardrobes', 'wardrobes.html', 'line')],
-                    [('6', 'cot, wardrobe and kids’ designs'), ('30', 'days from sign-off*'), ('10 years', 'warranty')],
+BR_FAQ = [('What materials are used for Homworks bedroom furniture?', 'Homworks uses ISI-certified BWP / HDHMR E0 double-side post-laminated boards for cabinetry. Your designer can help you choose suitable materials and finishes for your bedroom furniture.'),
+          ('Can I customise my wardrobe’s internal storage?', 'Yes. You can plan the wardrobe layout based on your storage needs, with options for shelves, hanging spaces and drawers, depending on the design and available space.'),
+          ('What is the difference between a hydraulic cot and a storage cot?', 'A hydraulic cot uses a lifting mechanism to access the storage space underneath. A storage cot provides built-in storage beneath the bed. Your designer can help you choose the right option for your room.'),
+          ('Can I choose the fabric and design for my headboard?', 'Yes. You can explore different fabric options, colours and designs to match your bedroom interiors. The final selection will depend on the available options.'),
+          ('Are bunk beds suitable for smaller kids’ rooms?', 'Bunk beds can be a practical choice for rooms where floor space is limited. The design and staircase placement can be planned according to the room layout and your family’s requirements. Ask your designer about suitable safety features for your child’s age.'),
+          ('What warranty does Homworks provide for bedroom furniture?', 'Homworks provides a 10-year warranty on cabinetry, carcass and mechanisms. Please check the written warranty terms with your designer before sign-off.'),
+          ('How long does it take to complete bedroom interiors?', 'Homworks aims to complete interiors within 30 working days from design sign-off, as per the 30-day promise. The timeline begins after approval of the 3D design and fixed quote. Certain conditions and exclusions apply.')]
+body = hero_collage([HOME, ('Interiors', 'interiors.html'), ('Bedrooms', None)], 'Bedrooms', 'Designed for comfort. <em>Planned around you.</em>',
+                    'From comfortable cots and stylish headboards to well-planned wardrobes and kids’ beds, we design bedroom interiors that make everyday living more comfortable.',
+                    [('Call for a FREE Design', 'contact.html', 'solid')],
+                    [('6', 'cot, wardrobe and kids’ room designs'), ('30', 'working days from design sign-off*'), ('10 years', 'warranty')],
                     [(ST('bed-1'), 'A bedroom with a wooden headboard'), (ST('bed-2'), 'A bed with a patterned headboard'), (ST('kids-1'), 'A kids’ room with a bunk bed')], pill='Cots · Wardrobes · Kids’ rooms')
-body += answer('Bedroom interiors at Homworks', 'Homworks makes cots, headboards, wardrobes and kids’ room furniture in its own factory, styled to suit your interior.',
-               'Choose a hydraulic cot, a cot with built-in storage, a fabric headboard, or a bunk bed with a built-in staircase.')
-body += full('<div class="wrap">%s</div>%s' % (sh('The bedroom range', 'Rest, <em>made to measure.</em>', 'Swipe through cots, headboards, wardrobes and kids’ beds.'), rail([
-    (None, ST('bed-3'), 'A bedroom with a cot and headboard', 'Cot', BED[0][2], BED[0][3]),
-    (None, ST('bed-1'), 'A bed with a wooden headboard', 'Cot', BED[1][2], BED[1][3]),
-    (None, ST('bed-2'), 'A bed with a fabric headboard', 'Headboard', BED[2][2], BED[2][3]),
-    ('wardrobes.html', ST('ward-3'), 'An L-shaped wardrobe', 'Wardrobe', BED[3][2], BED[3][3]),
-    ('wardrobes.html', ST('ward-2'), 'A walk-in wardrobe', 'Wardrobe', BED[4][2], BED[4][3]),
-    (None, ST('kids-2'), 'A kids’ bunk bed', 'Kids’ room', BED[5][2], BED[5][3])], 'Images are illustrative stock photography.')), '', 'The range', 'Hydraulic and storage cots, a fabric headboard, wardrobes and a bunk bed.')
-body += section(split(ST('ward-1'), 'A walk-in wardrobe with wooden shelves', 'Wardrobes', 'Storage that <em>fits two lives.</em>',
-                      ['From the L-shaped corner wardrobe to the walk-in, built to use every inch and made to the millimetre in our own factory.'],
-                      ['L-shaped corner wardrobes', 'Walk-in wardrobes', 'E0-grade boards and a 10-year warranty'], links=[('Explore wardrobes', 'wardrobes.html', 'solid')], rev=True),
-                '', 'Wardrobes', 'L-shaped and walk-in wardrobes.')
-body += section(split(ST('kids-3'), 'A kids’ bedroom with soft furnishings', 'Kids’ rooms', 'A bunk bed with <em>steps built in.</em>',
-                      [BED[5][3], 'Kids’ rooms are designed around the same factory standard and 10-year warranty as the rest of your home.'],
-                      ['Made from quality materials', 'Styled to suit your interior', 'Covered by a 10-year warranty']), 'alt', 'Kids’ rooms', 'A bunk bed with a built-in staircase.')
-body += section(faq_block('Bedroom <em>questions</em>', 'Questions', F('board', 'finish', 'warranty', 'time')), '', 'Questions', 'Boards, finishes, warranty and timeline.')
-body += recap() + cta('Make room for <em>finer living.</em>', 'Beautiful homes begin with Homworks. Call for a free design.')
+body += section(split(ST('bed-4'), 'A bed with linen and a bedside table', 'Bedrooms', 'A bedroom <em>that feels like yours.</em>',
+                      ['Your bedroom should be a space where comfort meets functionality. At Homworks, we design bedrooms around your lifestyle, storage needs and personal preferences.',
+                       'From thoughtfully designed beds and customised wardrobes to walk-in storage spaces and coordinated finishes, every element is planned to make your bedroom comfortable, organised and personal.']))
+body += full('<div class="wrap">%s</div>%s' % (sh('Bedroom furniture range', 'Designed for <em>better living.</em>', 'Explore bedroom furniture designed to bring together comfort, storage and style.'), rail([
+    (None, ST('bed-3'), 'A bedroom with a cot and headboard', 'More storage. Less clutter.', 'Hydraulic Cot', 'Make better use of the space under your bed with a hydraulic storage cot. The easy-lift mechanism gives you access to additional storage without taking up extra room.'),
+    (None, ST('bed-1'), 'A bed with a wooden headboard', 'Everyday comfort with extra space.', 'Cot with Storage', 'Keep your bedroom organised with a cot that comes with built-in storage underneath. A practical choice for storing extra bedding, pillows and other essentials.'),
+    (None, ST('bed-2'), 'A bed with a fabric headboard', 'A softer look for your bedroom.', 'Fabric Headboard', 'Add comfort and character to your bed with a fabric headboard. Choose a design and finish that complements your bedroom interiors.'),
+    ('wardrobes.html', ST('ward-3'), 'An L-shaped wardrobe', 'Make every corner count.', 'L-Shaped Wardrobe', 'Use your bedroom corners better with an L-shaped wardrobe. Designed to make the most of available space while giving you room to organise your everyday essentials.'),
+    ('wardrobes.html', ST('ward-2'), 'A walk-in wardrobe', 'Your own space for everything.', 'Walk-in Wardrobe', 'Create a dedicated space for your clothes, accessories and everyday essentials. A walk-in wardrobe can be planned with shelves, hanging spaces and storage sections to suit your needs.'),
+    (None, ST('kids-2'), 'A kids’ bunk bed', 'More room for little adventures.', 'Kids’ Bunk Bed with Steps', 'Make shared bedrooms more practical with a bunk bed and built-in staircase. A smart way to create separate sleeping spaces while making better use of the room.')],
+    'Images are illustrative stock photography.')), '', 'Cots & Headboards', 'Hydraulic cots, storage cots and fabric headboards.')
+body += section(split(ST('ward-1'), 'A walk-in wardrobe with wooden shelves', 'Wardrobes', 'A place <em>for everything.</em>',
+                      ['A well-planned wardrobe makes your everyday routine easier. Whether you prefer an L-shaped wardrobe or a walk-in design, we help you make the most of your available space.'],
+                      ['L-shaped and walk-in wardrobe designs', 'Storage planned around your everyday needs', 'E0-grade boards', '10-year warranty'], links=[('Explore Wardrobes', 'wardrobes.html', 'solid')], rev=True),
+                '', 'Wardrobes', 'L-shaped and walk-in wardrobe designs.')
+body += section(split(ST('kids-3'), 'A kids’ bedroom with soft furnishings', 'Kids’ rooms', 'A room that <em>grows with them.</em>',
+                      ['Kids’ rooms need to make space for sleep, play and everyday activities. Our bunk bed designs help make better use of the available space while giving children their own comfortable sleeping area.'],
+                      ['Bunk beds with built-in steps', 'Designs to suit your room layout', 'Quality materials', '10-year warranty']), 'alt', 'Kids’ Rooms', 'Bunk beds with built-in steps.')
+body += section(faq_block('Bedroom questions, <em>answered.</em>', 'Questions', BR_FAQ), '', 'FAQs', 'Materials, storage options, customisation, warranty and timelines.')
+body += recap() + cta('Let’s create your <em>ideal bedroom.</em>', 'Tell us how you want your bedroom to look and feel. Our designers will help you plan the right furniture, storage and finishes for your space. Our team will get in touch within 24 hours.',
+                      primary=('Book a FREE Consultation', 'contact.html'))
 add('bedrooms', 'Bedroom Interiors, Cots & Kids’ Rooms | Homworks', 'Cots, headboards, wardrobes and kids’ rooms by Homworks – made from quality materials in our own factory, with a 10-year warranty.',
-    body, 'interiors.html', F('board', 'finish', 'warranty', 'time'), crumbs=[HOME, ('Interiors', 'interiors.html'), ('Bedrooms', 'bedrooms.html')], og=ST('bed-1'), typ='Service')
+    body, 'interiors.html', BR_FAQ, crumbs=[HOME, ('Interiors', 'interiors.html'), ('Bedrooms', 'bedrooms.html')], og=ST('bed-1'), typ='Service')
 
 # ------------------------------------------------------------------ WARDROBES
 body = hero_full([HOME, ('Interiors', 'interiors.html'), ('Wardrobes', None)], 'Wardrobes', 'Storage that uses <em>every inch.</em>',
@@ -667,26 +677,37 @@ body += recap() + cta('Quality you can see. <em>Care you can count on.</em>', 'C
 add('why-homworks', 'Why Choose Homworks | 100+ Quality Checks, 10-Year Warranty', 'Why homeowners choose Homworks: every material checked, an own factory, a 30-day delivery promise* and a 10-year warranty. Plus 16 questions to ask any designer.',
     body, 'why-homworks.html', gd_qas(), crumbs=[HOME, ('Why Homworks', 'why-homworks.html')], og=ST('fac-1'))
 
-# ------------------------------------------------------------------ ABOUT
-body = hero_collage([HOME, ('Why Homworks', 'why-homworks.html'), ('About Us', None)], 'About Homworks', 'Thoughtful home interiors, <em>crafted for India.</em>',
-                    'Homworks (Stylcove Modulars Pvt Ltd) designs, manufactures and installs home interiors, engineered in our own Coimbatore factory and built for longevity.',
+# ------------------------------------------------------------------ ABOUT  (copy: pasted About Homworks content)
+body = hero_collage([HOME, ('Why Homworks', 'why-homworks.html'), ('About Us', None)], 'About Homworks', 'Interiors that reflect <em>the way you live.</em>',
+                    'Every home has a story. At Homworks, we help bring yours to life through personalised interior designs, thoughtful details and quality craftsmanship. From individual spaces to complete home interiors, we create designs that bring together aesthetics, functionality and your personal preferences.',
                     [('Call for a FREE design', 'contact.html', 'solid'), ('Find a centre', 'locations.html', 'line')],
                     [('6', 'cities'), ('1', 'own factory'), ('10 years', 'warranty')],
                     [(ST('fac-1'), 'Workers on a modern woodworking factory floor'), (ST('cnc-1'), 'An automated drilling and machining line'), (ST('fac-2'), 'An operator working at a CNC machine')], pill='Made in Coimbatore')
-body += answer('Who is Homworks?', 'Homworks is a home interiors company that designs, manufactures and installs furniture and interiors for the way India lives now.',
-               'Interiors are engineered in Homworks’ own Coimbatore factory and fitted at your home by the Homworks team. Homworks operates as Stylcove Modulars Pvt Ltd, with centres in six cities.')
-body += section(sh('What we believe', 'Four things <em>we hold to.</em>') + grid('g2', [
-    flat('01', 'Design-led, always', 'Every project starts with a conversation about how you live.'),
-    flat('02', 'In-house, end to end', 'Design, manufacturing and installation under one accountable team.'),
-    flat('03', 'Checked, so you don’t have to', 'Every raw material meets a rigorous quality control mandate before it reaches your home.'),
-    flat('04', 'Built to last', 'A 10-year warranty and an after-sales service to stand behind the work.')]), '', 'What we believe', 'Design-led, in-house, checked and built to last.')
-body += pxb(ST('cnc-1'), 'CNC machining in a workshop', 'Made in our own <em>Coimbatore factory.</em>', 'CNC and flat-lamination machinery imported from Italy and Germany.')
-body += section(split(ST('fac-4'), 'Board stock being inspected in a materials warehouse', 'The factory', 'Each material is <em>tested twice.</em>',
-                      ['When it reaches the factory, and when it is issued to a project. Our own manufacturing facility runs CNC and flat-lamination machinery imported from Italy and Germany.'],
-                      ['An in-house material testing lab', 'Own installation team', 'Site carpentry kept for fillers, end panels and visible panels'], links=[('Quality & factory', 'quality-factory.html', 'line')]),
-                'alt', 'The factory', 'Own factory, in-house testing lab and installation team.')
-body += section(sh('Where we are', 'Six cities, <em>one standard.</em>') + citytiles(CITIES), '', 'Six cities', 'Coimbatore, Chennai, Bangalore, Erode, Hyderabad and Guwahati.')
-body += recap() + cta('Come see <em>how we build.</em>', 'Call for a free design and meet a Homworks designer.')
+body += section(split(ST('plan-1'), 'A couple reviewing a floor plan together', 'Who we are', 'More than interiors. <em>A reflection of you.</em>',
+                      ['At Homworks, we believe your home should reflect who you are and how you live. Every space has its own purpose, and every individual has a different vision for the place they call home.',
+                       'Our approach begins with understanding your ideas, lifestyle and requirements. We bring them together through carefully planned designs, selected materials and professional execution.',
+                       'From kitchens and bedrooms to living spaces and customised furniture, we work towards creating interiors that feel personal, comfortable and functional.']),
+                '', 'Who we are', 'More than interiors: a reflection of you.')
+body += section(sh('Our approach', 'Thoughtful design. <em>Careful execution.</em>') + bento([
+    ('text', '01', 'Personalised Design', 'We take the time to understand your preferences, space requirements and lifestyle before developing an interior design that feels right for you.', 'w2'),
+    ('text', '02', 'Quality Materials', 'We offer carefully selected materials and finishes, supported by quality checks at different stages of the process.', ''),
+    ('text', '03', 'Design & Infrastructure', 'Our Coimbatore-based facilities, design capabilities and skilled workmanship support the development and execution of interior solutions.', ''),
+    ('text', '04', 'Professional Installation', 'Our team coordinates the installation process with attention to detail, ensuring the planned design is carried through to the finished space.', 'w2'),
+    ('text', '05', 'Continued Support', 'Our relationship with customers does not end with installation. We remain available to assist with post-installation requirements and service support.', 'w2')]),
+    'alt', 'Our approach', 'Personalised design, quality materials, infrastructure, installation and support.')
+body += section(split(ST('samples'), 'Finish samples laid out on a table', 'Our design philosophy', 'A good design should look right <em>and work right.</em>',
+                      ['We believe beautiful interiors should also make everyday living easier. The right layout, materials, finishes and storage solutions can make a meaningful difference to how a space is experienced.',
+                       'That is why we bring together aesthetics and functionality in every design, creating spaces that suit individual preferences while making practical use of every corner.'], rev=True),
+                '', 'Our design philosophy', 'Aesthetics and functionality in every design.')
+body += section(sh('How we work', 'From your ideas <em>to your finished space.</em>') + tlv([
+    ('01', 'Understand', 'We begin by understanding your vision, lifestyle, preferences and project requirements.'),
+    ('02', 'Design', 'Our team develops design ideas and plans that bring your requirements together.'),
+    ('03', 'Select', 'Explore materials, colours, finishes and design details suited to your space.'),
+    ('04', 'Execute', 'The project moves into production coordination and professional installation.'),
+    ('05', 'Support', 'We stay connected beyond installation to assist with your service requirements.')]),
+    'alt', 'How we work', 'Understand, design, select, execute and support.')
+body += recap() + cta('Let’s create a space <em>that feels like yours.</em>', 'Whether you are planning a new home or rethinking an existing space, Homworks is here to help you make the most of it. Let’s start with your ideas.',
+                      primary=('Book a Consultation', 'contact.html'))
 add('about-us', 'About Homworks | Home Interiors Made in Coimbatore', 'Homworks (Stylcove Modulars Pvt Ltd) designs, manufactures and installs home interiors in its own Coimbatore factory, with centres in six cities.',
     body, 'about-us.html', None, crumbs=[HOME, ('Why Homworks', 'why-homworks.html'), ('About Us', 'about-us.html')], og=ST('fac-1'), typ='AboutPage')
 
@@ -941,7 +962,7 @@ def page_html(slug_, p):
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&family=Newsreader:ital,opsz,wght@0,6..72,300..500;1,6..72,300..500&family=Manrope:wght@200..800&family=Public+Sans:wght@600&display=swap" rel="stylesheet">
   <script>(function(d){var e=d.documentElement;e.className+=' js';setTimeout(function(){if(!window.__hw5)e.classList.add('motion-off')},2600)})(document)</script>
   <link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" href="assets/favicon-64.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="assets/home5.css?v=r27"><link rel="stylesheet" href="assets/inner.css?v=r3"><link rel="stylesheet" href="assets/inner-fx.css?v=r10">%s
+  <link rel="stylesheet" href="assets/home5.css?v=r27"><link rel="stylesheet" href="assets/inner.css?v=r3"><link rel="stylesheet" href="assets/inner-fx.css?v=r11">%s
   %s
 </head>
 <body class="inner">

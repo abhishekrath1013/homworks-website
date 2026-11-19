@@ -38,10 +38,14 @@ body.inner{background:var(--bg)}
 .glass li:before{content:"";flex:none;width:7px;height:7px;margin-top:5px;border-radius:50%;background:var(--rose)}
 
 /* ---- section heading ---- */
-.sh{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:clamp(30px,3.6vw,64px)}
+.sh{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:start;column-gap:30px;margin-bottom:clamp(30px,3.6vw,64px)}
+.sh>div{display:contents}
+.sh>div>.eyebrow{grid-column:1;grid-row:1}
+.sh>div>.h2{grid-column:1;grid-row:2}
+.sh>p{grid-column:2;grid-row:2;justify-self:end;padding-top:clamp(6px,.7vw,12px)}
 .h2{margin:14px 0 0;font:200 clamp(28px,3.3vw,58px)/1.08 var(--jak);font-variation-settings:'wght' 231;letter-spacing:-.045em;color:var(--deep);max-width:16em}
 .sh p{max-width:34em;font:400 clamp(12.5px,.98vw,16px)/1.62 var(--man);color:#556260;margin:0}
-.sh.c{flex-direction:column;align-items:center;text-align:center}.sh.c .eyebrow{justify-content:center}
+.sh.c{display:flex;flex-direction:column;align-items:center;text-align:center;gap:30px}.sh.c>div{display:block}.sh.c .eyebrow{justify-content:center}
 
 /* answer box (AEO: a direct, quotable answer near the top) */
 .answer{display:grid;grid-template-columns:auto 1fr;gap:clamp(16px,2.4vw,40px);align-items:start;background:#fff;border:1px solid var(--line);border-radius:14px;padding:clamp(20px,2.2vw,34px)}
@@ -163,7 +167,7 @@ a.card:hover .more svg{transform:translateX(4px)}
   .ph2-in,.split,.faqw,.contact{grid-template-columns:1fr}
   .split.rev>:first-child{order:0}
   .g3,.stepsx{grid-template-columns:repeat(2,minmax(0,1fr))}.g4,.certs,.band ul{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .sh{flex-direction:column;align-items:flex-start;gap:14px}
+  .sh{display:flex;flex-direction:column;align-items:flex-start;gap:14px}.sh>div{display:block}.sh>p{padding-top:0}
   .glass{right:2%;bottom:-5%}.ph2-img .pill{left:3%;top:3%}
   .answer{grid-template-columns:1fr}
 }

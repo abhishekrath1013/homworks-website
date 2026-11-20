@@ -44,7 +44,8 @@ NAV = [
                    ('Living Rooms', 'Storage and TV units built for family life', 'living-rooms.html'),
                    ('Bedrooms', 'Restful layouts, wardrobes and kids rooms', 'bedrooms.html')])],
      ('@rooms', [(ST('living-2'), 'A finished living and dining room'), (ST('kit-island'), 'A modular kitchen with an island'),
-                 (ST('living-tv'), 'A living room with a partition and TV wall'), (ST('bed-1'), 'A bedroom with a wooden headboard')])),
+                 (ST('living-tv'), 'A living room with a partition and TV wall'), (ST('bed-1'), 'A bedroom with a wooden headboard')],
+                'Production and installation in 30 working days from design sign-off.', '30-day-delivery.html', 'See the 30-day promise')),
     ('Projects', 'projects.html', [
         ('Explore homes', [('Project Gallery', 'Real homes, made in our own factory', 'projects.html'),
                            ('Case Studies', 'The full story behind three homes', 'customer-stories.html', 'soon'),
@@ -71,10 +72,10 @@ def nav_html(active='', home=False):
                     continue
                 h += '<a class="mg-link" %s><b>%s</b><small>%s</small></a>' % (lk(l[2]), e(l[0]), e(l[1]))
             h += '</div>'
-        if feat[0] == '@rooms':   # the right-hand card swaps its photo as each room link is hovered
+        if feat[0] == '@rooms':   # the 30-day card shows by default; hovering a room link swaps in that room's photo
             rl = [l for _, ls in cols for l in ls]
-            h += '<div class="mg-feat mg-rooms" aria-hidden="true">' + ''.join(
-                '<div class="rm"><img src="%s" alt="%s" loading="lazy"><div class="rm-t"><b>%s</b><small>%s</small></div></div>' % (src, e(alt), e(rl[i][0]), e(rl[i][1])) for i, (src, alt) in enumerate(feat[1])) + '</div></div></div>'
+            h += ('<div class="mg-feat mg-rooms"><section class="rm-def"><img src="assets/home5/30days.webp" alt="30 days or it’s free*" width="373" height="276"><p>%s</p><a %s>%s <i>→</i></a></section>' % (e(feat[2]), lk(feat[3]), e(feat[4]))
+                  + ''.join('<div class="rm" aria-hidden="true"><img src="%s" alt="" loading="lazy"><div class="rm-t"><b>%s</b><small>%s</small></div></div>' % (src, e(rl[i][0]), e(rl[i][1])) for i, (src, alt) in enumerate(feat[1])) + '</div></div></div>')
         else:
             h += '<div class="mg-feat"><span>%s</span><b>%s</b><p>%s</p><a %s>%s <i>→</i></a></div></div></div>' % (e(feat[0]), e(feat[1]), e(feat[2]), lk(feat[3]), e(feat[4]))
         out.append(h)
@@ -90,8 +91,8 @@ def nav_html(active='', home=False):
         links = [l for _, ls in cols for l in ls if not (len(l) > 3 and l[3] == 'soon' and not SHOW_SOON)]
         panel = '' if any(l[2] == href for l in links) else '<a class="mi-all" %s><b>All %s</b></a>' % (lk(href), e(label))
         panel += ''.join('<a %s><b>%s</b><small>%s</small></a>' % (lk(l[2]), e(l[0]), e(l[1])) for l in links)
-        if feat[0] != '@rooms':
-            panel += '<a class="mi-f" %s>%s <i>→</i></a>' % (lk(feat[3]), e(feat[4]))
+        fl, ft = (feat[3], feat[4]) if feat[0] == '@rooms' else (feat[3], feat[4])
+        panel += '<a class="mi-f" %s>%s <i>→</i></a>' % (lk(fl), e(ft))
         groups += '  <div class="mi"><button type="button" class="mi-b" aria-expanded="false">%s%s</button><div class="mi-p">%s</div></div>\n' % (label, chev, panel)
     tops = ''.join('  <a %s>%s</a>\n' % (lk(t[1]), t[0]) for t in TOP if not (len(t) > 2 and t[2] == 'soon' and not SHOW_SOON))
     mob = '<nav class="mnav" id="mnav" aria-label="Mobile">\n' + groups + tops + '  <a class="go" href="%s">Book a FREE Consultation</a>\n</nav>' % cta
@@ -966,7 +967,7 @@ def page_html(slug_, p):
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&family=Newsreader:ital,opsz,wght@0,6..72,300..500;1,6..72,300..500&family=Manrope:wght@200..800&family=Public+Sans:wght@600&display=swap" rel="stylesheet">
   <script>(function(d){var e=d.documentElement;e.className+=' js';setTimeout(function(){if(!window.__hw5)e.classList.add('motion-off')},2600)})(document)</script>
   <link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" href="assets/favicon-64.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="assets/home5.css?v=r31"><link rel="stylesheet" href="assets/inner.css?v=r5"><link rel="stylesheet" href="assets/inner-fx.css?v=r12">%s
+  <link rel="stylesheet" href="assets/home5.css?v=r32"><link rel="stylesheet" href="assets/inner.css?v=r5"><link rel="stylesheet" href="assets/inner-fx.css?v=r12">%s
   %s
 </head>
 <body class="inner">

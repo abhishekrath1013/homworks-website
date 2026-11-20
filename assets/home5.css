@@ -694,26 +694,23 @@ em.ser{font-family:var(--serif);font-style:italic;font-weight:300;font-variation
 /* hero: the 30-days logo sits where "in 30 days." was */
 .hero h1 .h30{display:block;height:2.35em;width:auto;margin:.1em 0 .1em -.04em}
 
-/* Interiors menu: the right-hand photo follows the room being hovered */
-.mg-rooms{position:relative;padding:0;min-height:240px;overflow:hidden;background:#dfe8e8}
-.mg-rooms .rm{position:absolute;inset:0;opacity:0;transition:opacity .4s ease}
-.mg-rooms .rm:first-of-type{opacity:1}
+/* Interiors menu: the 30-day card is the default; the right-hand photo follows the room being hovered */
+.mg-rooms{position:relative;padding:0;min-height:240px;overflow:hidden;background:#fff;border:1px solid #e1ebea}
+.mg-rooms .rm-def{position:absolute;inset:0;padding:20px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;background:#fff;transition:opacity .35s ease}
+.mg-rooms .rm-def img{width:min(190px,60%);height:auto;margin:0 0 10px}
+.mg-rooms .rm-def p{margin:0 0 12px}
+.mg-rooms .rm{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .4s ease}
 .mg-rooms .rm img{width:100%;height:100%;object-fit:cover;display:block}
 .mg-rooms .rm:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(4,36,38,.8),rgba(4,36,38,0) 62%)}
 .mg-rooms .rm-t{position:absolute;left:18px;right:18px;bottom:16px;z-index:2}
 .mg-rooms .rm-t b{display:block;margin:0 0 3px;font:600 17px/1.25 var(--jak);color:#fff}
 .mg-rooms .rm-t small{display:block;font:400 12.5px/1.45 var(--jak);color:rgba(255,255,255,.86)}
-.mega:has(.mg-link:nth-of-type(1):is(:hover,:focus-visible)) .mg-rooms .rm{opacity:0}
+.mega:has(.mg-link:is(:hover,:focus-visible)) .mg-rooms .rm-def{opacity:0;pointer-events:none}
 .mega:has(.mg-link:nth-of-type(1):is(:hover,:focus-visible)) .mg-rooms .rm:nth-of-type(1){opacity:1}
-.mega:has(.mg-link:nth-of-type(2):is(:hover,:focus-visible)) .mg-rooms .rm{opacity:0}
 .mega:has(.mg-link:nth-of-type(2):is(:hover,:focus-visible)) .mg-rooms .rm:nth-of-type(2){opacity:1}
-.mega:has(.mg-link:nth-of-type(3):is(:hover,:focus-visible)) .mg-rooms .rm{opacity:0}
 .mega:has(.mg-link:nth-of-type(3):is(:hover,:focus-visible)) .mg-rooms .rm:nth-of-type(3){opacity:1}
-.mega:has(.mg-link:nth-of-type(4):is(:hover,:focus-visible)) .mg-rooms .rm{opacity:0}
 .mega:has(.mg-link:nth-of-type(4):is(:hover,:focus-visible)) .mg-rooms .rm:nth-of-type(4){opacity:1}
-.mega:has(.mg-link:nth-of-type(5):is(:hover,:focus-visible)) .mg-rooms .rm{opacity:0}
 .mega:has(.mg-link:nth-of-type(5):is(:hover,:focus-visible)) .mg-rooms .rm:nth-of-type(5){opacity:1}
-.mega:has(.mg-link:nth-of-type(6):is(:hover,:focus-visible)) .mg-rooms .rm{opacity:0}
 .mega:has(.mg-link:nth-of-type(6):is(:hover,:focus-visible)) .mg-rooms .rm:nth-of-type(6){opacity:1}
 
 /* hero: the 30 days mark reads stronger on the pale before-image */

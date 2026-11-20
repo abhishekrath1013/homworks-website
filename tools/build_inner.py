@@ -685,11 +685,11 @@ body = hero_collage([HOME, ('Why Homworks', 'why-homworks.html'), ('About Us', N
                     [('Call for a FREE design', 'contact.html', 'solid'), ('Find a centre', 'locations.html', 'line')],
                     [('6', 'cities'), ('1', 'own factory'), ('10 years', 'warranty')],
                     [(ST('fac-1'), 'Workers on a modern woodworking factory floor'), (ST('cnc-1'), 'An automated drilling and machining line'), (ST('fac-2'), 'An operator working at a CNC machine')], pill='Made in Coimbatore')
-body += section(split(ST('plan-1'), 'A couple reviewing a floor plan together', 'Who we are', 'Who <em>we are.</em>',
+body += section(split(ST('plan-1'), 'A couple reviewing a floor plan together', 'Our objective', 'To enrich your lifestyle <em>by enhancing your spaces.</em>',
                       ['At Homworks, we believe your home should reflect who you are and how you live. Every space has its own purpose, and every individual has a different vision for the place they call home.',
-                       'Our approach begins with understanding your ideas, lifestyle and requirements. We bring them together through carefully planned designs, selected materials and professional execution.',
+                       'We begin by understanding your ideas, lifestyle and requirements. We bring them together through carefully planned designs, selected materials and professional execution.',
                        'From kitchens and bedrooms to living spaces and customised furniture, we work towards creating interiors that feel personal, comfortable and functional.']),
-                '', 'Who we are', 'How we think about your home and how you live in it.')
+                '', 'Our objective', 'To enrich your lifestyle by enhancing your spaces.')
 body += section(sh('Our approach', 'Thoughtful design. <em>Careful execution.</em>') + bento([
     ('text', '01', 'Personalised Design', 'We take the time to understand your preferences, space requirements and lifestyle before developing an interior design that feels right for you.', 'w2'),
     ('text', '02', 'Quality Materials', 'We offer carefully selected materials and finishes, supported by quality checks at different stages of the process.', 'w2'),

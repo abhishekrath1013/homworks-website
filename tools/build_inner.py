@@ -689,7 +689,7 @@ body += section(split(ST('plan-1'), 'A couple reviewing a floor plan together', 
                       ['At Homworks, we believe your home should reflect who you are and how you live. Every space has its own purpose, and every individual has a different vision for the place they call home.',
                        'We begin by understanding your ideas, lifestyle and requirements. We bring them together through carefully planned designs, selected materials and professional execution.',
                        'From kitchens and bedrooms to living spaces and customised furniture, we work towards creating interiors that feel personal, comfortable and functional.']),
-                '', 'Our objective', 'To enrich your lifestyle by enhancing your spaces.')
+                '', 'Our objective', 'Understand what drives our designs and shapes the way we work.')
 body += section(sh('Our approach', 'Thoughtful design. <em>Careful execution.</em>') + bento([
     ('text', '01', 'Personalised Design', 'We take the time to understand your preferences, space requirements and lifestyle before developing an interior design that feels right for you.', 'w2'),
     ('text', '02', 'Quality Materials', 'We offer carefully selected materials and finishes, supported by quality checks at different stages of the process.', 'w2'),

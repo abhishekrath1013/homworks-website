@@ -261,7 +261,7 @@ def flat(no, title, body):
 def grid(cls, items): return '<div class="grid %s stagger">%s</div>' % (cls, ''.join(items))
 
 
-def ticks(items): return '<ul class="ticks">' + ''.join('<li><span>%s</span></li>' % t for t in items) + '</ul>'
+def ticks(items, cls=''): return '<ul class="ticks%s">' % (' ' + cls if cls else '') + ''.join('<li><span>%s</span></li>' % t for t in items) + '</ul>'
 
 
 def split(src, alt, eyebrow, h2, paras, tk=None, rev=False, links=None):
@@ -309,11 +309,13 @@ def bento(tiles):
     return '<div class="bento">%s</div>' % out
 
 
-def sticky(blocks):
+def sticky(blocks, nums=False):
     """blocks: (src, alt, title, body, ticks|None) - the photo changes as each step scrolls past."""
     ims = ''.join('<img src="%s" alt="%s" data-i="%d"%s loading="lazy">' % (s, e(a), i, ' class="on"' if i == 0 else '') for i, (s, a, t, b, k) in enumerate(blocks))
     art = ''.join('<article class="sb%s" data-i="%d"><img class="sb-mi" src="%s" alt="%s" loading="lazy"><span class="no">%02d</span><h3>%s</h3><p>%s</p>%s</article>' % (
-        ' on' if i == 0 else '', i, s, e(a), i + 1, e(t), e(b), ticks(k) if k else '') for i, (s, a, t, b, k) in enumerate(blocks))
+        ' on' if i == 0 else '', i, s, e(a), i + 1, e(t), e(b), ticks(k, 'nums' if nums else '') if k else '') for i, (s, a, t, b, k) in enumerate(blocks))
+    if nums:   # numbered steps run 1..n across the blocks, so the big 01/02/03 above each block goes
+        art = art.replace('<span class="no">', '<span class="no" hidden>')
     return '<div class="stky"><div class="stky-img"><div class="stky-fr rv-clip">%s</div></div><div class="stky-tx">%s</div></div>' % (ims, art)
 
 
@@ -466,7 +468,7 @@ body += section(split(ST('living-tv'), 'A living room with a partition and TV wa
 body += section(sh('Our process · Get. Set. Go.', 'From your ideas <em>to your dream home.</em>', 'We’ve made the entire interior process simple with 15 clear steps, from your first meeting to the final handover.') + sticky([
     (ST('plan-1'), 'A couple reviewing a floor plan together', 'GET', 'We understand your needs, discuss your ideas and get started with the right designs and quotation.', ['Meet Your Designer', 'Understand Customer Expectation', 'Initial Design', 'Booking Advance', 'Site Measurement']),
     (ST('samples'), 'Finish samples laid out on a table', 'SET', 'Review your 3D designs, choose your finishes and finalise every detail before production begins.', ['3D Design & Quality Check', 'Finalise Your Design', 'Material List & Production Drawings', 'Site Check', 'Final Design Approval']),
-    (ST('inst-1'), 'A fitted kitchen being finished on site', 'GO', 'We make your furniture, deliver it to your home and take care of the installation and final quality check.', ['Project Execution Begins', 'Factory Production', 'Site Readiness', 'Delivery & Installation', 'Quality Check & Handover'])]),
+    (ST('inst-1'), 'A fitted kitchen being finished on site', 'GO', 'We make your furniture, deliver it to your home and take care of the installation and final quality check.', ['Project Execution Begins', 'Factory Production', 'Site Readiness', 'Delivery & Installation', 'Quality Check & Handover'])], nums=True),
     'alt', 'Our process', 'Get, Set and Go: 15 clear steps from first meeting to handover.')
 body += full('<div class="wrap">%s</div>%s' % (sh('Room by room', 'Let’s start with the room <em>you love most.</em>', 'From kitchens to bedrooms and living rooms, we design every space to suit your needs and style.'), rail([
     ('modular-kitchens.html', ST('kit-island'), 'A modular kitchen with an island', 'Kitchen', 'Modular Kitchen', 'Choose from 6 layouts and 6 styles to create a kitchen that makes everyday cooking easier.', 'Explore Modular Kitchens'),
@@ -961,7 +963,7 @@ def page_html(slug_, p):
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&family=Newsreader:ital,opsz,wght@0,6..72,300..500;1,6..72,300..500&family=Manrope:wght@200..800&family=Public+Sans:wght@600&display=swap" rel="stylesheet">
   <script>(function(d){var e=d.documentElement;e.className+=' js';setTimeout(function(){if(!window.__hw5)e.classList.add('motion-off')},2600)})(document)</script>
   <link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" href="assets/favicon-64.png"><link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="stylesheet" href="assets/home5.css?v=r28"><link rel="stylesheet" href="assets/inner.css?v=r4"><link rel="stylesheet" href="assets/inner-fx.css?v=r11">%s
+  <link rel="stylesheet" href="assets/home5.css?v=r28"><link rel="stylesheet" href="assets/inner.css?v=r5"><link rel="stylesheet" href="assets/inner-fx.css?v=r12">%s
   %s
 </head>
 <body class="inner">

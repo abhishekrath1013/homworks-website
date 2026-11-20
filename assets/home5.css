@@ -289,7 +289,6 @@ em.ser{font-family:var(--serif);font-style:italic;font-weight:300;font-variation
 .why-hero:after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,transparent 78%,rgba(0,0,0,.49) 94.5%)}
 .why-hero>*:not(img){position:absolute;z-index:2;margin:0}
 .why-eb{left:7.6vw;top:8.09vw;display:flex;align-items:center;gap:8px;font:600 clamp(9.68px,0.651vw,11.616px)/16px var(--jak);color:var(--pink-2);white-space:nowrap}
-.why-eb i{width:clamp(18px,1.58vw,28px);height:1.5px;background:currentColor;display:block}
 .why-hero h2{left:7.6vw;top:9.57vw;font:200 4.196vw/1.11 var(--jak);letter-spacing:-.06em;white-space:nowrap}
 .why-hero h2 em{line-height:.8;font-family:var(--serif);font-style:italic;font-weight:300;font-variation-settings:'opsz' 49;letter-spacing:-.003em}
 .why-sub{left:8.1vw;top:22.2vw;font:400 clamp(10.4px,0.808vw,14.4px)/1.66 var(--jak);letter-spacing:.01em;opacity:.67}

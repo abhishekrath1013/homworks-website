@@ -357,3 +357,9 @@
 
 /* highlight line under an answer block */
 .answer p.hl{margin-top:18px;font:600 clamp(15px,1.3vw,21px)/1.4 var(--man);color:var(--deep)}
+
+/* Get. Set. Go.: steps numbered 1-15 across the three blocks */
+.stky-tx{counter-reset:stp}
+.ticks.nums li{counter-increment:stp;align-items:center}
+.ticks.nums li:before{content:counter(stp);width:24px;height:24px;margin:0;display:grid;place-items:center;background:#fbe6ea;font:600 11px/1 var(--man);letter-spacing:0;color:#c9637a}
+.sb h3:first-child{margin-top:0}
